@@ -3,44 +3,124 @@ const DressDesign = require('../models/DressDesign');
 const { v4: uuidv4 } = require('uuid');
 
 /************************************************************************************************** */
+// const createDressDesign = async (req, res) => {
+//   console.log("1");
+//   console.log("Data received:", req.body); // הוסף את השורה הזו לראות מה מועבר לשרת
+
+//   const { name, description, imageUrl, dressListSizes } = req.body;
+
+//   if (!name || !dressListSizes) {
+//     return res.status(400).json({ message: 'Required field is missing' });
+//   }
+//   console.log("2");
+
+//   const imageUrll = imageUrl ? req.file.path : null;
+
+//   console.log("3");
+
+//   try {
+//     // עוברים על רשימת המידות ומוודאים שניתן להוסיף כמה שמלות עבור כל מידה
+//     console.log("4");
+
+//     const updatedDressListSizes = dressListSizes.map(sizeEntry => {
+//       return {
+//         key: sizeEntry.key,
+//         size: sizeEntry.size,
+//         dresses: sizeEntry.dresses // מצפים לקבל מערך של שמלות תחת כל מידה
+//       };
+
+//     });
+//     // const updatedDressListSizes = dressListSizes.map(sizeEntry => {
+//     //   return {
+//     //     key: sizeEntry.key,
+//     //     size: sizeEntry.size,
+//     //     dresses: sizeEntry.dresses.map(dress => ({
+//     //       ...dress,
+//     //       barcode: dress.barcode || uuidv4(), // יצירת ברקוד אם חסר
+//     //     }))
+//     //   };
+//     // });
+    
+//     console.log("5");
+
+//     const dress = await DressDesign.create({
+//       name,
+//       description,
+//       images: imageUrll,
+//       dressListSizes: updatedDressListSizes,
+//     });
+//     console.log("6");
+
+//     return res.status(201).json({
+//       success: true,
+//       message: `Dress design ${dress.name} created successfully`,
+//     });
+//   } catch (error) {
+//     console.log("7");
+
+//     return res.status(400).json({ message: "Failed to create dress design", error: error.message });
+//   }
+// };
+// const createDressDesign = async (req, res) => {
+//   console.log("Data received:", req.body); // הוסף את השורה הזו לראות מה מועבר לשרת
+//   const { name, description, imageUrl, dressListSizes } = req.body;
+
+//   if (!name || !dressListSizes) {
+//     return res.status(400).json({ message: 'Required field is missing' });
+//   }
+
+//   const imageUrll = imageUrl ? req.file.path : null;
+
+//   try {
+//     const updatedDressListSizes = dressListSizes.map(sizeEntry => {
+//       return {
+//         key: sizeEntry.key,
+//         size: sizeEntry.size,
+//         dresses: sizeEntry.dresses.map(dress => ({
+//           ...dress,
+//           barcode: dress.barcode || uuidv4(), // הוספת ברקוד אם אין
+//           renteDates: dress.renteDates || []  // ודא ש-`renteDates` לא ריק
+//         }))
+//       };
+//     });
+
+//     const dress = await DressDesign.create({
+//       name,
+//       description,
+//       images: imageUrll,
+//       dressListSizes: updatedDressListSizes,
+//     });
+
+//     return res.status(201).json({
+//       success: true,
+//       message: `Dress design ${dress.name} created successfully`,
+//     });
+//   } catch (error) {
+//     console.log("Error details:", error); // הוסף את השורה הזו לראות יותר פרטים על השגיאה
+//     return res.status(400).json({ message: "Failed to create dress design", error: error.message });
+//   }
+// };
 const createDressDesign = async (req, res) => {
-  console.log("1");
-  
   const { name, description, imageUrl, dressListSizes } = req.body;
 
   if (!name || !dressListSizes) {
     return res.status(400).json({ message: 'Required field is missing' });
   }
-  console.log("2");
 
   const imageUrll = imageUrl ? req.file.path : null;
 
-  console.log("3");
-
   try {
-    // עוברים על רשימת המידות ומוודאים שניתן להוסיף כמה שמלות עבור כל מידה
-    console.log("4");
-
     const updatedDressListSizes = dressListSizes.map(sizeEntry => {
       return {
         key: sizeEntry.key,
         size: sizeEntry.size,
-        dresses: sizeEntry.dresses // מצפים לקבל מערך של שמלות תחת כל מידה
+        dresses: sizeEntry.dresses.map(dress => ({
+          ...dress,
+          barcode: dress.barcode || uuidv4(), // הוספת ברקוד אם אין
+          renteDates: dress.renteDates || []  // ודא ש-`renteDates` לא ריק
+        }))
       };
-
     });
-    // const updatedDressListSizes = dressListSizes.map(sizeEntry => {
-    //   return {
-    //     key: sizeEntry.key,
-    //     size: sizeEntry.size,
-    //     dresses: sizeEntry.dresses.map(dress => ({
-    //       ...dress,
-    //       barcode: dress.barcode || uuidv4(), // יצירת ברקוד אם חסר
-    //     }))
-    //   };
-    // });
-    
-    console.log("5");
 
     const dress = await DressDesign.create({
       name,
@@ -48,14 +128,16 @@ const createDressDesign = async (req, res) => {
       images: imageUrll,
       dressListSizes: updatedDressListSizes,
     });
-    console.log("6");
 
     return res.status(201).json({
       success: true,
       message: `Dress design ${dress.name} created successfully`,
     });
   } catch (error) {
-    console.log("7");
+    // בדיקת שגיאה של ייחודיות על השדה name
+    if (error.code === 11000 && error.keyPattern && error.keyPattern.name) {
+      return res.status(400).json({ message: "Dress design name must be unique" });
+    }
 
     return res.status(400).json({ message: "Failed to create dress design", error: error.message });
   }
