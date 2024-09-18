@@ -3,103 +3,7 @@ const DressDesign = require('../models/DressDesign');
 const { v4: uuidv4 } = require('uuid');
 
 /************************************************************************************************** */
-// const createDressDesign = async (req, res) => {
-//   console.log("1");
-//   console.log("Data received:", req.body); // הוסף את השורה הזו לראות מה מועבר לשרת
 
-//   const { name, description, imageUrl, dressListSizes } = req.body;
-
-//   if (!name || !dressListSizes) {
-//     return res.status(400).json({ message: 'Required field is missing' });
-//   }
-//   console.log("2");
-
-//   const imageUrll = imageUrl ? req.file.path : null;
-
-//   console.log("3");
-
-//   try {
-//     // עוברים על רשימת המידות ומוודאים שניתן להוסיף כמה שמלות עבור כל מידה
-//     console.log("4");
-
-//     const updatedDressListSizes = dressListSizes.map(sizeEntry => {
-//       return {
-//         key: sizeEntry.key,
-//         size: sizeEntry.size,
-//         dresses: sizeEntry.dresses // מצפים לקבל מערך של שמלות תחת כל מידה
-//       };
-
-//     });
-//     // const updatedDressListSizes = dressListSizes.map(sizeEntry => {
-//     //   return {
-//     //     key: sizeEntry.key,
-//     //     size: sizeEntry.size,
-//     //     dresses: sizeEntry.dresses.map(dress => ({
-//     //       ...dress,
-//     //       barcode: dress.barcode || uuidv4(), // יצירת ברקוד אם חסר
-//     //     }))
-//     //   };
-//     // });
-    
-//     console.log("5");
-
-//     const dress = await DressDesign.create({
-//       name,
-//       description,
-//       images: imageUrll,
-//       dressListSizes: updatedDressListSizes,
-//     });
-//     console.log("6");
-
-//     return res.status(201).json({
-//       success: true,
-//       message: `Dress design ${dress.name} created successfully`,
-//     });
-//   } catch (error) {
-//     console.log("7");
-
-//     return res.status(400).json({ message: "Failed to create dress design", error: error.message });
-//   }
-// };
-// const createDressDesign = async (req, res) => {
-//   console.log("Data received:", req.body); // הוסף את השורה הזו לראות מה מועבר לשרת
-//   const { name, description, imageUrl, dressListSizes } = req.body;
-
-//   if (!name || !dressListSizes) {
-//     return res.status(400).json({ message: 'Required field is missing' });
-//   }
-
-//   const imageUrll = imageUrl ? req.file.path : null;
-
-//   try {
-//     const updatedDressListSizes = dressListSizes.map(sizeEntry => {
-//       return {
-//         key: sizeEntry.key,
-//         size: sizeEntry.size,
-//         dresses: sizeEntry.dresses.map(dress => ({
-//           ...dress,
-//           barcode: dress.barcode || uuidv4(), // הוספת ברקוד אם אין
-//           renteDates: dress.renteDates || []  // ודא ש-`renteDates` לא ריק
-//         }))
-//       };
-//     });
-
-//     const dress = await DressDesign.create({
-//       name,
-//       description,
-//       images: imageUrll,
-//       dressListSizes: updatedDressListSizes,
-//     });
-
-//     return res.status(201).json({
-//       success: true,
-//       message: `Dress design ${dress.name} created successfully`,
-//     });
-//   } catch (error) {
-//     console.log("Error details:", error); // הוסף את השורה הזו לראות יותר פרטים על השגיאה
-//     return res.status(400).json({ message: "Failed to create dress design", error: error.message });
-//   }
-// };
 const createDressDesign = async (req, res) => {
   const { name, description, imageUrl, dressListSizes } = req.body;
 
@@ -173,21 +77,48 @@ const getDressDesignById = async (req, res) => {
 
 
 
+
 const updateDressDesign = async (req, res) => {
   const { _id } = req.params;
   const { name, description, imageUrl, dressListSizes } = req.body;
 
   try {
+    // חיפוש העיצוב לפי ה-ID
     const dress = await DressDesign.findById(_id).exec();
     if (!dress) {
       return res.status(404).json({ message: "Dress design not found" });
     }
 
-    if (name) dress.name = name;
+    // אם יש שם חדש לעדכון, נוודא שהשם לא קיים כבר בעיצוב אחר
+    if (name && name !== dress.name) {
+      const existingDress = await DressDesign.findOne({ name }).exec();
+      if (existingDress) {
+        return res.status(400).json({ message: "Dress design name must be unique" });
+      }
+      dress.name = name; // עדכון השם לאחר אימות ייחודיות
+    }
+
+    // עדכון שדות אחרים אם נשלחו
     if (description) dress.description = description;
     if (imageUrl) dress.images = imageUrl;
-    if (dressListSizes) dress.dressListSizes = dressListSizes;
 
+    // עדכון רשימת המידות והשמלות
+    if (dressListSizes) {
+      const updatedDressListSizes = dressListSizes.map(sizeEntry => {
+        return {
+          key: sizeEntry.key,
+          size: sizeEntry.size,
+          dresses: sizeEntry.dresses.map(dress => ({
+            ...dress,
+            barcode: dress.barcode || uuidv4(), // הוספת ברקוד אם אין
+            renteDates: dress.renteDates || []  // ודא ש-`renteDates` לא ריק
+          }))
+        };
+      });
+      dress.dressListSizes = updatedDressListSizes;
+    }
+
+    // שמירת העדכון במסד הנתונים
     const updatedDress = await dress.save();
     return res.status(200).json({
       success: true,
@@ -197,7 +128,6 @@ const updateDressDesign = async (req, res) => {
     return res.status(500).json({ message: "Failed to update dress design", error: error.message });
   }
 };
-
 
 const deleteDressDesign = async (req, res) => {
   const { _id } = req.params;
@@ -287,21 +217,148 @@ const deleteDressFromDesign = async (req, res) => {
     return res.status(500).json({ message: "Failed to delete the dress", error: error.message });
   }
 };
+// const takeDress = async (req, res) => {
+//   const { _id } = req.params; // Dress Design ID
+//   const { size, chosenDate } = req.body; // Size and the desired date for rent (chosenDate)
+
+//   try {
+//     // Find the dress design by ID
+//     const dressDesign = await DressDesign.findById(_id).exec();
+//     if (!dressDesign) {
+//       return res.status(404).json({ message: "Dress design not found" });
+//     }
+
+//     // Find the size entry in dressListSizes
+//     const sizeEntry = dressDesign.dressListSizes.find(entry => entry.size === size);
+//     if (!sizeEntry) {
+//       return res.status(404).json({ message: "Size not found in the design" });
+//     }
+
+//     // Convert chosenDate to a Date object
+//     const chosenDateObj = new Date(chosenDate);
+//     if (isNaN(chosenDateObj)) {
+//       return res.status(400).json({ message: "Invalid date provided" });
+//     }
+
+//     // Iterate through dresses to find an available one
+//     for (let dress of sizeEntry.dresses) {
+//       let isAvailable = true;
+
+//       for (let rentDate of dress.renteDates) {
+//         const rentDateObj = new Date(rentDate);
+
+//         // Check if the chosen date conflicts with an already rented date (+/- 7 days)
+//         if (Math.abs(chosenDateObj - rentDateObj) <= 7 * 24 * 60 * 60 * 1000) {
+//           isAvailable = false;
+//           break;
+//         }
+//       }
+
+//       // If the dress is available for the chosen date
+//       if (isAvailable) {
+//         // Add the chosenDate to the dress's renteDates
+//         dress.renteDates.push(chosenDateObj);
+//         await dressDesign.save();
+
+//         return res.status(200).json({
+//           success: true,
+//           message: `Dress successfully rented for the date ${chosenDate}`,
+//         });
+//       }
+//     }
+
+//     // No dress available for the chosen date
+//     return res.status(404).json({
+//       success: false,
+//       message: `No available dresses for size ${size} on ${chosenDate}`,
+//     });
+//   } catch (error) {
+//     return res.status(500).json({
+//       success: false,
+//       message: "Error renting dress",
+//       error: error.message,
+//     });
+//   }
+// };
+// const takeDress = async (req, res) => {
+//   const { _id } = req.params; // Dress Design ID
+//   const { size, chosenDate, userId } = req.body; // Add userId to the request body
+
+//   try {
+//     const dressDesign = await DressDesign.findById(_id).exec();
+//     if (!dressDesign) {
+//       return res.status(404).json({ message: "Dress design not found" });
+//     }
+
+//     const sizeEntry = dressDesign.dressListSizes.find(entry => entry.size === size);
+//     if (!sizeEntry) {
+//       return res.status(404).json({ message: "Size not found in the design" });
+//     }
+
+//     const chosenDateObj = new Date(chosenDate);
+//     if (isNaN(chosenDateObj)) {
+//       return res.status(400).json({ message: "Invalid date provided" });
+//     }
+
+//     for (let dress of sizeEntry.dresses) {
+//       let isAvailable = true;
+
+//       for (let rent of dress.renteDates) {
+//         const rentDateObj = new Date(rent.date);
+
+//         if (Math.abs(chosenDateObj - rentDateObj) <= 7 * 24 * 60 * 60 * 1000) {
+//           isAvailable = false;
+//           break;
+//         }
+//       }
+
+//       if (isAvailable) {
+//         dress.renteDates.push({
+//           date: chosenDateObj,
+//           userId: userId // Store the userId who rented the dress
+//         });
+//         await dressDesign.save();
+
+//         return res.status(200).json({
+//           success: true,
+//           message: `Dress successfully rented for the date ${chosenDate} by user ${userId}`,
+//         });
+//       }
+//     }
+
+//     return res.status(404).json({
+//       success: false,
+//       message: `No available dresses for size ${size} on ${chosenDate}`,
+//     });
+//   } catch (error) {
+//     return res.status(500).json({
+//       success: false,
+//       message: "Error renting dress",
+//       error: error.message,
+//     });
+//   }
+// };
 const takeDress = async (req, res) => {
   const { _id } = req.params; // Dress Design ID
-  const { size, chosenDate } = req.body; // Size and the desired date for rent (chosenDate)
+  const { key, chosenDate } = req.body; // Key and the desired date for rent (chosenDate)
 
   try {
+    // Ensure the user is authenticated and userId is available
+    const userId = req.user?._id;
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized: User ID is required" });
+    }
+
     // Find the dress design by ID
     const dressDesign = await DressDesign.findById(_id).exec();
     if (!dressDesign) {
       return res.status(404).json({ message: "Dress design not found" });
     }
 
-    // Find the size entry in dressListSizes
-    const sizeEntry = dressDesign.dressListSizes.find(entry => entry.size === size);
+    // Find the size entry in dressListSizes using the key instead of size
+    const sizeEntry = dressDesign.dressListSizes.find(entry => entry.key === key);
     if (!sizeEntry) {
-      return res.status(404).json({ message: "Size not found in the design" });
+      return res.status(404).json({ message: "Key not found in the design" });
     }
 
     // Convert chosenDate to a Date object
@@ -315,7 +372,7 @@ const takeDress = async (req, res) => {
       let isAvailable = true;
 
       for (let rentDate of dress.renteDates) {
-        const rentDateObj = new Date(rentDate);
+        const rentDateObj = new Date(rentDate.date);
 
         // Check if the chosen date conflicts with an already rented date (+/- 7 days)
         if (Math.abs(chosenDateObj - rentDateObj) <= 7 * 24 * 60 * 60 * 1000) {
@@ -326,13 +383,14 @@ const takeDress = async (req, res) => {
 
       // If the dress is available for the chosen date
       if (isAvailable) {
-        // Add the chosenDate to the dress's renteDates
-        dress.renteDates.push(chosenDateObj);
+        // Add the chosenDate and userId to the dress's renteDates
+        dress.renteDates.push({ date: chosenDateObj, userId });
         await dressDesign.save();
 
         return res.status(200).json({
           success: true,
           message: `Dress successfully rented for the date ${chosenDate}`,
+          userId,
         });
       }
     }
@@ -340,7 +398,7 @@ const takeDress = async (req, res) => {
     // No dress available for the chosen date
     return res.status(404).json({
       success: false,
-      message: `No available dresses for size ${size} on ${chosenDate}`,
+      message: `No available dresses for key ${key} on ${chosenDate}`,
     });
   } catch (error) {
     return res.status(500).json({
@@ -351,46 +409,94 @@ const takeDress = async (req, res) => {
   }
 };
 
+// const returnDress = async (req, res) => {
+//   const { _id } = req.params; // Dress Design ID
+//   const { size, returnDate } = req.body; // Size and the date to return the dress
+
+//   try {
+//     // Find the dress design by ID
+//     const dressDesign = await DressDesign.findById(_id).exec();
+//     if (!dressDesign) {
+//       return res.status(404).json({ message: "Dress design not found" });
+//     }
+
+//     // Find the size entry in dressListSizes
+//     const sizeEntry = dressDesign.dressListSizes.find(entry => entry.size === size);
+//     if (!sizeEntry) {
+//       return res.status(404).json({ message: "Size not found in the design" });
+//     }
+
+//     // Convert returnDate to a Date object
+//     const returnDateObj = new Date(returnDate);
+//     if (isNaN(returnDateObj)) {
+//       return res.status(400).json({ message: "Invalid date provided" });
+//     }
+
+//     // Find the dress that has the return date in renteDates
+//     for (let dress of sizeEntry.dresses) {
+//       const rentIndex = dress.renteDates.findIndex(date => new Date(date).getTime() === returnDateObj.getTime());
+
+//       if (rentIndex !== -1) {
+//         // Remove the rented date from renteDates
+//         dress.renteDates.splice(rentIndex, 1);
+//         await dressDesign.save();
+
+//         return res.status(200).json({
+//           success: true,
+//           message: `Dress successfully returned for the date ${returnDate}`,
+//         });
+//       }
+//     }
+
+//     // No dress was rented on the specified date
+//     return res.status(404).json({
+//       success: false,
+//       message: `No rented dresses found for size ${size} on ${returnDate}`,
+//     });
+//   } catch (error) {
+//     return res.status(500).json({
+//       success: false,
+//       message: "Error returning dress",
+//       error: error.message,
+//     });
+//   }
+// };
 const returnDress = async (req, res) => {
   const { _id } = req.params; // Dress Design ID
-  const { size, returnDate } = req.body; // Size and the date to return the dress
+  const { size, returnDate, userId } = req.body; // Add userId to the request body
 
   try {
-    // Find the dress design by ID
     const dressDesign = await DressDesign.findById(_id).exec();
     if (!dressDesign) {
       return res.status(404).json({ message: "Dress design not found" });
     }
 
-    // Find the size entry in dressListSizes
     const sizeEntry = dressDesign.dressListSizes.find(entry => entry.size === size);
     if (!sizeEntry) {
       return res.status(404).json({ message: "Size not found in the design" });
     }
 
-    // Convert returnDate to a Date object
     const returnDateObj = new Date(returnDate);
     if (isNaN(returnDateObj)) {
       return res.status(400).json({ message: "Invalid date provided" });
     }
 
-    // Find the dress that has the return date in renteDates
     for (let dress of sizeEntry.dresses) {
-      const rentIndex = dress.renteDates.findIndex(date => new Date(date).getTime() === returnDateObj.getTime());
+      const rentIndex = dress.renteDates.findIndex(
+        rent => new Date(rent.date).getTime() === returnDateObj.getTime() && rent.userId.toString() === userId
+      );
 
       if (rentIndex !== -1) {
-        // Remove the rented date from renteDates
-        dress.renteDates.splice(rentIndex, 1);
+        dress.renteDates.splice(rentIndex, 1); // Remove the rent entry
         await dressDesign.save();
 
         return res.status(200).json({
           success: true,
-          message: `Dress successfully returned for the date ${returnDate}`,
+          message: `Dress successfully returned for the date ${returnDate} by user ${userId}`,
         });
       }
     }
 
-    // No dress was rented on the specified date
     return res.status(404).json({
       success: false,
       message: `No rented dresses found for size ${size} on ${returnDate}`,

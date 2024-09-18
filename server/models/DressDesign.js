@@ -39,5 +39,7 @@ const dressDesignSchema = new Schema({
 }, {
   timestamps: true
 });
+// const DressDesign = mongoose.model('Dress', dressDesignSchema);
+// DressDesign.createIndexes(); // יצירת אינדקסים
 
-module.exports = mongoose.model('Dress', dressDesignSchema);
+ module.exports = mongoose.model('Dress', dressDesignSchema);
