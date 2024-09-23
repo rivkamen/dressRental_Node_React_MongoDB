@@ -1,83 +1,72 @@
-/* .header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-    flex-wrap: wrap;
-}
-
-.search-container, .color-container {
-    flex: 1 1 auto;
-    min-width: 200px;
-    margin-right: 1rem;
-    margin-bottom: 1rem;
-}
-
-.p-field {
-    margin-bottom: 1rem;
-}
-
-.catalog {
-    padding: 1rem;
-    overflow-y: auto;
-    height: 100vh; /* Adjust the height as needed */
-/* }
-
-.p-grid .p-col-12 {
-    padding: 0.5rem;
-}
-
-.p-grid .p-col-6 {
-    width: 50%;
-    padding: 0.5rem;
-}
-
-.p-grid .p-col-4 {
-    width: 33.33%;
-    padding: 0.5rem;
-}
-
-.p-grid .p-col-3 {
-    width: 25%;
-    padding: 0.5rem;
-}
-
-.p-grid .p-col-2 {
-    width: 16.66%;
-    padding: 0.5rem;
-}
-
-.p-grid .p-col-1 {
-    width: 8.33%;
-    padding: 0.5rem;
-}
-
-@media screen and (max-width: 960px) {
-    .p-grid .p-col-4 {
-        width: 50%;
-    }
-}
-
-@media screen and (max-width: 640px) {
-    .p-grid .p-col-4 {
-        width: 100%;
-    }
-} */ */
-
-/* Define the styles for the Dress component if needed */
 .catalog {
     display: flex;
-    justify-content: center;
+    height: 100vh; /* גובה מלא */
 }
 
 .dress-grid {
+    flex: 1; /* תופס את השטח הנותר */
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Adjust the minmax width as needed */
-    gap: 1rem;
-    padding: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* עיצוב רשת תגובתי */
+    gap: 16px; /* רווחים בין פריטים */
+    padding: 16px;
+    overflow-y: auto; /* גלילה אם התוכן עולה על הגובה */
 }
 
-/* Define the styles for the Dress component if needed */
+.filter-sidebar {
+    width: 250px; /* רוחב קבוע עבור הטור */
+    padding: 16px;
+    background-color: #f8f8f8; /* רקע בהיר לניגודיות */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* צל עבור עומק */
+    height: 100vh; /* גובה מלא */
+    position: fixed; /* מיקום קבוע עבור הטור */
+    right: 0; /* לאזן לימין */
+    top: 0; /* לאזן למעלה */
+    z-index: 1000; /* להבטיח שהטור יישאר מעל */
+    transform: translateX(100%); /* החבאת הטור */
+    transition: transform 0.3s ease; /* מעבר חלק */
+}
 
+.filter-sidebar.open {
+    transform: translateX(0); /* הצגת הטור */
+}
 
-/* Define the styles for the Dress component if needed */
+.filter-sidebar.closed {
+    transform: translateX(100%); /* החבאת הטור */
+}
+
+.filter-sidebar input {
+    width: 100%; /* קלט ברוחב מלא */
+    padding: 8px;
+    border: 1px solid #ccc; /* עיצוב גבול */
+    border-radius: 4px; /* פינות מעוגלות */
+}
+
+.filter-sidebar button {
+    margin-top: 10px; /* רווח מעל הכפתור */
+    padding: 8px 16px; /* ריפוד לכפתור */
+    background-color: #007bff; /* צבע כפתור */
+    color: white; /* צבע טקסט */
+    border: none; /* הסרת גבול */
+    border-radius: 4px; /* פינות מעוגלות */
+    cursor: pointer; /* יד על ריחוף */
+}
+
+.filter-sidebar button:hover {
+    background-color: #0056b3; /* גוון כהה יותר על ריחוף */
+}
+
+.open-sidebar-button {
+    position: fixed;
+    bottom: 20px; /* מיקום הכפתור בתחתית */
+    right: 20px; /* מיקום הכפתור מימין */
+    padding: 10px 20px; /* ריפוד לכפתור */
+    background-color: #007bff; /* צבע כפתור */
+    color: white; /* צבע טקסט */
+    border: none; /* הסרת גבול */
+    border-radius: 4px; /* פינות מעוגלות */
+    cursor: pointer; /* יד על ריחוף */
+}
+
+.open-sidebar-button:hover {
+    background-color: #0056b3; /* גוון כהה יותר על ריחוף */
+}

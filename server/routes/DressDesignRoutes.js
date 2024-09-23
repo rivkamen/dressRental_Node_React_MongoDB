@@ -29,6 +29,7 @@ router.put("/:_id/addDress", DressDesignController.addDressToDesign)
 router.put("/:_id/deleteDress", DressDesignController.deleteDressFromDesign)
 router.put("/:_id/take-dress", DressDesignController.takeDress)
 router.put("/:_id/return-dress", DressDesignController.returnDress)
+router.get("/:_id/available-dress", DressDesignController.getAvailableKeysForDate)
 
 
 

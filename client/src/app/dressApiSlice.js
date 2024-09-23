@@ -19,10 +19,10 @@ addDress: build.mutation({
 }),
 
 updateDress: build.mutation({
-    query: (id) =>({
+    query: (id,dress) =>({
     url: '/api/dress/'+id,
-    method: "PUT"
-    // body: dress
+    method: "PUT",
+    body: dress
     }),
     invalidatesTags:["Dresses"]
 
@@ -34,9 +34,29 @@ deleteDress: build.mutation({
     }),
     invalidatesTags:["Dresses"]
 }),
+// availableDress: build.mutation({
+//     query: (dress) =>({
+        
+//     url: '/api/dress/'+dress._id+'/available-dress',
+//     // console.log(_id),
+
+//     method: "GET",
+//     body:dress.chosenDate
+//     }),
+//     invalidatesTags:["Dresses"]
+
+// }),
+availableDress: build.mutation({
+    query: ({ _id, chosenDate }) => ({
+        url: `/api/dress/${_id}/available-dress?chosenDate=${chosenDate}`, // Pass date as a query parameter
+        method: "GET",
+    }),
+    invalidatesTags: ["Dresses"], // This is good for invalidating cache related to dresses
+}),
+
 
 
 })
 })
-export const {useGetAllDressesQuery, useAddDressMutation,useUpdateDressMutation,useDeleteDressMutation}=DressApiSlice
+export const {useGetAllDressesQuery, useAddDressMutation,useUpdateDressMutation,useDeleteDressMutation,useAvailableDressMutation}=DressApiSlice
 
