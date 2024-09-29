@@ -1,162 +1,474 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Card } from 'primereact/card';
+
+
+
+import React, { useRef, useState } from 'react';
 import { Button } from 'primereact/button';
-import { Dropdown } from 'primereact/dropdown';
 import { InputNumber } from 'primereact/inputnumber';
-import { InputText } from "primereact/inputtext";
-import { ColorPicker } from 'primereact/colorpicker';
-import { FileUpload } from 'primereact/fileupload';
-import { Toast } from 'primereact/toast';
-import { InputTextarea } from "primereact/inputtextarea";
-import { FloatLabel } from "primereact/floatlabel";
-import { Chips } from "primereact/chips";
+import { Dropdown } from 'primereact/dropdown';
+import { Chips } from 'primereact/chips';
+import { InputText } from 'primereact/inputtext';
 import { useFormik } from 'formik';
 import { useAddDressMutation } from '../../app/dressApiSlice';
 import { classNames } from 'primereact/utils';
+import { FileUpload } from 'primereact/fileupload'; // Import FileUpload
 
-const AddDress=(props)=>{
-     const {handleCloseDialog}=props
-     const toast = useRef(null);
-     const name = useRef(null);
-     const desc=useRef(null)
-     const sizes=useRef(null)
-     const price=useRef(null)
-     const [nameVal, setNameVal] = useState('');
-     const [descVal, setDescVal] = useState('');
-     const [sizeVal, setSizeVal] = useState([]);
-     const [priceVal, setPriceVal] = useState();
-     const [qtyVal, setQtyVal] = useState(0);
+import { Toast } from 'primereact/toast';
 
-     const [addDressFunc,{data:dress,isError,error,isSuccess}]=useAddDressMutation()
+const AddDress = (props) => {
+    const { handleCloseDialog } = props;
+    const [sizesData, setSizesData] = useState([]);
+    const [addDressFunc] = useAddDressMutation();
+    const [imageFiles, setImageFiles] = useState(null);
+    const toast = useRef(null); // For showing toast messages
 
-
-     const onUpload = () => {
-        console.log(toast);
-        
-         toast.current.show({ severity: 'info', summary: 'Success', detail: 'File Uploaded' });
-     };
-    const sizing = (e) => {
-        setSizeVal(e.value)
-        console.log("sssssssssssssssss");
-        
-        console.log(sizeVal);
-         
-    }
-
-
+    const genderOptions = [
+        { label: 'Women', value: 'women' },
+        { label: 'Girls', value: 'girls' }
+    ];
+    const onUpload = (e) => {
+              setImageFiles([...e.files]);
+              toast.current.show({ severity: 'info', summary: 'Success', detail: 'Image Uploaded' });
+          };
     const formik = useFormik({
         initialValues: {
-            name: "",
-            sizes: [],
-            price: null,
-            qty: null
+            name: '',
+            description: '',
+            sizes: []
         },
         validate: (data) => {
             let errors = {};
             if (!data.name) {
-                errors.name = 'שדה חובה';
+                errors.name = 'Required';
             }
-            if (!data.sizes.length) {
-                errors.sizes = 'שדה חובה';
-            }
-            if (!data.price) {
-                errors.price = 'שדה חובה';
-            }
-            if (!data.qty) {
-                errors.qty = 'שדה חובה';
+            if (!sizesData.length) {
+                errors.sizes = 'At least one size required';
             }
             return errors;
         },
         onSubmit: async () => {
-            console.log("addDress");
-                await addDressFunc({
+            await addDressFunc({
                 name: formik.values.name,
-                description: descVal,
-                sizes: formik.values.sizes,
-                price: formik.values.price,
-                quantity: formik.values.qty
+                description: formik.values.description,
+                dressListSizes: sizesData.map(size => ({
+                    key: size.key,
+                    size: size.size,
+                    dresses: Array(size.qty).fill({ renteDates: [] })
+                }))
             });
             handleCloseDialog();
         }
+      //   onSubmit: async () => {
+      //     const formData = new FormData();
+          
+      //     // Append the dress name and description
+      //     formData.append('name', formik.values.name);
+      //     formData.append('description', formik.values.description);
+      
+      //     // Append sizes as JSON string
+      //     formData.append('sizes', JSON.stringify(sizesData.map(size => ({
+      //         key: size.key,
+      //         size: size.size,
+      //         dresses: Array(size.qty).fill({ renteDates: [] })
+      //     }))));
+      
+      //     // Append images (ensure imageFiles is an array)
+      //     imageFiles.forEach(file => {
+      //         formData.append('images', file);  // Check backend if it expects 'images' or 'file'
+      //     });
+      
+      //     try {
+      //         await addDressFunc(formData);  // Ensure your API expects FormData and not JSON
+      //         handleCloseDialog();
+      //     } catch (error) {
+      //         console.error('Error submitting form:', error);
+      //     }
+      // }
+      
     });
-    
-    const isFormFieldInvalid = (name) => !!(formik.touched[name] && formik.errors[name]);
-    
-    const getFormErrorMessage = (name) => {
-        return isFormFieldInvalid(name) ? <small className="p-error">{formik.errors[name]}</small> : <small className="p-error">&nbsp;</small>;
+
+    const addSize = () => {
+        setSizesData([...sizesData, { key: '', size: '', qty: 0 }]);
     };
-    
-    
-           
-    
-    
 
-return (
-    <div>
-      <form onSubmit={formik.handleSubmit}> {/* Add onSubmit event handler to the form */}
-        <InputText
-          placeholder="שם מוצר"
-          value={formik.values.name}
-          name='name'
-          className={classNames({ 'p-invalid': isFormFieldInvalid('name') })}
-          onChange={(e) => {
-            formik.setFieldValue('name', e.target.value);
-          }}
-        />
-        {getFormErrorMessage('name')}
-  
-        <FloatLabel>
-          <InputTextarea id="description" value={descVal} onChange={(e) => setDescVal(e.target.value)} rows={5} cols={30} />
-        </FloatLabel><br/>
-        <Chips
-          ref={sizes}
-          placeholder={"מידות"}
-          separator=","
-          value={formik.values.sizes}
-          name='sizes'
-          className={classNames({ 'p-invalid': isFormFieldInvalid('sizes') })}
-          onChange={(e) => {
-            sizing(e);
-            formik.setFieldValue('sizes', e.value);
-          }}
-        />
-        {getFormErrorMessage('sizes')}
-        <InputNumber
-  inputId="currency-us"
-  value={formik.values.price} // Use formik.values.price instead of priceVal
-  onValueChange={(e) => formik.setFieldValue('price', e.value)} // Update formik value on change
-  mode="currency"
-  currency="ils"
-  locale="en-US"
-  placeholder={"מחיר"}
+    const updateSizeData = (index, field, value) => {
+      console.log(index);
+      console.log(field);
+      console.log(value);
+      
+      
+      
+        const updatedSizes = [...sizesData];
+        updatedSizes[index][field] = value;
+        setSizesData(updatedSizes);
+    };
+
+    return (
+        <form onSubmit={formik.handleSubmit}>
+           {/* <Toast ref={toast} /> */}
+            <div className="field">
+                <InputText
+                    placeholder="Dress Name"
+                    value={formik.values.name}
+                    name='name'
+                    className={classNames({ 'p-invalid': formik.errors.name })}
+                    onChange={(e) => formik.setFieldValue('name', e.target.value)}
+                />
+                {formik.errors.name && <small className="p-error">{formik.errors.name}</small>}
+            </div>
+
+            <div className="field">
+                <InputText
+                    placeholder="Description"
+                    value={formik.values.description}
+                    name='description'
+                    onChange={(e) => formik.setFieldValue('description', e.target.value)}
+                />
+            </div>
+
+            <div>
+                <Button label="Add Size" type="button" onClick={addSize} />
+<br/><br/>
+                {sizesData.map((size, index) => (
+                    <div key={index} className="field">
+                        {/* <Chips
+                            placeholder="מידה"
+                            value={size.key}
+                            onChange={(e) =>{ console.log(e);console.log("e");
+                            
+                            
+                             updateSizeData(index, 'key', e.value)}}
+                        /> */}
+                        <InputText
+    placeholder="מידה"
+    value={size.key}
+    onChange={(e) => updateSizeData(index, 'key', e.target.value)}
 />
-{getFormErrorMessage('price')} {/* Display error message if price field is invalid */}
 
-  
-        <InputNumber
-          inputId="minmax-buttons"
-          value={formik.values.qty}
-          onValueChange={(e) => formik.setFieldValue('qty', e.value)}
-          mode="decimal"
-          showButtons
-          min={0}
-        />
-        {getFormErrorMessage('qty')}
-  
-        <Toast ref={toast}></Toast>
-        <FileUpload mode="basic" name="demo[]" url="/api/upload" accept="image/*" maxFileSize={1000000} onUpload={onUpload} />
-  
-        {/* <div dir='rtl' style={{ height: '70vh', display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '2%' }}> */}
-          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '10px', width: '100%' }}>
-            <Button label="בצע" icon="pi pi-check" style={{ width: "45%", marginRight: '5px' }} type="submit" onClick={formik.handleSubmit}/>
-            <Button label="בטל" severity="secondary" icon="pi pi-times" style={{ width: "45%" }} onClick={handleCloseDialog} />
-          </div>
-        {/* </div> */}
-      </form>
-    </div>
-  );
-  
+                        <Dropdown
+                            value={size.size}
+                            options={genderOptions}
+                            onChange={(e) => updateSizeData(index, 'size', e.value)}
+                            placeholder="נשים/בנות"
+                        />
+                        <InputNumber
+                            value={size.qty}
+                            onValueChange={(e) => updateSizeData(index, 'qty', e.value)}
+                            mode="decimal"
+                            min={0}
+                            placeholder="כמות"
+                        />
+                    </div>
+                ))}
+<div className="field">
+{/* <FileUpload 
+    mode="advanced" 
+    name="demo[]" 
+    url="./upload" 
+    multiple accept="images/*" 
+    maxFileSize={1000000}
+    onUpload={onUpload} 
+    customUpload 
+/> */}
+</div>
+            </div>
 
-}
-export default AddDress
+             <Button type="submit" label="Submit" />
+            <Button label="Cancel" className="p-button-secondary" onClick={handleCloseDialog} />
 
+       </form>
+    );
+};
+
+export default AddDress;
+// import React, { useState, useRef } from 'react';
+// import { Button } from 'primereact/button';
+// import { InputNumber } from 'primereact/inputnumber';
+// import { Dropdown } from 'primereact/dropdown';
+// import { InputText } from 'primereact/inputtext';
+// import { FileUpload } from 'primereact/fileupload'; // Import FileUpload
+// import { useFormik } from 'formik';
+// import { useAddDressMutation } from '../../app/dressApiSlice';
+// import { classNames } from 'primereact/utils';
+// import { Toast } from 'primereact/toast';
+
+// const AddDress = (props) => {
+//     const { handleCloseDialog } = props;
+//     const [sizesData, setSizesData] = useState([]);
+//     const [imageFiles, setImageFiles] = useState(null); // State to store uploaded images
+//     const [addDressFunc] = useAddDressMutation();
+//     const toast = useRef(null); // For showing toast messages
+
+//     const genderOptions = [
+//         { label: 'Women', value: 'women' },
+//         { label: 'Girls', value: 'girls' }
+//     ];
+
+//     const formik = useFormik({
+//         initialValues: {
+//             name: '',
+//             description: '',
+//             sizes: []
+//         },
+//         validate: (data) => {
+//             let errors = {};
+//             if (!data.name) {
+//                 errors.name = 'Required';
+//             }
+//             if (!sizesData.length) {
+//                 errors.sizes = 'At least one size required';
+//             }
+//             return errors;
+//         },
+//         onSubmit: async () => {
+//             const formData = new FormData();
+//             formData.append('name', formik.values.name);
+//             formData.append('description', formik.values.description);
+            
+//             // Append sizes data
+//             formData.append('sizes', JSON.stringify(sizesData.map(size => ({
+//                 key: size.key,
+//                 size: size.size,
+//                 dresses: Array(size.qty).fill({ renteDates: [] })
+//             }))));
+
+//             // Append image files to formData
+//             if (imageFiles) {
+//                 imageFiles.forEach((file) => formData.append('image', file));
+//             }
+
+//             // API call to add dress
+//             await addDressFunc(formData);
+//             handleCloseDialog();
+//         }
+//     });
+
+//     const addSize = () => {
+//         setSizesData([...sizesData, { key: '', size: '', qty: 0 }]);
+//     };
+
+//     const updateSizeData = (index, field, value) => {
+//         const updatedSizes = [...sizesData];
+//         updatedSizes[index][field] = value;
+//         setSizesData(updatedSizes);
+//     };
+
+//     const onUpload = (e) => {
+//         setImageFiles([...e.files]);
+//         toast.current.show({ severity: 'info', summary: 'Success', detail: 'Image Uploaded' });
+//     };
+
+//     return (
+//         <form onSubmit={formik.handleSubmit}>
+//             <Toast ref={toast} /> {/* For showing success messages */}
+//             <div className="field">
+//                 <InputText
+//                     placeholder="Dress Name"
+//                     value={formik.values.name}
+//                     name='name'
+//                     className={classNames({ 'p-invalid': formik.errors.name })}
+//                     onChange={(e) => formik.setFieldValue('name', e.target.value)}
+//                 />
+//                 {formik.errors.name && <small className="p-error">{formik.errors.name}</small>}
+//             </div>
+
+//             <div className="field">
+//                 <InputText
+//                     placeholder="Description"
+//                     value={formik.values.description}
+//                     name='description'
+//                     onChange={(e) => formik.setFieldValue('description', e.target.value)}
+//                 />
+//             </div>
+
+//             <div>
+//                 <Button label="Add Size" type="button" onClick={addSize} />
+//                 <br/><br/>
+//                 {sizesData.map((size, index) => (
+//                     <div key={index} className="field">
+//                         <InputText
+//                             placeholder="מידה"
+//                             value={size.key}
+//                             onChange={(e) => updateSizeData(index, 'key', e.target.value)}
+//                         />
+//                         <Dropdown
+//                             value={size.size}
+//                             options={genderOptions}
+//                             onChange={(e) => updateSizeData(index, 'size', e.value)}
+//                             placeholder="נשים/בנות"
+//                         />
+//                         <InputNumber
+//                             value={size.qty}
+//                             onValueChange={(e) => updateSizeData(index, 'qty', e.value)}
+//                             mode="decimal"
+//                             min={0}
+//                             placeholder="כמות"
+//                         />
+//                     </div>
+//                 ))}
+//             </div>
+
+//             <div className="field">
+//                 <FileUpload 
+//                     mode="advanced" 
+//                     name="demo[]" 
+//                     url="./upload" 
+//                     multiple accept="images/*" 
+//                     maxFileSize={1000000}
+//                     onUpload={onUpload} 
+//                     customUpload 
+//                 />
+//             </div>
+
+//             <Button type="submit" label="Submit" />
+//             <Button label="Cancel" className="p-button-secondary" onClick={handleCloseDialog} />
+//         </form>
+//     );
+// };
+
+// export default AddDress;
+// import React, { useRef, useState } from 'react';
+// import { Button } from 'primereact/button';
+// import { InputNumber } from 'primereact/inputnumber';
+// import { Dropdown } from 'primereact/dropdown';
+// import { InputText } from 'primereact/inputtext';
+// import { useFormik } from 'formik';
+// import { useAddDressMutation } from '../../app/dressApiSlice';
+// import { classNames } from 'primereact/utils';
+// import { FileUpload } from 'primereact/fileupload'; // Import FileUpload
+// import { Toast } from 'primereact/toast';
+
+// const AddDress = (props) => {
+//     const { handleCloseDialog } = props;
+//     const [sizesData, setSizesData] = useState([]);
+//     const [addDressFunc] = useAddDressMutation();
+//     const [imageFiles, setImageFiles] = useState([]);
+//     const toast = useRef(null); // For showing toast messages
+
+//     const genderOptions = [
+//         { label: 'Women', value: 'women' },
+//         { label: 'Girls', value: 'girls' }
+//     ];
+
+//     const onUpload = (e) => {
+//         // Add files to the imageFiles state
+//         setImageFiles([...e.files]);
+//         toast.current.show({ severity: 'info', summary: 'Success', detail: 'Image Uploaded' });
+//     };
+
+//     const formik = useFormik({
+//         initialValues: {
+//             name: '',
+//             description: '',
+//             sizes: []
+//         },
+//         validate: (data) => {
+//             let errors = {};
+//             if (!data.name) {
+//                 errors.name = 'Required';
+//             }
+//             if (!sizesData.length) {
+//                 errors.sizes = 'At least one size required';
+//             }
+//             return errors;
+//         },
+//         onSubmit: async () => {
+//             const formData = new FormData();
+//             formData.append('name', formik.values.name);
+//             formData.append('description', formik.values.description);
+
+//             // Append sizes data
+//             formData.append('sizes', JSON.stringify(sizesData.map(size => ({
+//                 key: size.key,
+//                 size: size.size,
+//                 dresses: Array(size.qty).fill({ renteDates: [] })
+//             }))));
+
+//             // Append image files
+//             imageFiles.forEach(file => {
+//                 formData.append('images', file);
+//             });
+
+//             // Make the API call to add the dress (adjust to your backend logic)
+//             await addDressFunc(formData);
+//             handleCloseDialog();
+//         }
+//     });
+
+//     const addSize = () => {
+//         setSizesData([...sizesData, { key: '', size: '', qty: 0 }]);
+//     };
+
+//     const updateSizeData = (index, field, value) => {
+//         const updatedSizes = [...sizesData];
+//         updatedSizes[index][field] = value;
+//         setSizesData(updatedSizes);
+//     };
+
+//     return (
+//         <form onSubmit={formik.handleSubmit}>
+//             <Toast ref={toast} /> {/* Toast for success messages */}
+//             <div className="field">
+//                 <InputText
+//                     placeholder="Dress Name"
+//                     value={formik.values.name}
+//                     name='name'
+//                     className={classNames({ 'p-invalid': formik.errors.name })}
+//                     onChange={(e) => formik.setFieldValue('name', e.target.value)}
+//                 />
+//                 {formik.errors.name && <small className="p-error">{formik.errors.name}</small>}
+//             </div>
+
+//             <div className="field">
+//                 <InputText
+//                     placeholder="Description"
+//                     value={formik.values.description}
+//                     name='description'
+//                     onChange={(e) => formik.setFieldValue('description', e.target.value)}
+//                 />
+//             </div>
+
+//             <div>
+//                 <Button label="Add Size" type="button" onClick={addSize} />
+//                 <br /><br />
+//                 {sizesData.map((size, index) => (
+//                     <div key={index} className="field">
+//                         <InputText
+//                             placeholder="מידה"
+//                             value={size.key}
+//                             onChange={(e) => updateSizeData(index, 'key', e.target.value)}
+//                         />
+//                         <Dropdown
+//                             value={size.size}
+//                             options={genderOptions}
+//                             onChange={(e) => updateSizeData(index, 'size', e.value)}
+//                             placeholder="נשים/בנות"
+//                         />
+//                         <InputNumber
+//                             value={size.qty}
+//                             onValueChange={(e) => updateSizeData(index, 'qty', e.value)}
+//                             mode="decimal"
+//                             min={0}
+//                             placeholder="כמות"
+//                         />
+//                     </div>
+//                 ))}
+//             </div>
+
+//             <div className="field">
+//                 <FileUpload 
+//                     mode="advanced" 
+//                     name="demo[]" 
+//                     multiple accept="image/*"  // Correct MIME type
+//                     maxFileSize={1000000}
+//                     onUpload={onUpload} 
+//                     customUpload 
+//                 />
+//             </div>
+
+//             <Button type="submit" label="Submit" />
+//             <Button label="Cancel" className="p-button-secondary" onClick={handleCloseDialog} />
+//         </form>
+//     );
+// };
+
+// export default AddDress;

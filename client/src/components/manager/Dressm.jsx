@@ -4,21 +4,16 @@ import { Card } from 'primereact/card';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
 import { useDeleteDressMutation } from '../../app/dressApiSlice';
-// import './Car.css'; // Import the CSS file
  
 const Dressm = (props) => {
     const { dress } = props;
     const [visible, setVisible] = useState(false);
     const navigate = useNavigate();
  const [deleteFuncDress,{data:del,isError,error,isSuccess}]=useDeleteDressMutation()
-    // const handleNavigate = () => {
-    //     console.log("lllllllllllllllllll");
-    //     navigate('/form', { state: { carr: car } });
-    // };
- 
-    // const handleAddToCart = () => {
-    //     // Add your logic here for adding the car to the cart
-    // };
+ const handleNavigate = () => {
+    navigate('/rentm', { state: { dress: dress } });
+};
+
  const deleteDress=async()=>{
 await deleteFuncDress(dress._id)
  }
@@ -40,8 +35,8 @@ await deleteFuncDress(dress._id)
                 </div>
                 <div className="p-col">
                     <div className="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
-                        <span className="text-2xl font-semibold">₪{dress.price}</span>
                         <Button label="מחיקה" className="p-button-rounded p-button-info" onClick={deleteDress} />
+                        <Button label='לפרטים והשכרה'  className="p-button-rounded p-button-info" onClick={handleNavigate}/>
                     </div>
                 </div>
             </div>

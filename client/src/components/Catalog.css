@@ -1,72 +1,58 @@
 .catalog {
     display: flex;
-    height: 100vh; /* גובה מלא */
+    height: 100vh; /* Full height */
 }
 
 .dress-grid {
-    flex: 1; /* תופס את השטח הנותר */
+    flex: 1; /* Take the remaining space */
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* עיצוב רשת תגובתי */
-    gap: 16px; /* רווחים בין פריטים */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid layout */
+    gap: 16px;
     padding: 16px;
-    overflow-y: auto; /* גלילה אם התוכן עולה על הגובה */
+    overflow-y: auto; /* Scrollable if content exceeds height */
 }
 
 .filter-sidebar {
-    width: 250px; /* רוחב קבוע עבור הטור */
+    width: 250px; /* Fixed width for the sidebar */
     padding: 16px;
-    background-color: #f8f8f8; /* רקע בהיר לניגודיות */
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* צל עבור עומק */
-    height: 100vh; /* גובה מלא */
-    position: fixed; /* מיקום קבוע עבור הטור */
-    right: 0; /* לאזן לימין */
-    top: 0; /* לאזן למעלה */
-    z-index: 1000; /* להבטיח שהטור יישאר מעל */
-    transform: translateX(100%); /* החבאת הטור */
-    transition: transform 0.3s ease; /* מעבר חלק */
+    background-color: #f8f8f8; /* Light background for contrast */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    height: 100vh; /* Full height */
+    position: fixed; /* Fixed position */
+    right: 0; /* Stick to the right */
+    top: 0; /* Start from the top */
+    z-index: 1000; /* Ensure it stays on top */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth open/close transition */
 }
 
 .filter-sidebar.open {
-    transform: translateX(0); /* הצגת הטור */
+    transform: translateX(0); /* Show the sidebar */
+    opacity: 1;
 }
 
 .filter-sidebar.closed {
-    transform: translateX(100%); /* החבאת הטור */
-}
-
-.filter-sidebar input {
-    width: 100%; /* קלט ברוחב מלא */
-    padding: 8px;
-    border: 1px solid #ccc; /* עיצוב גבול */
-    border-radius: 4px; /* פינות מעוגלות */
-}
-
-.filter-sidebar button {
-    margin-top: 10px; /* רווח מעל הכפתור */
-    padding: 8px 16px; /* ריפוד לכפתור */
-    background-color: #007bff; /* צבע כפתור */
-    color: white; /* צבע טקסט */
-    border: none; /* הסרת גבול */
-    border-radius: 4px; /* פינות מעוגלות */
-    cursor: pointer; /* יד על ריחוף */
-}
-
-.filter-sidebar button:hover {
-    background-color: #0056b3; /* גוון כהה יותר על ריחוף */
+    transform: translateX(100%); /* Hide the sidebar */
+    opacity: 0; /* Fade out when hidden */
 }
 
 .open-sidebar-button {
     position: fixed;
-    bottom: 20px; /* מיקום הכפתור בתחתית */
-    right: 20px; /* מיקום הכפתור מימין */
-    padding: 10px 20px; /* ריפוד לכפתור */
-    background-color: #007bff; /* צבע כפתור */
-    color: white; /* צבע טקסט */
-    border: none; /* הסרת גבול */
-    border-radius: 4px; /* פינות מעוגלות */
-    cursor: pointer; /* יד על ריחוף */
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 .open-sidebar-button:hover {
-    background-color: #0056b3; /* גוון כהה יותר על ריחוף */
+    background-color: #0056b3;
+}
+
+/* MultiSelect adjustments */
+.p-multiselect {
+    width: 100%; /* Make sure MultiSelect takes full width */
+    margin-bottom: 1rem; /* Add spacing between components */
 }

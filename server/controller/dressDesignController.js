@@ -6,15 +6,23 @@ const { v4: uuidv4 } = require('uuid');
 
 const createDressDesign = async (req, res) => {
   const { name, description, imageUrl, dressListSizes } = req.body;
+console.log("here");
 
   if (!name || !dressListSizes) {
+    console.log("0");
+
     return res.status(400).json({ message: 'Required field is missing' });
   }
+  console.log("1");
 
   const imageUrll = imageUrl ? req.file.path : null;
 
   try {
+    console.log("2");
+
     const updatedDressListSizes = dressListSizes.map(sizeEntry => {
+      console.log(sizeEntry);
+      
       return {
         key: sizeEntry.key,
         size: sizeEntry.size,

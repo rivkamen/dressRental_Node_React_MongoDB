@@ -13,7 +13,8 @@ import JewCalendar from "./components/JewCalender"
 import Choose from "./components/ChooseDress"
 import Catalogm from './components/manager/Catalogm';
 import RentDress from './components/RentDress';
-
+import RentDressm from './components/manager/RentDressm'
+import RentPage from './components/manager/RentPage.jsx';
 function App() {
 
   return (
@@ -29,6 +30,10 @@ function App() {
           <Route path='/catalog/choose' element={<Choose />} />
           <Route path='/catalogm' element={<Catalogm />} />
           <Route path='/rent' element={<RentDress />} />
+          <Route path='/rentm' element={<RentDressm/>} />
+          <Route path='/rentPage' element={<RentPage/>} />
+
+
 
 
         </Routes>
