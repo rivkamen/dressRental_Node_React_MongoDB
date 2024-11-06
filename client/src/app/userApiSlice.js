@@ -4,12 +4,12 @@ const userApiSlice = apiSlice.injectEndpoints({
     endpoints: (build) => ({
         getUsers: build.query({
             query: () => ({
-                url: '/api/auth/register'
+                url: '/api/user/'
             }),
         }),
         createUser: build.mutation({
             query: (user) => ({
-                url: '/api/auth/register',
+                url: '/api/user/',
                 method:"POST",
                 body:user
             }),

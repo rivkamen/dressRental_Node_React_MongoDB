@@ -15,6 +15,7 @@ import Catalogm from './components/manager/Catalogm';
 import RentDress from './components/RentDress';
 import RentDressm from './components/manager/RentDressm'
 import RentPage from './components/manager/RentPage.jsx';
+import Renting from './components/manager/Renting.jsx';
 function App() {
 
   return (
@@ -32,7 +33,7 @@ function App() {
           <Route path='/rent' element={<RentDress />} />
           <Route path='/rentm' element={<RentDressm/>} />
           <Route path='/rentPage' element={<RentPage/>} />
-
+          <Route path='/renting' element={<Renting/>}/>
 
 
 

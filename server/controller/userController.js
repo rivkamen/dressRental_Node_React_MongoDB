@@ -18,9 +18,14 @@ const createUser=async(req,res)=>{
     const userObject= {name,email,phone}
     const user = await User.create(userObject)
     if(user){
-       return res.status(201).json({success:true,
-            message:`user ${user.name} created successfuly`,
-            })
+      //  return res.status(201).json({success:true,
+      //       message:`user ${user.name} created successfuly`,
+      //       })
+      return res.status(201).json({
+        success: true,
+        message: `User ${user.name} created successfully`,
+        userId: user._id  // Include the userId in the response
+    });
     }
     else
         return res.status(400).json({message:"failed"})
