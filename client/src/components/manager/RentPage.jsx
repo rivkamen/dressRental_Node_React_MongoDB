@@ -959,10 +959,10 @@ const RentPage = () => {
 
     return (
         <div>
-            <h1>Rent Dress</h1>
+            {/* <h1>Rent Dress</h1>
             <p>Dress: {dress.name}</p>
             <p>Date: {chosenDate.toString()}</p>
-            <p>Size: {size}</p>
+            <p>Size: {size}</p> */}
 
             {!phoneSubmitted && !existingUser && (
                 <div>

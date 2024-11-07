@@ -186,8 +186,65 @@
 // };
 
 // export default Renting;
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router";
+// import React, { useEffect, useState } from "react";
+// import { useLocation } from "react-router";
+// import { useTakeDressMutation } from "../../app/dressApiSlice";
+// import Swal from "sweetalert2";
+// import { Button } from 'primereact/button';
+// import { useGetUserByIdQuery } from "../../app/userApiSlice";
+
+// const Renting = () => {
+//     const location = useLocation();
+//     const { userId, dress, chosenDate, size } = location.state;
+
+//     // Fetch the user by ID with useGetUserByIdQuery hook
+//     const { data: user, error, isLoading } = useGetUserByIdQuery(userId);
+//     const [takeDressFunc] = useTakeDressMutation();
+
+//     const handleTakeDress = async () => {
+//         try {
+//             const response = await takeDressFunc({
+//                 userId: userId,
+//                 _id: dress._id,
+//                 key: size,
+//                 chosenDate: chosenDate.date
+//             }).unwrap();
+
+//             Swal.fire({
+//                 title: "Success!",
+//                 text: `You have successfully taken the dress: ${dress.name}`,
+//                 icon: "success",
+//                 confirmButtonText: "OK"
+//             });
+//         } catch (err) {
+//             Swal.fire({
+//                 title: "Error!",
+//                 text: err?.data?.message || "Failed to take the dress. Please try again.",
+//                 icon: "error",
+//                 confirmButtonText: "OK"
+//             });
+//         }
+//     };
+
+//     return (
+//         <div dir='rtl'>
+//             <h1>סיכום הזמנה</h1>
+//             <p>שם לקוח: {isLoading ? "Loading..." : error ? "Error loading user" : user?.name}</p>
+//             <p>דגם: {dress.name}</p>
+//             <p>תאריך: {chosenDate.toString()}</p>
+//             <p>מידה: {size}</p>
+//             <Button 
+//                 label="Take Dress"
+//                 onClick={handleTakeDress}
+//                 className="p-button-success mt-2"
+//             />
+//         </div>
+//     );
+// };
+
+// export default Renting;
+import React from "react";
+import { useLocation, useNavigate } from "react-router";
 import { useTakeDressMutation } from "../../app/dressApiSlice";
 import Swal from "sweetalert2";
 import { Button } from 'primereact/button';
@@ -195,8 +252,8 @@ import { useGetUserByIdQuery } from "../../app/userApiSlice";
 
 const Renting = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const { userId, dress, chosenDate, size } = location.state;
-console.log("rentttttttttt");
 
     // Fetch the user by ID with useGetUserByIdQuery hook
     const { data: user, error, isLoading } = useGetUserByIdQuery(userId);
@@ -216,6 +273,8 @@ console.log("rentttttttttt");
                 text: `You have successfully taken the dress: ${dress.name}`,
                 icon: "success",
                 confirmButtonText: "OK"
+            }).then(() => {
+                navigate("/catalogm"); // Redirect to the catalog after confirmation
             });
         } catch (err) {
             Swal.fire({
@@ -223,6 +282,8 @@ console.log("rentttttttttt");
                 text: err?.data?.message || "Failed to take the dress. Please try again.",
                 icon: "error",
                 confirmButtonText: "OK"
+            }).then(() => {
+                navigate("/catalogm"); // Redirect to the catalog after confirmation
             });
         }
     };
