@@ -45,19 +45,70 @@ const getUsers=async(req,res)=>{
 
 const getUserById=async(req,res)=>{
 const {_id}=req.params
+console.log("hiii");
+
 const user=await User.findById(_id).lean()
+console.log(user);
+
 const admin=await Admin.findById({_id:req.user._id})
 
 if(!user)
 {
   return  res.status(401).json({message:"not found"})
 }
-if(user._id==req.user._id || admin){
+if(user._id==req.user._id || admin){//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  console.log('yes');
+  
     return res.json(user)
 }
 return res.status(405).json({message:"unaouthorisedid"})
 
 }
+const getUserByPhone=async(req,res)=>{
+  console.log("im here");
+  
+  const {phone}=req.params
+  console.log(phone);
+  
+   const user=await User.findOne({phone}).lean()
+   console.log(user);
+  
+  const admin=await Admin.findById({_id:req.user._id})
+  
+  if(!user)
+  {
+    return  res.status(401).json({message:"not found"})
+  }
+  if(user._id==req.user._id || admin || true){//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    
+      return res.json(user)
+  }
+  return res.status(405).json({message:"unaouthorisedid"})
+  
+  }
+  // const getUserByPhone=async(req,res)=>{
+  //   console.log("im here");
+    
+  //   const {phone}=req.params
+  //   console.log(phone);
+    
+  //   const user=await User.findById(phone).lean()
+  //   console.log(user);
+    
+  //   const admin=await Admin.findById({_id:req.user._id})
+    
+  //   if(!user)
+  //   {
+  //     return  res.status(401).json({message:"not found"})
+  //   }
+  //   if(user._id==req.user._id || admin || true){//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  //     console.log('yes');
+      
+  //       return res.json(user)
+  //   }
+  //   return res.status(405).json({message:"unaouthorisedid"})
+    
+  //   }
 const updateUser=async(req,res)=>{
   const {_id}=req.params
     const {password,name,email,phone}=req.body
@@ -117,5 +168,5 @@ if(!user){
      }
 
 
-module.exports = {createUser,getUsers,getUserById,updateUser,deleteUser}
+module.exports = {createUser,getUsers,getUserById,updateUser,deleteUser,getUserByPhone}
 

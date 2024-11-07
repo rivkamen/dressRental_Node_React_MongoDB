@@ -21,6 +21,16 @@ const userApiSlice = apiSlice.injectEndpoints({
                 body:user
             })
         }),  
+        getUserById: build.query({
+            query: (id) => ({
+                url: `/api/user/${id}`,
+            }),
+        }),
+        getUserByPhone: build.query({
+            query: (phone) => ({
+                url: `/api/user/phone/${phone}`,
+            }),
+        }),
         // deleteUser: build.mutation({
         //     query: (id) => ({
         //         url: `/api/user/${id}`,
@@ -42,4 +52,4 @@ const userApiSlice = apiSlice.injectEndpoints({
     }),
 })
 
-export const { useGetUsersQuery,useCreateUserMutation,useLoginUserMutation,useDeleteUserMutation ,useUpdateUserMutation} = userApiSlice
+export const { useGetUsersQuery,useCreateUserMutation,useLoginUserMutation,useDeleteUserMutation ,useUpdateUserMutation,useGetUserByIdQuery,useGetUserByPhoneQuery} = userApiSlice

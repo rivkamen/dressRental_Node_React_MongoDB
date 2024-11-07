@@ -9,5 +9,7 @@ router.post("/",UserController.createUser)
 router.put("/:_id",verifyJWT, UserController.updateUser)
 router.delete("/:_id",verifyJWT, UserController.deleteUser)
 router.get("/:_id",verifyJWT, UserController.getUserById)
+router.get("/phone/:phone",verifyJWT, UserController.getUserByPhone)
+
 
 module.exports = router

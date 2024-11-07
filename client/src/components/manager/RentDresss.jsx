@@ -6,12 +6,12 @@ const RentDresss = () => {
     const { userId, dress, chosenDate, size } = location.state;
 
     return (
-        <div>
-            <h1>User Details</h1>
-            <p>User ID: {userId}</p>
-            <p>Dress: {dress.name}</p>
-            <p>Date: {chosenDate.toString()}</p>
-            <p>Size: {size}</p>
+        <div dir='rtl'>
+            <h1>סיכום הזמנה</h1>
+            <p>לקוח: {userId}</p>
+            <p>דגם: {dress.name}</p>
+            <p>תאריך: {chosenDate.toString()}</p>
+            <p>מידה: {size}</p>
         </div>
     );
 };
