@@ -1,31 +1,5 @@
 const Dress = require('../models/Dress');
 const DressDesign = require('../models/DressDesign');
-// const createDress=async(req,res)=>{
-//     const {_id,size} = req.body
-//   if (!_id || !size) {
-//       return res.status(400).json({message:'required field is missing'})
-//       }
-//       const dress=await Dress.findById(_id).exec()
-//       if(!dress){
-//       return res.status(401).json({message:"not found"})
-//       }
-
-//           console.log("log");
-          
-//           const index = dress.dressListSizes.findIndex(item => item.key === key);
-
-//           // const searchKey=dress.dressListSize.find(d=>d.key===key)
-//           const arr=[...dress.dressListSize.key.dresses,{renteDates:[]}]
-//           dress.dressListSizes[index].dresses=arr
-//           // let ind=arr.length-1;
-//           // survey.questions=arr            
-      
-//           const MyUpdateDress=await dress.save()
-//           return res.status(201).json({success:true,
-//               message:`dress ${dress.name} updated successfuly`,
-//               })
-      
-// }
 
 const createDress = async (req, res) => {
   const { _id, key } = req.body;

@@ -88,19 +88,30 @@ const getDressDesignById = async (req, res) => {
 
 const updateDressDesign = async (req, res) => {
   const { _id } = req.params;
+  
   const { name, description, imageUrl, dressListSizes } = req.body;
 
   try {
     // חיפוש העיצוב לפי ה-ID
+    
     const dress = await DressDesign.findById(_id).exec();
+    console.log(dress);
+    
     if (!dress) {
+      console.log("not dress");
+
       return res.status(404).json({ message: "Dress design not found" });
+      
     }
 
     // אם יש שם חדש לעדכון, נוודא שהשם לא קיים כבר בעיצוב אחר
     if (name && name !== dress.name) {
+      console.log("1");
+
       const existingDress = await DressDesign.findOne({ name }).exec();
       if (existingDress) {
+        console.log("3");
+        
         return res.status(400).json({ message: "Dress design name must be unique" });
       }
       dress.name = name; // עדכון השם לאחר אימות ייחודיות
@@ -112,6 +123,8 @@ const updateDressDesign = async (req, res) => {
 
     // עדכון רשימת המידות והשמלות
     if (dressListSizes) {
+      console.log("4");
+
       const updatedDressListSizes = dressListSizes.map(sizeEntry => {
         return {
           key: sizeEntry.key,
@@ -133,6 +146,8 @@ const updateDressDesign = async (req, res) => {
       message: `Dress ${dress.name} updated successfully`,
     });
   } catch (error) {
+    console.log("2");
+
     return res.status(500).json({ message: "Failed to update dress design", error: error.message });
   }
 };
