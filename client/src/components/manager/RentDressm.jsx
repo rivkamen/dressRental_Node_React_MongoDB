@@ -86,18 +86,38 @@ const RentDressm = (props) => {
                     <h3 style={{ padding: '10px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <i className="pi pi-calendar-clock" style={{ fontSize: '24px' }}></i>
                         מידות פנויות בתאריך שנבחר
+                        {console.log("availableDresses")}
+
+                        {console.log(availableDresses)}
+                        {console.log(availableDresses[0].availableDresses)}
+
+                        
                     </h3>
                     <ul style={{listStyleType: 'none'}}>
-                        {availableDresses.map((dress) => (
+                        {/* {availableDresses.map((dress) => (
                             <li key={dress.key}>
                                 <i className='pi pi-star-fill' style={{ fontSize: '14px' }}></i>&nbsp;&nbsp;
                                 <Button 
                                     label={dress.key} 
                                     onClick={() => handleRentClick(dress.key)}  // Pass the size (dress.key) to the handler
                                 />
-                                {availableDresses.length < 3 && <span> (נשארו רק {availableDresses.length} )</span>}
+                                {availableDresses.length < 2 && <span> (נשארו רק {availableDresses.length} )</span>}
                             </li>
-                        ))}
+                        ))} */}
+{availableDresses.map((dress, index) => (
+    <li key={dress.key}>
+        <i className='pi pi-star-fill' style={{ fontSize: '14px' }}></i>&nbsp;&nbsp;
+        <Button 
+            label={dress.key} 
+            onClick={() => handleRentClick(dress.key)}  // Pass the size (dress.key) to the handler
+        />
+        {availableDresses[index].availableDresses < 3 && (
+            <span> (נשארו רק {availableDresses[index].availableDresses} )</span>
+        )}
+    </li> 
+))}
+
+                     {/* */}
                     </ul>
                 </div>
             )}
