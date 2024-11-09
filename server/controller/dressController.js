@@ -27,36 +27,80 @@ const DressDesign = require('../models/DressDesign');
       
 // }
 
-const createDress = async (req, res) => {
-  const { _id, key } = req.body;
+// const createDress = async (req, res) => {
+//   const { _id, key } = req.body;
 
-  if (!_id || !key) {
+//   if (!_id || !key) {
+//     return res.status(400).json({ message: 'Required field is missing1' });
+//   }
+
+//   try {
+//     const dress = await DressDesign.findById(_id).exec();
+//     if (!dress) {
+//       return res.status(404).json({ message: 'Dress design not found' });
+//     }
+
+//     const index = dress.dressListSizes.findIndex(item => item.key === key);
+//     if (index === -1) {
+//       return res.status(404).json({ message: 'Dress size key not found' });
+//     }
+
+//     // Add new dress to dresses array within the found size group
+//     dress.dressListSizes[index].dresses.push({ renteDates: [] });
+
+//     const updatedDress = await dress.save();
+
+//     return res.status(201).json({
+//       success: true,
+//       message: `Dress updated successfully`,
+//       data: updatedDress
+//     });
+//   } catch (error) {
+//     return res.status(500).json({ message: error.message });
+//   }
+// };
+const createDress = async (req, res) => {
+  console.log("hiii132");
+
+  const { name, description, dressListSizes } = req.body;
+  console.log("Received data:", name, description, dressListSizes);
+
+  if (!name || !dressListSizes) {
     return res.status(400).json({ message: 'Required field is missing' });
   }
 
+  const imageUrll = req.file ? req.file.path : null;
+
   try {
-    const dress = await DressDesign.findById(_id).exec();
-    if (!dress) {
-      return res.status(404).json({ message: 'Dress design not found' });
-    }
+    const updatedDressListSizes = dressListSizes.map(sizeEntry => {
+      return {
+        key: sizeEntry.key,
+        size: sizeEntry.size,
+        dresses: sizeEntry.dresses.map(dress => ({
+          ...dress,
+          barcode: dress.barcode || uuidv4(), // Add barcode if missing
+          renteDates: dress.renteDates || []  // Ensure `renteDates` is not empty
+        }))
+      };
+    });
 
-    const index = dress.dressListSizes.findIndex(item => item.key === key);
-    if (index === -1) {
-      return res.status(404).json({ message: 'Dress size key not found' });
-    }
-
-    // Add new dress to dresses array within the found size group
-    dress.dressListSizes[index].dresses.push({ renteDates: [] });
-
-    const updatedDress = await dress.save();
+    const dress = await DressDesign.create({
+      name,
+      description,
+      images: imageUrll,
+      dressListSizes: updatedDressListSizes,
+    });
 
     return res.status(201).json({
       success: true,
-      message: `Dress updated successfully`,
-      data: updatedDress
+      message: `Dress design ${dress.name} created successfully`,
     });
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    if (error.code === 11000 && error.keyPattern && error.keyPattern.name) {
+      return res.status(400).json({ message: "Dress design name must be unique" });
+    }
+
+    return res.status(400).json({ message: "Failed to create dress design", error: error.message });
   }
 };
 

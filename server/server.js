@@ -12,6 +12,7 @@ connectDB()
 
 app.use(cors(corsOptions))
 app.use(express.json())
+
 app.use('/upload', express.static(__dirname + '/public/upload'));
 app.get('/upload/:fileName', (req, res) => {
     
@@ -19,6 +20,7 @@ app.get('/upload/:fileName', (req, res) => {
     const imagePath = path.join(__dirname, '/public/upload/',fileName);
     res.sendFile(imagePath);
 });
+
 app.use("/api/user",require("./routes/UsersRoutes"))
 app.use("/api/auth",require("./routes/AuthRoutes"))
 app.use("/api/dress",require("./routes/DressDesignRoutes"))

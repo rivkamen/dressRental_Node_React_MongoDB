@@ -3,33 +3,43 @@ const DressDesign = require('../models/DressDesign');
 const { v4: uuidv4 } = require('uuid');
 
 /************************************************************************************************** */
-
 const createDressDesign = async (req, res) => {
-  const { name, description, imageUrl, dressListSizes } = req.body;
-console.log("here");
+  const { name, description, path, dressListSizes } = req.body;
 
-  if (!name || !dressListSizes) {
-    console.log("0");
+  console.log("name:", name, "description:", description, "path:", path, "dressListSizes:", dressListSizes);
 
+  let parsedDressListSizes;
+  try {
+    parsedDressListSizes = typeof dressListSizes === "string" ? JSON.parse(dressListSizes) : dressListSizes;
+  } catch (error) {
+    return res.status(400).json({ message: 'Invalid JSON format in dressListSizes' });
+  }
+
+  if (!Array.isArray(parsedDressListSizes)) {
+    return res.status(400).json({ message: 'dressListSizes must be an array' });
+  }
+
+  if (!name || !parsedDressListSizes) {
     return res.status(400).json({ message: 'Required field is missing' });
   }
-  console.log("1");
+console.log(req.file);
 
-  const imageUrll = imageUrl ? req.file.path : null;
-
+  const imageUrll = req.file.path ? req.file.path : null;
+  console.log("path"+path);
+  console.log("req.file.path"+req.file.path);
+  console.log("imageUrll"+imageUrll);
+  
   try {
-    console.log("2");
-
-    const updatedDressListSizes = dressListSizes.map(sizeEntry => {
-      console.log(sizeEntry);
-      
+    const updatedDressListSizes = parsedDressListSizes.map(sizeEntry => {
       return {
         key: sizeEntry.key,
         size: sizeEntry.size,
         dresses: sizeEntry.dresses.map(dress => ({
           ...dress,
-          barcode: dress.barcode || uuidv4(), // הוספת ברקוד אם אין
-          renteDates: dress.renteDates || []  // ודא ש-`renteDates` לא ריק
+          // barcode: dress.barcode || uuidv4(),  
+          barcode:uuidv4(),  
+
+          renteDates: dress.renteDates || []
         }))
       };
     });
@@ -46,7 +56,9 @@ console.log("here");
       message: `Dress design ${dress.name} created successfully`,
     });
   } catch (error) {
-    // בדיקת שגיאה של ייחודיות על השדה name
+    if (error.code === 11000 && error.keyPattern && error.keyPattern.barcode) {
+      return res.status(400).json({ message: "Barcode must be unique for each dress" });
+    }
     if (error.code === 11000 && error.keyPattern && error.keyPattern.name) {
       return res.status(400).json({ message: "Dress design name must be unique" });
     }
@@ -54,6 +66,62 @@ console.log("here");
     return res.status(400).json({ message: "Failed to create dress design", error: error.message });
   }
 };
+
+
+// const createDressDesign = async (req, res) => {
+//   const { name, description, path, dressListSizes } = req.body;
+// console.log("here");
+//   console.log("name" +name+" description" +description+" path "+ path+" dressListSizes "+ dressListSizes)
+//   if (!name || !dressListSizes) {
+//     console.log("0");
+
+//     return res.status(400).json({ message: 'Required field is missing2' });
+//   }
+//   console.log("1");
+
+//   const imageUrll = path ? req.file.path : null;
+//   console.log("imageUrll"+imageUrll);
+//   try {
+//     console.log("2");
+
+//     const updatedDressListSizes = dressListSizes.map(sizeEntry => {
+//       console.log("hihihihih");
+
+//       console.log(sizeEntry);
+      
+//       return {
+//         key: sizeEntry.key,
+//         size: sizeEntry.size,
+//         dresses: sizeEntry.dresses.map(dress => ({
+//           ...dress,
+//           barcode: dress.barcode || uuidv4(), // הוספת ברקוד אם אין
+//           renteDates: dress.renteDates || []  // ודא ש-`renteDates` לא ריק
+//         }))
+//       };
+//     });
+//     console.log("hihihihih");
+    
+//     const dress = await DressDesign.create({
+//       name,
+//       description,
+//       images: imageUrll,
+//       dressListSizes: updatedDressListSizes,
+//     });
+//     console.log("hihihihih123");
+
+//     return res.status(201).json({
+//       success: true,
+//       message: `Dress design ${dress.name} created successfully`,
+//     });
+//   } catch (error) {
+//     // בדיקת שגיאה של ייחודיות על השדה name
+//     if (error.code === 11000 && error.keyPattern && error.keyPattern.name) {
+//       return res.status(400).json({ message: "Dress design name must be unique" });
+//     }
+
+//     return res.status(400).json({ message: "Failed to create dress design", error: error.message });
+//   }
+// };
 
 const getDressesDesign = async (req, res) => {
   try {

@@ -19,11 +19,13 @@ addDress: build.mutation({
 }),
 
 updateDress: build.mutation({
-    query: (id,dress) =>({
+    query: ({id,dress}) =>({
+        
     url: '/api/dress/'+id,
     method: "PUT",
     body: dress
     }),
+
     invalidatesTags:["Dresses"]
 
 }),
