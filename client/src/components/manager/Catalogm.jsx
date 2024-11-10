@@ -40,6 +40,7 @@ import AddDress from './AddDress';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { MultiSelect } from 'primereact/multiselect';
+import Dressm from './Dressm';
 
 const Catalog = () => {
     const [searchTerm, setSearchTerm] = useState('');
