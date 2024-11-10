@@ -1,35 +1,4 @@
 
-// import React, { useState, useEffect } from 'react';
-// import './Catalogm.css';
-// import Dress from './Dressm';
-// import { useGetAllDressesQuery } from '../../app/dressApiSlice';
-// import { Button } from 'primereact/button';
-// import AddDress from './AddDress';
-// import { Dialog } from 'primereact/dialog';
-
-// const Catalogm = () => {
-//     const [searchTerm, setSearchTerm] = useState('');
-//     const { data: dresses = [], isLoading, isError, error, refetch } = useGetAllDressesQuery();
-//     const [visible,setVisible]=useState('')
-
-//     return (
-        
-//         <div className="catalog" dir='rtl'>
-//         <Button label="הוספת שמלה" icon="pi pi-plus" onClick={()=>setVisible(true)}/>
-//         <Dialog children="card" header="Add Dress" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
-//     <AddDress handleCloseDialog={() => setVisible(false)} />
-// </Dialog>
-
-//              {/* {visible&&<AddDress/>} */}
-//             <div className="dress-grid">
-//                 {dresses.map((d) => <Dress dress={d} key={d.id} />)}
-//             </div>
-           
-//         </div>
-//     );
-// };
-
-// export default Catalogm;
 
 import React, { useState, useEffect } from 'react';
 import './Catalogm.css';
@@ -40,34 +9,33 @@ import AddDress from './AddDress';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { MultiSelect } from 'primereact/multiselect';
+import Dressm from './Dressm';
 
 const Catalog = () => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [selectedSizes, setSelectedSizes] = useState([]); // MultiSelect for sizes
-    const [selectedKeys, setSelectedKeys] = useState([]); // MultiSelect for keys
+    const [selectedSizes, setSelectedSizes] = useState([]);
+    const [selectedKeys, setSelectedKeys] = useState([]);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const { data: dresses = [], isLoading, isError, error } = useGetAllDressesQuery();
-    const [visible,setVisible]=useState('')
+    const [visible, setVisible] = useState(false);
 
-    // Filtering dresses based on search term, sizes, and keys
     const filteredDresses = dresses.filter(dress => {
-        // const matchesSearchTerm = dress.name.toLowerCase().includes(searchTerm.toLowerCase()) || dress.description.toLowerCase().includes(searchTerm.toLowerCase()) ;
         const matchesSearchTerm = dress.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
                           (dress.description && dress.description.toLowerCase().includes(searchTerm.toLowerCase()));
-
-        const matchesSizes = selectedSizes.length > 0 ?
-            dress.dressListSizes && dress.dressListSizes.some(sizeEntry => selectedSizes.includes(sizeEntry.size)) : true;
-        const matchesKeys = selectedKeys.length > 0 ?
-            dress.dressListSizes && dress.dressListSizes.some(sizeEntry => selectedKeys.includes(sizeEntry.key)) : true;
+        const matchesSizes = selectedSizes.length > 0 ? dress.dressListSizes && dress.dressListSizes.some(sizeEntry => selectedSizes.includes(sizeEntry.size)) : true;
+        const matchesKeys = selectedKeys.length > 0 ? dress.dressListSizes && dress.dressListSizes.some(sizeEntry => selectedKeys.includes(sizeEntry.key)) : true;
         return matchesSearchTerm && matchesSizes && matchesKeys;
     });
 
     useEffect(() => {
         const handleResize = () => {
-            setIsSidebarOpen(window.innerWidth > 500);
+            if (window.innerWidth > 500) {
+                setIsSidebarOpen(true); // Sidebar open on larger screens
+            } else {
+                setIsSidebarOpen(false); // Sidebar closed by default on smaller screens
+            }
         };
 
-        // Debounce resize to prevent excessive calls
         let resizeTimeout;
         const debounceResize = () => {
             clearTimeout(resizeTimeout);
@@ -84,42 +52,38 @@ const Catalog = () => {
 
     return (
         <div className="catalog">
-            <Button label="הוספת שמלה" icon="pi pi-plus" onClick={()=>setVisible(true)}/>
-         <Dialog children="card" header="Add Dress" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
-    <AddDress handleCloseDialog={() => setVisible(false)} />
- </Dialog>
+            <Dialog header="Add Dress" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
+                <AddDress handleCloseDialog={() => setVisible(false)} />
+            </Dialog>
 
+            {/* Dress Gallery */}
             <div className="dress-grid">
-                {isLoading && <p>Loading...</p>}
-                {isError && <p>Error: {error.message}</p>}
-                
-                {filteredDresses.map((d) => <Dress dress={d} key={d.id} />)}
+
+                   {isLoading && <p>Loading...</p>}
+                    {isError && <p>Error: {error.message}</p>}
+                    {filteredDresses.map((d) => (
+                          <div className="dress-item" key={d.id}>
+                                <Dress dress={d} />
+                          </div>
+    ))}
+
             </div>
 
-            {/* Button for small screens */}
-            {window.innerWidth <= 500 && (
+            {/* Button to open sidebar on small screens */}
+            {!isSidebarOpen && (
                 <button className="open-sidebar-button" onClick={() => setIsSidebarOpen(true)}>
                     Open Filter
                 </button>
             )}
 
-            {/* Filter sidebar */}
+            {/* Filter Sidebar */}
             <div className={`filter-sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
-
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-
                 <InputText dir='rtl'
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     placeholder="חפש שמלה..."
                     className="w-full"
                 />
-                <br/>
-                <br/>
-                {/* MultiSelect for sizes */}
                 <MultiSelect dir='rtl'
                     value={selectedSizes} 
                     onChange={(e) => setSelectedSizes(e.value)} 
@@ -128,11 +92,6 @@ const Catalog = () => {
                     placeholder="נשים/בנות"
                     className="w-full"
                 />
-<br/>
-
-
-
-                {/* MultiSelect for keys */}
                 <MultiSelect dir='rtl'
                     value={selectedKeys} 
                     onChange={(e) => setSelectedKeys(e.value)} 
@@ -141,7 +100,8 @@ const Catalog = () => {
                     placeholder="בחר מידה"
                     className="w-full"
                 />
-                
+                            <Button className="addButton" label="הוספת שמלה" icon="pi pi-plus" onClick={() => setVisible(true)} />
+
                 {window.innerWidth <= 500 && (
                     <button onClick={() => setIsSidebarOpen(false)}>Close</button>
                 )}
@@ -149,5 +109,4 @@ const Catalog = () => {
         </div>
     );
 };
-
 export default Catalog;

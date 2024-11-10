@@ -1,0 +1,24 @@
+.dress-item {
+    /* Ensure all cards are aligned consistently */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .dress-image {
+    /* Adjust image styling */
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  
+  .dress-info {
+    text-align: center; /* Center-align the text */
+  }
+  
+  .button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Space between buttons */
+  }
+  
