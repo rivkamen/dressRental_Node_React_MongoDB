@@ -185,82 +185,82 @@ const AddDress = (props) => {
         setSizesData([...sizesData, { key: '', size: '', qty: 0 }]);
     };
 
-    const updateSizeData = (index, field, value) => {
-        const updatedSizes = [...sizesData];
-        updatedSizes[index][field] = value;
-        setSizesData(updatedSizes);
-    };
+//     const updateSizeData = (index, field, value) => {
+//         const updatedSizes = [...sizesData];
+//         updatedSizes[index][field] = value;
+//         setSizesData(updatedSizes);
+//     };
 
-    return (
-        <form onSubmit={formik.handleSubmit}>
-            <Toast ref={toast} />
+//     return (
+//         <form onSubmit={formik.handleSubmit}>
+//             <Toast ref={toast} />
 
-            <div className="field">
-                <InputText
-                    placeholder="Dress Name"
-                    value={formik.values.name}
-                    name="name"
-                    className={classNames({ 'p-invalid': formik.errors.name })}
-                    onChange={(e) => formik.setFieldValue('name', e.target.value)}
-                />
-                {formik.errors.name && <small className="p-error">{formik.errors.name}</small>}
-            </div>
+//             <div className="field">
+//                 <InputText
+//                     placeholder="Dress Name"
+//                     value={formik.values.name}
+//                     name="name"
+//                     className={classNames({ 'p-invalid': formik.errors.name })}
+//                     onChange={(e) => formik.setFieldValue('name', e.target.value)}
+//                 />
+//                 {formik.errors.name && <small className="p-error">{formik.errors.name}</small>}
+//             </div>
 
-            <div className="field">
-                <InputText
-                    placeholder="Description"
-                    value={formik.values.description}
-                    name="description"
-                    onChange={(e) => formik.setFieldValue('description', e.target.value)}
-                />
-            </div>
+//             <div className="field">
+//                 <InputText
+//                     placeholder="Description"
+//                     value={formik.values.description}
+//                     name="description"
+//                     onChange={(e) => formik.setFieldValue('description', e.target.value)}
+//                 />
+//             </div>
 
-            <div>
-                <Button label="Add Size" type="button" onClick={addSize} />
-                <br /><br />
-                {sizesData.map((size, index) => (
-                    <div key={index} className="field">
-                        <InputText
-                            placeholder="Size"
-                            value={size.key}
-                            onChange={(e) => updateSizeData(index, 'key', e.target.value)}
-                        />
-                        <Dropdown
-                            value={size.size}
-                            options={genderOptions}
-                            onChange={(e) => updateSizeData(index, 'size', e.value)}
-                            placeholder="Women/Girls"
-                        />
-                        <InputNumber
-                            value={size.qty}
-                            onValueChange={(e) => updateSizeData(index, 'qty', e.value)}
-                            mode="decimal"
-                            min={0}
-                            placeholder="Quantity"
-                        />
-                    </div>
-                ))}
-            </div>
+//             <div>
+//                 <Button label="Add Size" type="button" onClick={addSize} />
+//                 <br /><br />
+//                 {sizesData.map((size, index) => (
+//                     <div key={index} className="field">
+//                         <InputText
+//                             placeholder="Size"
+//                             value={size.key}
+//                             onChange={(e) => updateSizeData(index, 'key', e.target.value)}
+//                         />
+//                         <Dropdown
+//                             value={size.size}
+//                             options={genderOptions}
+//                             onChange={(e) => updateSizeData(index, 'size', e.value)}
+//                             placeholder="Women/Girls"
+//                         />
+//                         <InputNumber
+//                             value={size.qty}
+//                             onValueChange={(e) => updateSizeData(index, 'qty', e.value)}
+//                             mode="decimal"
+//                             min={0}
+//                             placeholder="Quantity"
+//                         />
+//                     </div>
+//                 ))}
+//             </div>
 
-            <div className="field">
-                <FileUpload 
-                    name="path" 
-                    accept="image/*" 
-                    multiple 
-                    maxFileSize={1000000} 
-                    customUpload 
-                    uploadHandler={onUpload} 
-                    chooseLabel="Choose Images" 
-                    uploadLabel="Upload" 
-                />
-                {formik.errors.imageFiles && <small className="p-error">{formik.errors.imageFiles}</small>}
-            </div>
+//             <div className="field">
+//                 <FileUpload 
+//                     name="path" 
+//                     accept="image/*" 
+//                     multiple 
+//                     maxFileSize={1000000} 
+//                     customUpload 
+//                     uploadHandler={onUpload} 
+//                     chooseLabel="Choose Images" 
+//                     uploadLabel="Upload" 
+//                 />
+//                 {formik.errors.imageFiles && <small className="p-error">{formik.errors.imageFiles}</small>}
+//             </div>
 
-            <Button type="submit" label="Submit" />
-            <Button label="Cancel" className="p-button-secondary" onClick={handleCloseDialog} />
-        </form>
-    );
-};
+//             <Button type="submit" label="Submit" />
+//             <Button label="Cancel" className="p-button-secondary" onClick={handleCloseDialog} />
+//         </form>
+//     );
+// };
 
     const updateSizeData = (index, field, value) => {
         const updatedSizes = [...sizesData];

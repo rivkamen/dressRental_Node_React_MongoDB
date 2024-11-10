@@ -39,34 +39,14 @@ const EditDress = (props) => {
             return errors;
         },
         onSubmit: async () => {
-<<<<<<< HEAD
-            await editDressFunc({
-                id: dress._id,
-                dress: {
-                    name: formik.values.name,
-                    description: formik.values.description,
-                    dressListSizes: sizesData.map(size => ({
-                        key: size.key,
-                        size: size.size,
-                        dresses: Array(size.qty).fill({ renteDates: [] })
-                    }))
-                }
-            });
-            handleCloseDialog();
-=======
+
             // Show the confirmation dialog instead of immediately submitting
             setIsConfirmationVisible(true);
->>>>>>> restore
         }
     });
 
     useEffect(() => {
-<<<<<<< HEAD
-        // Load sizesData from dress.sizes if it's available
-        console.log(dress);
-        
-=======
->>>>>>> restore
+
         if (dress && dress.dressListSizes) {
             setSizesData(dress.dressListSizes);
         }
