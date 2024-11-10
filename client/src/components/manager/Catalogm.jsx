@@ -49,7 +49,6 @@ const Catalog = () => {
     const { data: dresses = [], isLoading, isError, error } = useGetAllDressesQuery();
     const [visible,setVisible]=useState('')
 
-
     // Filtering dresses based on search term, sizes, and keys
     const filteredDresses = dresses.filter(dress => {
         // const matchesSearchTerm = dress.name.toLowerCase().includes(searchTerm.toLowerCase()) || dress.description.toLowerCase().includes(searchTerm.toLowerCase()) ;
@@ -86,7 +85,6 @@ const Catalog = () => {
     return (
         <div className="catalog">
             <Button label="הוספת שמלה" icon="pi pi-plus" onClick={()=>setVisible(true)}/>
-
          <Dialog children="card" header="Add Dress" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
     <AddDress handleCloseDialog={() => setVisible(false)} />
  </Dialog>
@@ -94,6 +92,7 @@ const Catalog = () => {
             <div className="dress-grid">
                 {isLoading && <p>Loading...</p>}
                 {isError && <p>Error: {error.message}</p>}
+                
                 {filteredDresses.map((d) => <Dress dress={d} key={d.id} />)}
             </div>
 

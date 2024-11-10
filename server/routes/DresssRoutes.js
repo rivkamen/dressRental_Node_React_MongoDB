@@ -19,7 +19,7 @@ const verifyJWT = require("../middleware/verifyJWT")
 // const upload = multer({ storage: storage });
 
 
-router.use(verifyJWT)
+// router.use(verifyJWT)
 router.get("/", DressController.getDresses)
 router.put("/", DressController.createDress)
 router.put("/:_id", DressController.updateDress)

@@ -5,6 +5,7 @@ const path =require("path")
 
 const DressDesignController = require("../controller/dressDesignController")
 const verifyJWT = require("../middleware/verifyJWT")
+console.log("hi3");
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -17,9 +18,10 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
+console.log("hii2");
 
 
-router.use(verifyJWT)
+// router.use(verifyJWT)
 router.get("/", DressDesignController.getDressesDesign)
 router.post("/",upload.single('path'), DressDesignController.createDressDesign)
 router.put("/:_id", DressDesignController.updateDressDesign)
