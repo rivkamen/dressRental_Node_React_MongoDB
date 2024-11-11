@@ -1,3 +1,13 @@
+/* Add this to your AddDress.css or global CSS */
+.swal2-popup {
+    z-index: 9999 !important;
+    position: relative !important;
+}
+
 .swal2-container {
-    z-index: 2000 !important; /* Ensures SweetAlert is above all other dialogs */
+    z-index: 9999 !important;
+}
+
+.swal2-overlay {
+    z-index: 9998 !important; /* Optional: Adjusts overlay to prevent interference */
 }

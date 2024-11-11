@@ -12,7 +12,7 @@ import { FileUpload } from 'primereact/fileupload';
 import { Toast } from 'primereact/toast';
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router";
-import './AddDress.css'; // Make sure to import the custom CSS
+import './AddDress.css';
 
 const AddDress = (props) => {
     const { handleCloseDialog } = props;
@@ -84,8 +84,8 @@ const AddDress = (props) => {
                 });
             } catch (error) {
                 Swal.fire({
-                    title: "Error!",
-                    text: error?.data?.message || "Failed to add the dress. Please try again.",
+                    title: "!שגיאה",
+                    text: error?.data?.message=="duplicate name"?"שם שמלה קיים, נא שנה שם שמלה" : error?.data?.message|| "שם שמלה קיים, נא שנה שם שמלה",
                     icon: "error",
                     confirmButtonText: "OK"
                 }).then(() => {
@@ -172,7 +172,7 @@ const AddDress = (props) => {
             </div>
 
             <Button type="submit" label="Submit" />
-            <Button label="Cancel" className="p-button-secondary" onClick={handleCloseDialog} />
+            <Button type="button" label="Cancel" className="p-button-secondary" onClick={handleCloseDialog} />
         </form>
     );
 };

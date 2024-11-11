@@ -25,7 +25,6 @@ const createDressDesign = async (req, res) => {
   const checkName = await DressDesign.findOne({name:name}).lean();
 if(checkName)
 {
-  console.log("hi");
   
   return res.status(409).json({ message: 'duplicate name' });
 
@@ -167,16 +166,20 @@ const updateDressDesign = async (req, res) => {
   const { name, description, imageUrl, dressListSizes } = req.body;
 
   try {
+
     // חיפוש העיצוב לפי ה-ID
     const dress = await DressDesign.findById(_id).exec();
+
     if (!dress) {
       return res.status(404).json({ message: "Dress design not found" });
     }
 
     // אם יש שם חדש לעדכון, נוודא שהשם לא קיים כבר בעיצוב אחר
     if (name && name !== dress.name) {
+
       const existingDress = await DressDesign.findOne({ name }).exec();
       if (existingDress) {
+        
         return res.status(400).json({ message: "Dress design name must be unique" });
       }
       dress.name = name; // עדכון השם לאחר אימות ייחודיות
@@ -188,6 +191,7 @@ const updateDressDesign = async (req, res) => {
 
     // עדכון רשימת המידות והשמלות
     if (dressListSizes) {
+
       const updatedDressListSizes = dressListSizes.map(sizeEntry => {
         return {
           key: sizeEntry.key,
@@ -202,8 +206,11 @@ const updateDressDesign = async (req, res) => {
       dress.dressListSizes = updatedDressListSizes;
     }
 
+
     // שמירת העדכון במסד הנתונים
     const updatedDress = await dress.save();
+
+
     return res.status(200).json({
       success: true,
       message: `Dress ${dress.name} updated successfully`,

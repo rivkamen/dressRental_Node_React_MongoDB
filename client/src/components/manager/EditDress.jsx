@@ -8,6 +8,7 @@ import { useFormik } from 'formik';
 import { useUpdateDressMutation } from '../../app/dressApiSlice';
 import { classNames } from 'primereact/utils';
 import ConfirmationDialog from './ConfirmationDialog'; // Import the ConfirmationDialog component
+import Swal from "sweetalert2";
 
 const EditDress = (props) => {
     const { handleCloseDialog, dress } = props;
@@ -22,29 +23,48 @@ const EditDress = (props) => {
         { label: 'בנות', value: 'girls' }
     ];
 
-    const formik = useFormik({
-        enableReinitialize: true,
-        initialValues: {
-            name: dress?.name || '',
-            description: dress?.description || '',
-        },
-        validate: (data) => {
-            let errors = {};
-            if (!data.name) {
-                errors.name = 'Required';
-            }
-            if (!sizesData.length) {
-                errors.sizes = 'At least one size required';
-            }
-            return errors;
-        },
-        onSubmit: async () => {
-
-            // Show the confirmation dialog instead of immediately submitting
-            setIsConfirmationVisible(true);
+// const formik = useFormik({
+//     enableReinitialize: true,
+//     initialValues: {
+//         name: dress?.name || '',
+//         description: dress?.description || '',
+//     },
+//     validate: (data) => {
+//         let errors = {};
+//         if (!data.name) {
+//             errors.name = 'Required';
+//         }
+//         if (!sizesData.length) {
+//             errors.sizes = 'At least one size required';
+//         }
+//         return errors;
+//     },
+//     onSubmit: async () => {
+//         // Show the confirmation dialog instead of immediately submitting
+//         setIsConfirmationVisible(true);
+//     }
+// });
+const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+        name: dress?.name || '',
+        description: dress?.description || '',
+    },
+    validate: (data) => {
+        let errors = {};
+        if (!data.name) {
+            errors.name = 'Required';
         }
-    });
-
+        if (!sizesData.length) {
+            errors.sizes = 'At least one size required';
+        }
+        return errors;
+    },
+    onSubmit: async () => {
+        // Show the confirmation dialog instead of immediately submitting
+        setIsConfirmationVisible(true);
+    }
+});
     useEffect(() => {
 
         if (dress && dress.dressListSizes) {
@@ -64,27 +84,73 @@ const EditDress = (props) => {
     };
 
     // Confirm the edit action when the user accepts in the dialog
+    // const confirmEdit = async () => {
+    //     await editDressFunc({
+    //         id: dress._id,
+    //         dress: {
+    //             name: formik.values.name,
+    //             description: formik.values.description,
+    //             dressListSizes: sizesData.map(size => ({
+    //                 key: size.key,
+    //                 size: size.size,
+    //                 dresses: Array(size.qty).fill({ renteDates: [] })
+    //             }))
+    //         }
+    //     });
+    //     handleCloseDialog();
+    //     setIsConfirmationVisible(false); // Hide confirmation dialog after action
+    // };
+
+    // const cancelEdit = () => {
+    //     setIsConfirmationVisible(false); // Hide confirmation dialog if canceled
+    // };
+
+
     const confirmEdit = async () => {
-        await editDressFunc({
-            id: dress._id,
-            dress: {
-                name: formik.values.name,
-                description: formik.values.description,
-                dressListSizes: sizesData.map(size => ({
-                    key: size.key,
-                    size: size.size,
-                    dresses: Array(size.qty).fill({ renteDates: [] })
-                }))
+        try {
+            await editDressFunc({
+                id: dress._id,
+                dress: {
+                    name: formik.values.name,
+                    description: formik.values.description,
+                    dressListSizes: sizesData.map(size => ({
+                        key: size.key,
+                        size: size.size,
+                        dresses: Array(size.qty).fill({ renteDates: [] })
+                    }))
+                }
+            }).unwrap(); // Use unwrap to catch errors directly
+    
+            // Success - Close dialog and hide confirmation
+            handleCloseDialog();
+            setIsConfirmationVisible(false);
+    
+            // Optionally, you can show a success toast or message here
+    
+        } catch (error) {
+            // Handle errors such as 409 conflict or other API errors
+            if (error?.status === 409) {
+                Swal.fire({
+                    title: 'Conflict Error',
+                    text: 'The dress already exists with the same name. Please choose a different name.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            } else {
+                Swal.fire({
+                    title: 'Error',
+                    text: error?.data?.message || 'An unexpected error occurred. Please try again.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
             }
-        });
-        handleCloseDialog();
-        setIsConfirmationVisible(false); // Hide confirmation dialog after action
+            setIsConfirmationVisible(false); // Close confirmation dialog on error
+        }
     };
 
     const cancelEdit = () => {
         setIsConfirmationVisible(false); // Hide confirmation dialog if canceled
     };
-
     if (!dress) return <p>Loading dress data...</p>;
 
     return (
