@@ -23,27 +23,6 @@ const EditDress = (props) => {
         { label: 'בנות', value: 'girls' }
     ];
 
-// const formik = useFormik({
-//     enableReinitialize: true,
-//     initialValues: {
-//         name: dress?.name || '',
-//         description: dress?.description || '',
-//     },
-//     validate: (data) => {
-//         let errors = {};
-//         if (!data.name) {
-//             errors.name = 'Required';
-//         }
-//         if (!sizesData.length) {
-//             errors.sizes = 'At least one size required';
-//         }
-//         return errors;
-//     },
-//     onSubmit: async () => {
-//         // Show the confirmation dialog instead of immediately submitting
-//         setIsConfirmationVisible(true);
-//     }
-// });
 const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -83,27 +62,7 @@ const formik = useFormik({
         setSizesData(updatedSizes);
     };
 
-    // Confirm the edit action when the user accepts in the dialog
-    // const confirmEdit = async () => {
-    //     await editDressFunc({
-    //         id: dress._id,
-    //         dress: {
-    //             name: formik.values.name,
-    //             description: formik.values.description,
-    //             dressListSizes: sizesData.map(size => ({
-    //                 key: size.key,
-    //                 size: size.size,
-    //                 dresses: Array(size.qty).fill({ renteDates: [] })
-    //             }))
-    //         }
-    //     });
-    //     handleCloseDialog();
-    //     setIsConfirmationVisible(false); // Hide confirmation dialog after action
-    // };
 
-    // const cancelEdit = () => {
-    //     setIsConfirmationVisible(false); // Hide confirmation dialog if canceled
-    // };
 
 
     const confirmEdit = async () => {
