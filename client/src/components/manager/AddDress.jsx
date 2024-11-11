@@ -263,7 +263,7 @@ const AddDress = (props) => {
             } catch (error) {
                 Swal.fire({
                     title: "!שגיאה",
-                    text: error?.data?.message === "duplicate name" ? "שם שמלה קיים, נא שנה שם שמלה" : error?.data?.message || "שם שמלה קיים, נא שנה שם שמלה",
+                    text: error?.data?.message === "duplicate name" ? "שם שמלה קיים, נא שנה שם שמלה" : error?.data?.message ||"שגיאה בשמירת שמלה",
                     icon: "error",
                     confirmButtonText: "OK"
                 }).then(() => {

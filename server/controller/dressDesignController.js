@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require('uuid');
 /************************************************************************************************** */
 const createDressDesign = async (req, res) => {
   const { name, description, path, dressListSizes } = req.body;
-
+  const files = req.files;
   console.log("name:", name, "description:", description, "path:", path, "dressListSizes:", dressListSizes);
 
   let parsedDressListSizes;
@@ -31,9 +31,8 @@ if(checkName)
 }
 console.log(req.file);
 
-  const imageUrll = req.file.path ? req.file.path : null;
+  const imageUrll  = files.map(file => file.path);
   console.log("path"+path);
-  console.log("req.file.path"+req.file.path);
   console.log("imageUrll"+imageUrll);
   
   try {
