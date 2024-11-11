@@ -267,7 +267,8 @@ const Renting = () => {
                 key: size,
                 chosenDate: chosenDate.date
             }).unwrap();
-
+            console.log(response);
+            
             Swal.fire({
                 title: "Success!",
                 text: `You have successfully taken the dress: ${dress.name}`,
