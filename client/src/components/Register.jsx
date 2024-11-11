@@ -10,10 +10,10 @@ import 'primereact/resources/primereact.min.css';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primeicons/primeicons.css';
 import './Register.css';
-import { useCreateUserMutation } from '../app/userApiSlice';
+import { useRegisterAdminMutation } from '../app/authApiSlice';
 
 const Register = () => {
-    const [addUser, { isError, isSuccess, error }]=useCreateUserMutation()
+    const [addUser, { isError, isSuccess, error }]=useRegisterAdminMutation()
   const [formData, setFormData] = useState({
     username: '',
     email: '',
