@@ -146,7 +146,7 @@ const EditDress = (props) => {
             </div>
 
             <Button type="submit" label="אשר" />
-            <Button label="בטל" className="p-button-secondary" onClick={handleCloseDialog} />
+            <Button type="button" label="בטל" className="p-button-secondary" onClick={handleCloseDialog} />
 
             {/* Confirmation Dialog */}
             <ConfirmationDialog 

@@ -79,9 +79,18 @@ margin: auto;
         transform: translateX(0); /* Slide-in effect */
     }
 
-    .dress-grid {
+    /* .dress-grid {
         margin-right: 0;
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    } */
+
+    .dress-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Make the columns wider */
+        gap: 10px; /* Adjust the gap for small screens */
+        margin-right: 0;
+        padding: 10px; /* Adjust padding for better spacing */
     }
+
+
 }
 
