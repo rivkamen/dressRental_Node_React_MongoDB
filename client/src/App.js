@@ -19,6 +19,8 @@ import Renting from './components/manager/Renting.jsx';
 import EditDress from './components/manager/EditDress.jsx';
 import RentedDressesList from './components/manager/RentedDressesList.jsx';
 import AdminLogin from './components/manager/AdminLogin.jsx';
+import NavbarAdmin from './components/manager/Navbar.jsx';
+
 
 function App() {
 
@@ -41,7 +43,7 @@ function App() {
           <Route path='/edit' element={<EditDress/>}/>
           <Route path='/rentdress' element={<RentedDressesList/>}/>
           <Route path='/adminLogin' element={<AdminLogin/>}/>
-
+          <Route path='/navAdmin' element={<NavbarAdmin/>}/>
         </Routes>
       </BrowserRouter>
     </Provider>
