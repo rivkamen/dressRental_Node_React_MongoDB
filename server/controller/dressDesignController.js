@@ -22,6 +22,14 @@ const createDressDesign = async (req, res) => {
   if (!name || !parsedDressListSizes) {
     return res.status(400).json({ message: 'Required field is missing' });
   }
+  const checkName = await DressDesign.findOne({name:name}).lean();
+if(checkName)
+{
+  console.log("hi");
+  
+  return res.status(409).json({ message: 'duplicate name' });
+
+}
 console.log(req.file);
 
   const imageUrll = req.file.path ? req.file.path : null;
