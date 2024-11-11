@@ -242,7 +242,7 @@ const Dressm = (props) => {
                 visible={isConfirmationVisible}
                 onHide={() => setIsConfirmationVisible(false)}
                 onConfirm={deleteDress}
-                message="האם אתה בטוח שברצונך למחוק את השמלה הזו?"
+                message={`${dress.name} האם אתה בטוח שברצונך למחוק את השמלה ?`}
                 header="מחיקה"
                 confirmLabel="כן, מחק"
                 cancelLabel="בטל"
