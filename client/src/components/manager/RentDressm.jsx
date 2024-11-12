@@ -227,7 +227,7 @@ const RentDressm = (props) => {
     };
 
     return (
-        <Card className="pickDate fullHeightCard" style={{ width: '70%', margin: 'auto' }}>
+        <Card className="pickDate fullHeightCard" style={{ width: '70%',height:'600px',marginTop:'10px', margin: 'auto' }}>
             <div className="container fullHeightContent" style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between' }}>
                 {/* Left side: Image */}
                 <div className="p-col image-container" style={{ marginBottom: '10px', marginTop: '2px', width: '45%' }}>
