@@ -34,10 +34,11 @@
   
   .dress-info {
     text-align: center; 
+    left:90px;
   }
   
-  .single-button {
-    margin: auto;
+.single-button {
+    left: 90px;
   }
   
 

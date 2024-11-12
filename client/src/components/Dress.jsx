@@ -193,8 +193,8 @@ const Dress = (props) => {
                 </div>
             </div>
             <div className="p-col dress-buttons">
-                    <div className="single-button">
-                    <Button label="לפרטים" style={{textAlign:'center'}} onClick={handleNavigate} />
+                    <div >
+                    <Button className="single-button" label="לפרטים" style={{textAlign:'center'}} onClick={handleNavigate} />
                 </div>
             </div>
         </div>
