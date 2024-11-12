@@ -283,26 +283,6 @@ const Dressm = (props) => {
         setIsConfirmationVisible(false);
     };
 
-    // Render each image for the carousel
-    // const renderGalleryItem = (image) => {
-    //     const imageUrl = `http://localhost:3435/upload/${image.split("\\").pop()}`;
-    //     return (
-    //         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-    //             <img
-    //                 className="dress-gallery-image"
-    //                 src={imageUrl}
-    //                 alt={dress.name}
-    //                 style={{
-    //                     width: '100%',
-    //                     height: 'auto', // Ensures the height remains proportional
-    //                     objectFit: 'cover', // Ensure image fills the container without distortion
-    //                     padding: '10px', // Optional: Padding for spacing
-    //                     backgroundColor: '#f9f9f9', // Optional: Background color for clarity
-    //                 }}
-    //             />
-    //         </div>
-    //     );
-    // };
     const renderGalleryItem = (image) => {
         const imageUrl = `http://localhost:3435/upload/${image.split("\\").pop()}`;
         return (
@@ -315,7 +295,7 @@ const Dressm = (props) => {
                         maxHeight: '250px',      // Consistent max height for all images
                         maxWidth: '100%',        // Max width as per container
                         objectFit: 'contain',    // Ensures no cropping
-                        padding: '10px',         // Optional padding for clarity
+                        padding: '2px',         // Optional padding for clarity
                     }}
                 />
             </div>
@@ -330,7 +310,7 @@ const Dressm = (props) => {
                 style={{
                     border: 'none',
                     width: '300px', // Set the width to a consistent value for all cards
-                    height: '600px', // Fixed height for consistency
+                    height: '550px', // Fixed height for consistency
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
@@ -385,7 +365,7 @@ const Dressm = (props) => {
     </div>
     <div className="p-col" style={{ paddingTop: '10px' }}>
         <div className="dress-info">
-            <div className="text-xl font-bold text-900">{dress.name}</div>
+            <div className="text-xl font-bold text-900" >{dress.name}</div>
             <div className="text-sm text-700">{dress.description}</div>
         </div>
     </div>
@@ -394,13 +374,13 @@ const Dressm = (props) => {
 
                 <div className="p-col dress-buttons">
                     <div className="button-group">
-                        <Button label="עריכת שמלה" icon="pi pi-pencil" onClick={() => setEditVisible(true)} />
-                        <Button
-                            label="מחיקה"
-                            className="p-button-rounded p-button-danger"
+                        <Button style={{width:'60px', height:'60px', backgroundColor:'inherit', color:'black'}} icon="pi pi-pencil" onClick={() => setEditVisible(true)} />
+                        <Button style={{width:'60px', height:'60px'}}
+                            icon="pi pi-trash"
+                            // className="p-button-rounded p-button-danger"
                             onClick={() => setIsConfirmationVisible(true)}
                         />
-                        <Button label="לפרטים והשכרה" className="p-button-rounded p-button-info" onClick={handleNavigate} />
+                        <Button label="לפרטים והשכרה"  onClick={handleNavigate} />
                     </div>
                 </div>
             </div>

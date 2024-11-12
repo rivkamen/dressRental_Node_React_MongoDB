@@ -8,6 +8,7 @@ import { dontSelectShabatAndHolidays } from "jewish-dates-core";
 import { useAvailableDressMutation } from "../../app/dressApiSlice";
 import './RentDressm.css';
 import { Button } from 'primereact/button';
+import { Carousel } from 'primereact/carousel';
 
 const RentDressm = (props) => {
     const [date, setDate] = useState(new Date()); 
@@ -36,6 +37,25 @@ const RentDressm = (props) => {
         navigate('/rentPage', { state: { dress, chosenDate: date, size } });  // Pass the dress, chosenDate, and size via state
     };
 
+    const renderGalleryItem = (image) => {
+        const imageUrl = `http://localhost:3435/upload/${image.split("\\").pop()}`;
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <img
+                    className="dress-gallery-image"
+                    src={imageUrl}
+                    alt={dress.name}
+                    style={{
+                        maxHeight: '300px',    
+                        maxWidth: '100%',      
+                        objectFit: 'contain',    // Ensures no cropping
+                        padding: '2px',         // Optional padding for clarity
+                    }}
+                />
+            </div>
+        );
+    };
+
     return (
         <Card className="pickDate fullHeightCard" style={{ width: '90%', margin: 'auto' }}>
             {dress && <div><div dir='rtl' className='text'>{dress.name} </div> <br/><div  dir='rtl' className='sectext'>{dress.description}</div></div>}
@@ -43,21 +63,55 @@ const RentDressm = (props) => {
             <br/>
             <br/>
             <div className="container fullHeightContent">
-                {/* Display the selected dress image on the left */}
-                {dress && (
-                    <div className="imageContainer">
-                        <img 
-                            src={dress.imageUrl} 
-                            alt="Selected Dress" 
-                            style={{ 
-                                width: '200px', 
-                                height: 'auto', 
-                                borderRadius: '10px',
-                                boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)'
-                            }} 
-                        />
-                    </div>
-                )}
+ 
+
+<div className="p-col image-container" style={{ marginBottom: '10px' }}>
+        {dress.images && dress.images.length > 1 ? (
+          <div
+          style={{
+              width: '100%',
+              height: '700px', // Consistent container height to fit images and indicators
+              position: 'relative', // Enable absolute positioning of indicators
+              display: 'flex',
+              alignItems: 'center', // Center image vertically
+              justifyContent: 'center', // Center image horizontally
+          }}
+      >
+          <Carousel
+              value={dress.images}
+              itemTemplate={renderGalleryItem}
+              numVisible={1}
+              numScroll={1}
+              indicatorsContentClassName="carousel-indicators"
+          />
+      </div>
+      
+        ) : (
+            dress.images?.length === 1 && (
+              
+
+<img
+    className="dress-image"
+    src={`http://localhost:3435/upload/${dress.images[0].split("\\").pop()}`}
+    alt={dress.name}
+    style={{
+        maxHeight: '250px',      // Consistent height for all images
+        maxWidth: '100%',        // Max width for the container
+        objectFit: 'contain',    // Ensures no cropping
+        padding: '5px',          // Padding inside the border
+        display: 'block',
+        margin: '0 auto',        // Center the image horizontally
+    }}
+/>
+
+
+            )
+        )}
+    </div>
+  
+
+
+
                 {/* Date picker on the right */}
                 <div className="datePickerContainer" dir='rtl' style={{ 
                             fontSize: '20px', 

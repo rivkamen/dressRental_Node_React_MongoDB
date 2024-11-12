@@ -16,16 +16,11 @@
   
   .button-group {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 8px; 
   }
   
 
-   .dress-item {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
 /* 
 .dress-image {
     border-radius: 5px;
@@ -99,9 +94,9 @@
   top: 50%; /* Center vertically */
   transform: translateY(-50%); /* Adjust for perfect centering */
   z-index: 2; /* Ensure they appear on top of the image */
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-  color: white; /* White arrow color for visibility */
-  border-radius: 50%; /* Rounded background */
+  /* background-color: rgba(67, 64, 64, 0.5); Semi-transparent background */
+  color: rgb(0, 0, 0); /* White arrow color for visibility */
+  /* border-radius: 50%; Rounded background */
   width: 35px;
   height: 35px;
   display: flex;
@@ -123,12 +118,12 @@
 .p-carousel-indicators {
   position: absolute;
   bottom: 25px;
-  left: 0;
-  right: 0;
+  left: 5;
+  right: 5;
   display: flex;
   justify-content: center;
-  right: 5px;
-  left: 5px;
+  align-items: center;
+
   z-index: 1; /* Ensure indicators are above the image but below the arrows */
 }
 .carousel-indicators.p-carousel-indicators.p-reset{
@@ -138,3 +133,9 @@
 
   
 }
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+.carousel-indicators.p-carousel-indicators.p-reset{
+display: none;
+}
+
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
