@@ -7,6 +7,7 @@
 // import { dontSelectShabatAndHolidays } from "jewish-dates-core";
 // import { useAvailableDressMutation } from "../app/dressApiSlice";
 // import './RentDress.css';
+// import { Carousel } from 'primereact/carousel';
 
 // const RentDress = (props) => {
 //     const [date, setDate] = useState(new Date()); 
@@ -29,29 +30,80 @@
 //         }
 //     };
 
+//     const renderGalleryItem = (image) => {
+//         const imageUrl = `http://localhost:3435/upload/${image.split("\\").pop()}`;
+//         return (
+//             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+//                 <img
+//                     className="dress-gallery-image"
+//                     src={imageUrl}
+//                     alt={dress.name}
+//                     style={{
+//                         maxHeight: '300px',    
+//                         maxWidth: '100%',      
+//                         objectFit: 'contain',    // Ensures no cropping
+//                         padding: '2px',         // Optional padding for clarity
+//                     }}
+//                 />
+//             </div>
+//         );
+//     };
+
 //     return (
-//        <Card className="pickDate" style={{ width: '90%', height:'100%', margin:'auto' }}>
-//             {dress && <div dir='rtl'className='text'>{dress.name}</div>}
-//             <div className="container">
-//                 {/* Display the selected dress image on the left */}
-//                 {dress && (
-//                     <div className="imageContainer">
-//                         <img 
-//                             src={dress.imageUrl} 
-//                             alt="Selected Dress" 
-//                             style={{ 
-//                                 width: '200px', 
-//                                 height: 'auto', 
-//                                 borderRadius: '10px',
-//                                 boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)'
-//                             }} 
-//                         />
-//                     </div>
-//                 )}
+//     //    <Card className="pickDate fullHeightCard" style={{ width: '60%',height:'window.height', margin: 'auto', marginTop:'20px', marginBottom:'20px'}}>
+//     <div className="fullscreen-container">
+//         <Card className="pickDate fullHeightCard" style={{ width: '60%', height:'80%',margin: 'auto', marginTop:'30px' }}>
+//             {dress && <div><div dir='rtl' className='text'>{dress.name} </div> <br/><div  dir='rtl' className='sectext'>{dress.description}</div></div>}
+//             <br/>         
+//             <br/>
+//             <br/>
+//             <div className="p-col image-container" style={{ marginBottom: '10px' }}>
+//         {dress.images && dress.images.length > 1 ? (
+//           <div
+//           style={{
+//               width: '40%',
+//               height: '700px', // Consistent container height to fit images and indicators
+//               position: 'relative', // Enable absolute positioning of indicators
+//               display: 'flex',
+//               alignItems: 'center', // Center image vertically
+//               justifyContent: 'center', // Center image horizontally
+//           }}
+//       >
+//           <Carousel
+//               value={dress.images}
+//               itemTemplate={renderGalleryItem}
+//               numVisible={1}
+//               numScroll={1}
+//               indicatorsContentClassName="carousel-indicators"
+//           />
+//       </div>
+      
+//         ) : (
+//             dress.images?.length === 1 && (
+              
+
+// <img
+//     className="dress-image"
+//     src={`http://localhost:3435/upload/${dress.images[0].split("\\").pop()}`}
+//     alt={dress.name}
+//     style={{
+//         maxHeight: '250px',      // Consistent height for all images
+//         maxWidth: '100%',        // Max width for the container
+//         objectFit: 'contain',    // Ensures no cropping
+//         padding: '5px',          // Padding inside the border
+//         display: 'block',
+//         margin: '0 auto',        // Center the image horizontally
+//     }}
+// />
+
+
+//             )
+//         )}
+
 //                 {/* Date picker on the right */}
 //                 <div className="datePickerContainer" dir='rtl' style={{ 
 //                             fontSize: '20px', 
-//                             marginRight:'20px', 
+//                             marginRight: '20px', 
 //                             padding: '10px', 
 //                         }}>
 //                     בחר תאריך:
@@ -72,11 +124,16 @@
 //             </div>
 
 //             {availableDresses.length > 0 && (
-//                 <div>
-//                     <h3>Available Dresses for Selected Date:</h3>
-//                     <ul>
+//                 <div dir='rtl'>
+//                     <h3 style={{                             padding: '10px', 
+// display: 'flex', alignItems: 'center', gap: '8px' }}>
+//                         <i className="pi pi-calendar-clock" style={{ fontSize: '24px' }}></i>
+//                         מידות פנויות בתאריך שנבחר
+//                     </h3>
+//                     <ul style={{listStyleType: 'none'}}>
 //                         {availableDresses.map((dress) => (
-//                             <li key={dress.key}>
+//                             <li  key={dress.key}>
+//                                 <i className='pi pi-star-fill' style={{ fontSize: '14px' }}></i>&nbsp;&nbsp;
 //                                 {dress.key}
 //                                 {availableDresses.length < 3 && <span> (low in stock)</span>}
 //                             </li>
@@ -87,7 +144,7 @@
 
 //             {isError && <p>Error fetching available dresses: {error?.message}</p>}
 //          </Card>
-
+// </div>
 //     );
 // };
 
@@ -100,8 +157,9 @@ import { ReactJewishDatePicker } from "react-jewish-datepicker";
 import { dontSelectShabatAndHolidays } from "jewish-dates-core";
 import { useAvailableDressMutation } from "../app/dressApiSlice";
 import './RentDress.css';
+import { Carousel } from 'primereact/carousel';
 
-const RentDress = (props) => {
+const RentDress = () => {
     const [date, setDate] = useState(new Date()); 
     const [basicJewishDay, setBasicJewishDay] = useState(date);
     const [availableDresses, setAvailableDresses] = useState([]);
@@ -122,73 +180,110 @@ const RentDress = (props) => {
         }
     };
 
-    return (
-       <Card className="pickDate fullHeightCard" style={{ width: '90%', margin: 'auto' }}>
-            {dress && <div><div dir='rtl' className='text'>{dress.name} </div> <br/><div  dir='rtl' className='sectext'>{dress.description}</div></div>}
-            <br/>         
-            <br/>
-            <br/>
-            <div className="container fullHeightContent">
-                {/* Display the selected dress image on the left */}
-                {dress && (
-                    <div className="imageContainer">
-                        <img 
-                            src={dress.imageUrl} 
-                            alt="Selected Dress" 
-                            style={{ 
-                                width: '200px', 
-                                height: 'auto', 
-                                borderRadius: '10px',
-                                boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)'
-                            }} 
-                        />
-                    </div>
-                )}
-                {/* Date picker on the right */}
-                <div className="datePickerContainer" dir='rtl' style={{ 
-                            fontSize: '20px', 
-                            marginRight: '20px', 
-                            padding: '10px', 
-                        }}>
-                    בחר תאריך:
-                    <ReactJewishDatePicker
-                        value={basicJewishDay}
-                        isHebrew
-                        canSelect={dontSelectShabatAndHolidays()}
-                        onClick={handleDateSelect}
-                        style={{ 
-                            fontSize: '20px',  
-                            padding: '10px', 
-                            borderRadius: '10px',
-                            border: '2px solid #ccc',
-                            boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
-                        }}
-                    />
-                </div>
+    const renderGalleryItem = (image) => {
+        const imageUrl = `http://localhost:3435/upload/${image.split("\\").pop()}`;
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <img
+                    className="dress-gallery-image"
+                    src={imageUrl}
+                    alt={dress.name}
+                    style={{
+                        maxHeight: '300px',    
+                        maxWidth: '100%',      
+                        objectFit: 'contain',   
+                        padding: '2px',         
+                    }}
+                />
             </div>
+        );
+    };
 
-            {availableDresses.length > 0 && (
-                <div dir='rtl'>
-                    <h3 style={{                             padding: '10px', 
-display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <i className="pi pi-calendar-clock" style={{ fontSize: '24px' }}></i>
-                        מידות פנויות בתאריך שנבחר
-                    </h3>
-                    <ul style={{listStyleType: 'none'}}>
-                        {availableDresses.map((dress) => (
-                            <li  key={dress.key}>
-                                <i className='pi pi-star-fill' style={{ fontSize: '14px' }}></i>&nbsp;&nbsp;
-                                {dress.key}
-                                {availableDresses.length < 3 && <span> (low in stock)</span>}
-                            </li>
-                        ))}
-                    </ul>
+    return (
+        <div className="fullscreen-container">
+            <Card className="pickDate fullHeightCard" style={{ width: '70%', margin: 'auto', marginTop: '30px' }}>
+                <div style={{ display: 'flex', height: '100%' }}>
+                    
+                    {/* Left Section - Image Carousel */}
+                    <div style={{ width: '40%', marginTop: '2px', marginRight: '10px' }}>
+                        {dress.images && dress.images.length > 1 ? (
+                            <Carousel
+                                value={dress.images}
+                                itemTemplate={renderGalleryItem}
+                                numVisible={1}
+                                numScroll={1}
+                                indicatorsContentClassName="carousel-indicators"
+                            />
+                        ) : (
+                            dress.images?.length === 1 && (
+                                <img
+                                    className="dress-image"
+                                    src={`http://localhost:3435/upload/${dress.images[0].split("\\").pop()}`}
+                                    alt={dress.name}
+                                    style={{
+                                        maxHeight: '250px',
+                                        maxWidth: '100%',
+                                        objectFit: 'contain',
+                                        padding: '5px',
+                                        display: 'block',
+                                        margin: '0 auto',
+                                    }}
+                                />
+                            )
+                        )}
+                    </div>
+
+                    {/* Right Section - Text and Date Picker */}
+                    <div style={{ flex: 1, marginLeft: '10px' }}>
+                        {dress && (
+                            <>
+                                <div dir='rtl' className='text'>{dress.name}</div>
+                                <br />
+                                <div dir='rtl' className='sectext'>{dress.description}</div>
+                            </>
+                        )}
+                        <br />
+                        <br />
+                        <div className="datePickerContainer" dir='rtl' style={{ fontSize: '20px', padding: '10px' }}>
+                            בחר תאריך:
+                            <ReactJewishDatePicker
+                                value={basicJewishDay}
+                                isHebrew
+                                canSelect={dontSelectShabatAndHolidays()}
+                                onClick={handleDateSelect}
+                                style={{ 
+                                    fontSize: '20px',  
+                                    padding: '10px', 
+                                    borderRadius: '10px',
+                                    border: '2px solid #ccc',
+                                    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+                                }}
+                            />
+                        </div>
+
+                        {availableDresses.length > 0 && (
+                            <div dir='rtl'>
+                                <h3 style={{ padding: '10px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                    <i className="pi pi-calendar-clock" style={{ fontSize: '24px' }}></i>
+                                    מידות פנויות בתאריך שנבחר
+                                </h3>
+                                <ul style={{ listStyleType: 'none' }}>
+                                    {availableDresses.map((dress) => (
+                                        <li key={dress.key}>
+                                            <i className='pi pi-star-fill' style={{ fontSize: '14px' }}></i>&nbsp;&nbsp;
+                                            {dress.key}
+                                            {availableDresses.length < 3 && <span> (low in stock)</span>}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+
+                        {isError && <p>Error fetching available dresses: {error?.message}</p>}
+                    </div>
                 </div>
-            )}
-
-            {isError && <p>Error fetching available dresses: {error?.message}</p>}
-         </Card>
-
+            </Card>
+        </div>
     );
 };
 
