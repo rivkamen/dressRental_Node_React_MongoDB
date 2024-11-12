@@ -1,85 +1,70 @@
-/* עיצוב למכולה הראשית */
-div {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    margin: 20px;
+/* RentedDressesList.css */
+
+/* רקע כללי */
+body {
+    background-color: #333333; /* רקע אפור כהה */
+    color: #FFFFFF; /* טקסט כללי בלבן */
   }
   
-  /* עיצוב לכותרת */
   h2 {
-    color: #333;
-    font-size: 1.8rem;
+    color: #A7D8D9; /* כותרת בצבע תכלת טורקיזי */
+    text-align: center;
+    margin-bottom: 20px;
   }
   
-  /* עיצוב לשדה חיפוש */
   input[type="text"] {
+    background-color: #4A4A4A; /* רקע אפור כהה בשדה החיפוש */
+    color: #A7D8D9; /* טקסט בשדה החיפוש בצבע תכלת טורקיזי */
+    border: 1px solid #A7D8D9; /* מסגרת בצבע תכלת טורקיזי */
     padding: 8px;
-    width: 80%;
-    max-width: 400px;
     margin: 10px 0;
-    border: 1px solid #ddd;
+    width: 100%;
     border-radius: 5px;
-    font-size: 1rem;
   }
   
-  /* עיצוב לכפתורי המיון */
   button {
-    padding: 8px 15px;
-    margin: 5px;
+    background-color: #ec4881; /* רקע ורוד עדין לכפתורים */
+    color: #333333; /* טקסט בכפתורים בצבע אפור כהה */
     border: none;
-    border-radius: 5px;
-    background-color: #4CAF50;
-    color: white;
-    font-size: 0.9rem;
+    padding: 8px 16px;
+    margin: 5px;
     cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
   }
   
   button:hover {
-    background-color: #45a049;
+    background-color: #D7A1B0; /* ורוד כהה יותר בעת מעבר עם העכבר */
   }
   
-  /* עיצוב לטבלה */
   table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 15px;
+    margin-top: 20px;
   }
   
   th, td {
+    border: 1px solid #A7D8D9; /* מסגרת תאים בצבע תכלת טורקיזי */
     padding: 10px;
     text-align: center;
-    border-bottom: 1px solid #ddd;
   }
   
   th {
-    background-color: #f2f2f2;
-    color: #333;
-    font-weight: bold;
+    background-color: #4A4A4A; /* רקע אפור כהה בתאי כותרת */
+    color: #A7D8D9; /* טקסט בכותרת בצבע תכלת טורקיזי */
   }
   
   td {
-    color: #555;
+    background-color: #585858; /* רקע אפור כהה בתאי נתונים */
+    color: #FFFFFF; /* טקסט תאי נתונים בלבן */
   }
   
-  tr:nth-child(even) {
-    background-color: #f9f9f9;
+  td button {
+    background-color: #ec4887; /* כפתור החזרת שמלה בצבע ורוד עדין */
+    color: #333333;
   }
   
-  tr:hover {
-    background-color: #f1f1f1;
-  }
-  
-  /* כפתור החזרה עם סגנון */
-  button {
-    padding: 6px 12px;
-    border-radius: 5px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
+  td button:hover {
+    background-color: #ec4887; /* גוון כהה יותר של ורוד */
   }
   

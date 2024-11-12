@@ -350,7 +350,7 @@ const RentedDressesList = () => {
   };
 
   return (
-    <div>
+    <div class="abc">
       <h2>רשימת שמלות מושכרות</h2>
 
       {/* שדה חיפוש */}
