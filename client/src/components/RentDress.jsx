@@ -272,7 +272,7 @@ const RentDress = () => {
                                         <li key={dress.key}>
                                             <i className='pi pi-star-fill' style={{ fontSize: '14px' }}></i>&nbsp;&nbsp;
                                             {dress.key}
-                                            {availableDresses.length < 3 && <span> (low in stock)</span>}
+                                            {availableDresses.length < 3 && <span> (מלאי מוגבל)</span>}
                                         </li>
                                     ))}
                                 </ul>

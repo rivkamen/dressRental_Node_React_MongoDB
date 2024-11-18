@@ -52,7 +52,7 @@ const Catalog = () => {
 
     return (
         <div className="catalog">
-            <Dialog header="Add Dress" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
+            <Dialog dir='rtl' header="הוספת שמלה" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
                 <AddDress handleCloseDialog={() => setVisible(false)} />
             </Dialog>
 
@@ -77,6 +77,8 @@ const Catalog = () => {
             )}
 
             {/* Filter Sidebar */}
+            <br/>
+            <br/>
             <div className={`filter-sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
                 <InputText dir='rtl'
                     value={searchTerm}
@@ -84,6 +86,10 @@ const Catalog = () => {
                     placeholder="חפש שמלה..."
                     className="w-full"
                 />
+                <br/>
+                <br/>
+
+
                 <MultiSelect dir='rtl'
                     value={selectedSizes} 
                     onChange={(e) => setSelectedSizes(e.value)} 
@@ -92,6 +98,8 @@ const Catalog = () => {
                     placeholder="נשים/בנות"
                     className="w-full"
                 />
+                <br/>
+                
                 <MultiSelect dir='rtl'
                     value={selectedKeys} 
                     onChange={(e) => setSelectedKeys(e.value)} 

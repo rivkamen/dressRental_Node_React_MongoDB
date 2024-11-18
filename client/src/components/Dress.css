@@ -54,8 +54,11 @@
     height: 100%;
     border-radius: 5px; /* Same as image border-radius for a uniform shape */
 }
+/*change the color*/
+div.p-mb-3.dress-item{
+    background-color:rgb(74, 74, 74);
 
-
+}
 .dress-image {
   max-width: 100%;
   max-height: 100%;

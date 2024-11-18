@@ -139,3 +139,22 @@ display: none;
 }
 
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+.dbut,.ebut{
+background-color: rgb(213, 1, 118);
+border-color:rgb(213, 1, 118); ;
+}
+.rbut{
+  background-color: rgb(213, 1, 118);
+
+  border-color:rgb(213, 1, 118); ;
+
+}
+div.text-xl.font-bold.text-900{
+  /* background-color: aliceblue; */
+}
+.text-700,.text-900{
+  color: white !important;
+}
+/* .text-900{
+  color: rgb(213, 1, 118) !important;
+} */

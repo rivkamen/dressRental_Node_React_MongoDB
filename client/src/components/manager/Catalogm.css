@@ -4,8 +4,17 @@
     display: flex;
     align-items: flex-start;
     position: relative;
-}
+    /* background-color: rgb(83, 81, 81); */
+        /* background-color: rgb(58, 56, 56); */
+    background-color: rgb(47, 45, 45);
 
+    background-attachment: fixed; /* Fix the background in place */
+
+
+}
+div.p-dialog-header{
+    background-color: rgb(47, 45, 45);
+}
 
 .dress-grid {
     display: grid;
@@ -17,16 +26,12 @@
     margin-right: 250px;
     overflow-y: auto;
 }
-
-
-
-
 .dress-grid .dress-item {
     padding: 20;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     box-shadow: 0 4px 22px rgba(0, 0, 0, 0.1); /* Slightly larger shadow */
-    background-color: #fff;
+    /* background-color: #fff; */
 }
 
 
@@ -55,9 +60,22 @@
 }
 .addButton{
 display: flex; 
-margin: auto;   
-}
+margin: auto;  
+/* border-color:rgb(213, 1, 118); 
+background-color:rgb(213, 1, 118); ; */
+border-color:rgb(213, 1, 118); 
+background-color:rgb(213, 1, 118); ;
+;
 
+
+
+}
+div.filter-sidebar.open {
+    /* background-color:rgb(83, 81, 81); */
+    background-color: rgb(47, 45, 45);
+
+
+}
 @media (max-width: 500px) {
     .open-sidebar-button {
         display: block;
@@ -67,9 +85,9 @@ margin: auto;
     .filter-sidebar {
         position: fixed;
         right: 0;
-        top: 0;
+        top: 10;
         height: 100%;
-        background-color: white;
+        background-color:rgb(83, 81, 81);
         z-index: 1000;
         width: 70%;
         transform: translateX(100%); /* Start off-screen */
@@ -79,18 +97,166 @@ margin: auto;
         transform: translateX(0); /* Slide-in effect */
     }
 
-    /* .dress-grid {
-        margin-right: 0;
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    } */
-
-    .dress-grid {
+     .dress-grid {
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Make the columns wider */
         gap: 10px; /* Adjust the gap for small screens */
         margin-right: 0;
         padding: 10px; /* Adjust padding for better spacing */
+
     }
+}
+.p-multiselect-label.p-placeholder{
+    background-color: lightgray;
+    border-color:rgb(213, 1, 118);
+    border: 2px;
+
+}
+.p-multiselect-trigger{
+    background-color: lightgray;
+    color: black;
+    border-color:rgb(213, 1, 118); ;
+    border: 2px;
 
 
 }
+.p-multiselect .p-multiselect-label.p-placeholder {
+    color: black;
+}
+.p-inputtext{
+    color:black;
+}
 
+
+
+/* .catalog {
+    display: flex;
+    align-items: flex-start;
+    position: sticky; 
+    top: 0; 
+    min-height: 100vh; 
+    background-color: rgb(47, 45, 45);
+    overflow: hidden; 
+}
+
+.dress-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    justify-content: center; /* Center the whole grid 
+    justify-items: start; 
+    padding: 20px;
+    margin-right: 250px;
+    overflow-y: auto; 
+    flex-grow: 1; 
+}
+
+.filter-sidebar {
+    width: 250px;
+    padding: 10px;
+    border-left: 1px solid #ccc;
+    transition: transform 0.3s ease;
+    overflow-y: auto; 
+    background-color: rgb(47, 45, 45);
+}
+
+.filter-sidebar.closed {
+    display: none;
+}
+
+.filter-sidebar.open {
+    display: block;
+}
+
+@media (max-width: 500px) {
+    .filter-sidebar {
+        position: fixed;
+        right: 0;
+        top: 0; /* Ensure it sticks to the top of the viewport 
+        height: 100%;
+        width: 70%;
+        transform: translateX(100%);
+        overflow-y: auto;
+        z-index: 1000;
+        background-color: rgb(83, 81, 81);
+    }
+
+    .filter-sidebar.open {
+        transform: translateX(0);
+    }
+
+    .dress-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Wider columns 
+        gap: 10px;
+        margin-right: 0;
+        padding: 10px;
+    }
+} */
+.catalog {
+    display: flex;
+    align-items: flex-start;
+    position: relative; /* For child positioning */
+    min-height: 100vh; /* Cover the full viewport */
+    background-color: rgb(47, 45, 45); /* Background color */
+    background-size: cover; /* Make the background image cover the area */
+    background-position: center; /* Center the image */
+    background-attachment: fixed; /* Fix the background in place */
+    overflow: visible; /* Ensure content can overflow */
+}
+
+.dress-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid */
+    gap: 20px; /* Space between grid items */
+    justify-content: center; /* Center the grid */
+    padding: 20px;
+    margin-right: 0px;
+    overflow: auto; /* Enable independent scrolling */
+    position: relative; /* Allow scrolling */
+    height: 100vh; /* Ensure the grid takes full viewport height */
+    z-index: 1; /* Ensure it appears above the fixed background */
+    background: transparent; /* No background for the grid */
+}
+
+.filter-sidebar {
+    width: 250px;
+    padding: 10px;
+    border-left: 1px solid #ccc;
+    overflow-y: auto; /* Enable scrolling in the sidebar */
+    background-color: rgba(47, 45, 45, 0.9); /* Optional: Transparent sidebar */
+    z-index: 2; /* Ensure it appears above grid */
+    position: relative;
+}
+
+.filter-sidebar.closed {
+    display: none;
+}
+
+.filter-sidebar.open {
+    display: block;
+}
+
+/* Small screens adjustments */
+@media (max-width: 500px) {
+    .filter-sidebar {
+        position: fixed;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 70%;
+        transform: translateX(100%);
+        z-index: 1000;
+        overflow-y: auto;
+        background-color: rgba(83, 81, 81, 0.9);
+    }
+
+    .filter-sidebar.open {
+        transform: translateX(0);
+    }
+
+    .dress-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjust column size */
+        gap: 10px; /* Adjust gap */
+        margin-right: 0;
+        padding: 10px;
+    }
+}

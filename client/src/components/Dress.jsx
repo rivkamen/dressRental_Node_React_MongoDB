@@ -96,18 +96,7 @@ const Dress = (props) => {
         );
     };
     return (
-        // <div
-        //     className="p-mb-3 dress-item"
-        //     key={dress.id}
-        //     style={{
-        //         border: 'none',
-        //         width: '250px',
-        //         display: 'flex',
-        //         flexDirection: 'column',
-        //         justifyContent: 'space-between',
-        //         padding: '15px',
-        //     }}
-        // >
+
 
         <div
         className="p-mb-3 dress-item"
@@ -119,28 +108,14 @@ const Dress = (props) => {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            padding: '15px',
+            padding: '15px'
+            
         }}
     >
         
 
             <div className="p-grid p-align-center">
-                {/* <div className="p-col image-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '5px' }}>
-                    {imageUrls.map((url, index) => (
-                        <img
-                            key={index}
-                            className="dress-image"
-                            src={url}
-                            alt={`${dress.name} ${index + 1}`}
-                            style={{
-                                maxHeight: '100px',   // Adjust height as needed for uniform thumbnails
-                                maxWidth: '100%',     // Responsive width within container
-                                objectFit: 'cover',   // Crops to fit thumbnail dimensions
-                                borderRadius: '5px',
-                            }}
-                        />
-                    ))}
-                                    </div> */}
+
 
 <div className="p-col image-container" style={{ marginBottom: '10px' }}>
         {dress.images && dress.images.length > 1 ? (
@@ -151,7 +126,8 @@ const Dress = (props) => {
               position: 'relative', // Enable absolute positioning of indicators
               display: 'flex',
               alignItems: 'center', // Center image vertically
-              justifyContent: 'center', // Center image horizontally
+              justifyContent: 'center', 
+              
           }}
       >
           <Carousel

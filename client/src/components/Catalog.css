@@ -20,7 +20,7 @@
     height: 100vh; /* Full height */
     position: fixed; /* Fixed position */
     right: 0; /* Stick to the right */
-    top: 0; /* Start from the top */
+    top: 10; /* Start from the top */
     z-index: 1000; /* Ensure it stays on top */
     transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth open/close transition */
 }
