@@ -41,7 +41,6 @@
 // module.exports = dressSchema;
 const mongoose = require('mongoose');
 const { v4: uuidv4 } = require('uuid');
-const Schema = mongoose.Schema;
 
 const dressSchema = new mongoose.Schema({
   barcode: {
@@ -49,16 +48,13 @@ const dressSchema = new mongoose.Schema({
     default: () => uuidv4(),
     unique: true
   },
-  // renteDates: [{
-  //   date: { type: Date, required: true },
-  //   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true } // Added userId field to associate the rent with a user
-  // }]
-  renteDates: { 
+  renteDates: {
     type: [{
       date: { type: Date, required: true },
-      userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
+      userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+      isReturned: { type: Boolean, default: false } // שדה חדש לאיתור האם ההזמנה הוחזרה
     }],
-    default: [] // Set the default value to an empty array
+    default: [] // ערך ברירת מחדל: מערך ריק
   }
 }, {
   timestamps: true
