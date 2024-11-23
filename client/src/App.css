@@ -1,8 +1,25 @@
 .App {
   text-align: center;
   background-color: rgb(65, 62, 64);
-
+height: 100%;
   
+}
+.center-container {
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center;     /* Centers vertically */
+  height: 100vh;           /* Takes up 100% of the viewport height */
+}
+/* Ensure html and body take full height */
+html, body {
+  height: 100%;
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+}
+
+/* Set the full height to the main container (App) */
+#root, .App {
+  height: 100%;
 }
 a{
   text-decoration: none;
@@ -61,4 +78,7 @@ a{
     align-items: center;
     justify-content: center;
     transition: transform 0.3s ease;
+}
+.p-dialog .p-dialog-content{
+  background-color: rgb(47, 45, 45);
 }

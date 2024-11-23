@@ -20,7 +20,7 @@ import EditDress from './components/manager/EditDress.jsx';
 function App() {
 
   return (
-
+<div class="App">
     <Provider store={store}>
       <BrowserRouter>
         <Navbar />
@@ -42,6 +42,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </Provider>
+    </div>
   );
 }
 

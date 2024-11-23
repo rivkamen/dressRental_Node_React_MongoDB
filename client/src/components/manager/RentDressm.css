@@ -17,7 +17,7 @@
 /* Jewish date picker styling */
 .react-jewish-date-picker {
     background-color: #ffffff;
-    border: 2px solid #007bff;
+    border: 2px solid  rgba(213, 1, 118, 0.325);
     border-radius: 10px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     padding: 30px;
@@ -42,7 +42,7 @@
 }
 
 .react-jewish-date-picker th {
-    background-color: #007bff;
+    background-color:  rgba(213, 1, 118, 0.325);
     color: white;
 }
 
@@ -52,7 +52,7 @@
 }
 
 .react-jewish-date-picker td.selected {
-    background-color: #007bff;
+    background-color: rgba(213, 1, 118, 0.325);
     color: white;
 }
 
@@ -87,6 +87,8 @@
     padding-top: 12px;
     margin-top: 50px;
     margin-right: 50px;
+    /* border: rgb(213, 1, 118); */
+    border:2px solid rgb(213, 1, 118)
 }
 
 .reactJewishDatePicker .calendarIcon {
@@ -110,4 +112,34 @@
 .p-carousel-next, .p-carousel-prev {
     display: flex;
     position: relative;
+}
+#cardid.pickDate.fullHeightCard{
+    color: #ffffff;
+}
+svg.calendarIcon{
+    color: rgb(213, 1, 118);
+}
+.reactJewishDatePicker .weekdayWrapper{
+
+    background-color: rgb(213, 1, 118);
+
+}
+.reactJewishDatePicker .selectedDay{
+    background-color: rgba(213, 1, 118, 0.325);
+}
+.sizeBut{
+    background-color: rgb(213, 1, 118);
+    border-color: rgb(213, 1, 118);
+
+}
+/* Adjust hover color for year list items */
+.react-jewish-datepicker .year-list-item:hover {
+    background-color: #f0c674 !important; /* Customize this color */
+    color: #ffffff !important;           /* Text color on hover */
+}
+
+/* Adjust hover color for month list items */
+.react-jewish-datepicker .month-list-item:hover {
+    background-color: #f0c674 !important; /* Customize this color */
+    color: #ffffff !important;           /* Text color on hover */
 }
