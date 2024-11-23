@@ -63,6 +63,7 @@ router.get("/", DressDesignController.getDressesDesign);
 
 // Handle multiple image uploads with `upload.array`
 router.post("/", upload.array('path', 10), DressDesignController.createDressDesign);  // Limit to 10 images, adjust as needed
+router.get("/rent", DressDesignController.getRentedDates);
 
 router.put("/:_id", DressDesignController.updateDressDesign);
 router.delete("/:_id", DressDesignController.deleteDressDesign);

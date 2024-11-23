@@ -17,6 +17,7 @@ import RentDressm from './components/manager/RentDressm'
 import RentPage from './components/manager/RentPage.jsx';
 import Renting from './components/manager/Renting.jsx';
 import EditDress from './components/manager/EditDress.jsx';
+import RentedDressesList from "./components/manager/RentedDressList.jsx"
 function App() {
 
   return (
@@ -26,6 +27,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path='/register' element={<Register />} />
+          <Route path='/rentList' element={<RentedDressesList />} />
           <Route path='/catalog' element={<Catalog />} />
           <Route path='/dressComponent' element={<DressComponent />} />
           <Route path='/contactForm' element={<ContactForm />} />

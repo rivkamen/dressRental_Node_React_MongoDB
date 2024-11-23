@@ -72,6 +72,75 @@ console.log(req.file);
     return res.status(400).json({ message: "Failed to create dress design", error: error.message });
   }
 };
+const getRentedDates = async (req, res) => {
+  console.log("in the server");
+  
+  try {
+    // שליפת כל השמלות עם תאריכים מושכרים ו-populate עבור המשתמשים
+    const dresses = await DressDesign.find().populate({
+      path: 'dressListSizes.dresses.renteDates.userId', // מבצע populate על ה-userId בתאריכים
+      select: 'name phone' // בוחר להחזיר את שם המשתמש והטלפון
+    }).lean();
+
+    if (!dresses || dresses.length === 0) {
+      return res.status(404).json({ message: "No dresses found" });
+    }
+
+    // ניצור מערך של תאריכים מושכרים
+    let rentedDates = [];
+
+    // עבור כל שמלה, נשלוף את התאריכים והמשתמשים
+    for (let dress of dresses) {
+      console.log(dress);
+      
+      console.log("Checking dress:", dress.name); // לוג שם שמלה
+
+      // עבור כל שמלה, נבדוק אם יש תאריכים מושכרים
+      for (let size of dress.dressListSizes) {
+        for (let dressItem of size.dresses) {
+          if (dressItem.renteDates && dressItem.renteDates.length > 0) {
+            console.log("Rental dates found for dress:", dressItem.barcode); // לוג אם יש תאריכים
+
+            for (let rent of dressItem.renteDates) {
+              console.log("Rent details:", rent); // לוג פרטי השכרה
+
+              // בדיקה אם פרטי המשתמש קיימים
+              if (rent.userId) {
+                rentedDates.push({
+                  date: rent.date,
+                  userName: rent.userId.name, // שם המשתמש
+                  userPhone: rent.userId.phone, // טלפון המשתמש
+                  dressName: dress.name, // שם השמלה
+                  rentalDate: rent.date, // תאריך השכרה
+                  isRented: true // השמלה נחשבת למושכרת אם יש תאריך השכרה
+                });
+              } else {
+                console.log("User not found for userId:", rent.userId); // לוג אם לא נמצא userId
+              }
+            }
+          } else {
+            console.log("No rental dates for dress barcode:", dressItem.barcode); // לוג אם אין תאריכים
+            rentedDates.push({
+              dressName: dress.name, // שם השמלה
+              isRented: false // השמלה לא מושכרת
+            });
+          }
+        }
+      }
+    }
+
+    // אם לא נמצאו תאריכים מושכרים
+    if (rentedDates.length === 0) {
+      return res.status(404).json({ message: "No rental dates found" });
+    }
+
+    // מחזירים את כל התאריכים המושכרים
+    return res.status(200).json(rentedDates);
+
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
 
 
 // const createDressDesign = async (req, res) => {
@@ -704,4 +773,4 @@ console.log(_id);
   }
 };
 
-module.exports = {createDressDesign,getDressesDesign,getDressDesignById,updateDressDesign,deleteDressDesign,deleteDressFromDesign,addDressToDesign,takeDress,returnDress,getAvailableKeysForDate}
+module.exports = {getRentedDates,createDressDesign,getDressesDesign,getDressDesignById,updateDressDesign,deleteDressDesign,deleteDressFromDesign,addDressToDesign,takeDress,returnDress,getAvailableKeysForDate}

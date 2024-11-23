@@ -63,9 +63,13 @@ takeDress: build.mutation({
     }),
     invalidatesTags: ["Dresses"]
 }),
-
-
+getAllBookedDates: build.query({
+    query: () => ({
+        url: '/api/dress/rent',
+    }),
+    providesTags: ["BookedDates"]
+}),
 })
 })
-export const {useGetAllDressesQuery, useAddDressMutation,useUpdateDressMutation,useDeleteDressMutation,useAvailableDressMutation,useTakeDressMutation}=DressApiSlice
+export const {useGetAllBookedDatesQuery,useGetAllDressesQuery, useAddDressMutation,useUpdateDressMutation,useDeleteDressMutation,useAvailableDressMutation,useTakeDressMutation}=DressApiSlice
 
