@@ -21,6 +21,11 @@ const Navbar = () => {
             label: 'צור קשר',
             icon: 'pi pi-fw pi-envelope',
             command: () => { window.location.pathname = "/contactForm"; }
+        },
+        {
+            label: 'כניסת מנהל',
+            icon: 'pi pi-fw pi-home',
+            command: () => { window.location.pathname = "/adminLogin"; }
         }
     ];
 
