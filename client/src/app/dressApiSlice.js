@@ -63,9 +63,21 @@ takeDress: build.mutation({
     }),
     invalidatesTags: ["Dresses"]
 }),
-
+getAllBookedDates: build.query({
+    query: () => ({
+        url: '/api/dress/rent',
+    }),
+    providesTags: ["BookedDates"]
+}),
+returnDress: build.mutation({
+    query: ({ dressId, returnDate, userPhone }) => ({
+      url: `/api/dress/return-dress`, // אין צורך ב-_id ב-URL
+      method: 'PUT',
+      body: { dressId, returnDate, userPhone },
+    }),
+}),
 
 })
 })
-export const {useGetAllDressesQuery, useAddDressMutation,useUpdateDressMutation,useDeleteDressMutation,useAvailableDressMutation,useTakeDressMutation}=DressApiSlice
+export const {useReturnDressMutation,useGetAllBookedDatesQuery,useGetAllDressesQuery, useAddDressMutation,useUpdateDressMutation,useDeleteDressMutation,useAvailableDressMutation,useTakeDressMutation}=DressApiSlice
 

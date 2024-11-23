@@ -47,9 +47,15 @@ const userApiSlice = apiSlice.injectEndpoints({
             }),
             invalidatesTags:["users"]
         }),
-    
+        adminLogin: build.mutation({
+            query: (credentials) => ({
+              url: '/api/auth/login',
+              method: 'POST',
+              body: credentials,
+            }),
+        }),
 
     }),
 })
 
-export const { useGetUsersQuery,useCreateUserMutation,useLoginUserMutation,useDeleteUserMutation ,useUpdateUserMutation,useGetUserByIdQuery,useGetUserByPhoneQuery} = userApiSlice
+export const { useAdminLoginMutation,useGetUsersQuery,useCreateUserMutation,useLoginUserMutation,useDeleteUserMutation ,useUpdateUserMutation,useGetUserByIdQuery,useGetUserByPhoneQuery} = userApiSlice
