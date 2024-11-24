@@ -228,34 +228,7 @@ const Catalog = () => {
             </div>
 
             {/* Pagination Controls */}
-            <div className="pagination">
-                <button 
-                    onClick={() => changePage(currentPage - 1)} 
-                    disabled={currentPage === 1}
-                    className="page-button"
-                >
-                    Previous
-                </button>
-                
-                {/* Page number buttons */}
-                {[...Array(totalPages)].map((_, index) => (
-                    <button 
-                        key={index + 1} 
-                        onClick={() => changePage(index + 1)} 
-                        className={`page-number ${currentPage === index + 1 ? 'active' : ''}`}
-                    >
-                        {index + 1}
-                    </button>
-                ))}
-
-                <button 
-                    onClick={() => changePage(currentPage + 1)} 
-                    disabled={currentPage === totalPages}
-                    className="page-button"
-                >
-                    Next
-                </button>
-            </div>
+           
 
             {/* Button to open sidebar on small screens */}
             {!isSidebarOpen && (
@@ -294,7 +267,34 @@ const Catalog = () => {
                     className="w-full"
                 />
                 <Button className="addButton" label="הוספת שמלה" icon="pi pi-plus" onClick={() => setVisible(true)} />
+                <div className="pagination">
+                <button 
+                    onClick={() => changePage(currentPage - 1)} 
+                    disabled={currentPage === 1}
+                    className="page-button"
+                >
+                    הקודם
+                </button>
+                
+                {/* Page number buttons */}
+                {[...Array(totalPages)].map((_, index) => (
+                    <button 
+                        key={index + 1} 
+                        onClick={() => changePage(index + 1)} 
+                        className={`page-number ${currentPage === index + 1 ? 'active' : ''}`}
+                    >
+                        {index + 1}
+                    </button>
+                ))}
 
+                <button 
+                    onClick={() => changePage(currentPage + 1)} 
+                    disabled={currentPage === totalPages}
+                    className="page-button"
+                >
+                    הבא
+                </button>
+            </div>
                 {window.innerWidth <= 500 && (
                     <button onClick={() => setIsSidebarOpen(false)}>Close</button>
                 )}
