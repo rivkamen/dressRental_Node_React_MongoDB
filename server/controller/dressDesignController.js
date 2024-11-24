@@ -401,76 +401,132 @@ const takeDress = async (req, res) => {
 };
 
 
-const returnDress = async (req, res) => {
-  const { dressId, returnDate, userPhone } = req.body;
-console.log("hi im here");
+// const returnDress = async (req, res) => {
+//   const { _id } = req.params; // Dress Design ID
+//   const { userId, date, dressId } = req.body; // User ID, date, and dress ID to identify the rental record
+//   try {
+//     // Find the dress design by ID
+//     const dressDesign = await DressDesign.findById(_id).exec();
+//     if (!dressDesign) {
+//       return res.status(404).json({ message: "Dress design not found" });
+//     }
 
-  try {
-    // חיפוש המשתמש לפי מספר טלפון
-    const user = await User.findOne({ phone: userPhone }).exec();
+//     // Convert the provided date to a Date object
+//     const targetDate = new Date(date);
+//     if (isNaN(targetDate)) {
+//       return res.status(400).json({ message: "Invalid date format" });
+//     }
 
-    if (!user) { 
-      return res.status(404).json({ message: "User with this phone number not found" });
-    }
+//     let rentalFound = false;
 
-    const userId = user._id;
-
-    // חיפוש מודל השמלות
-    const dressDesign = await DressDesign.findOne({}).exec();
-    console.log(dressDesign);
-    
-    if (!dressDesign) {
-      console.log("0");
+//     // Iterate through the size entries in dressListSizes
+//     for (const sizeEntry of dressDesign.dressListSizes) {
+//       console.log(sizeEntry.dresses);
       
+//       // Find the dress by dressId in the current size
+//       console.log(dressId);
+      
+//       const dress = sizeEntry.dresses.find(dress => dress._id.toString() === dressId);
+//       if (dress) {
+//         console.log("dress");
+//         console.log(dress);
+
+        
+//         // Filter out the specific rental record from the renteDates array
+//         const initialLength = dress.renteDates.length;
+//         dress.renteDates = dress.renteDates.filter(
+//           rent => (rent.userId.toString() === userId && new Date(rent.date).toISOString() === targetDate.toISOString())
+//         );
+
+//         // Check if a record was removed
+//         if (dress.renteDates.length < initialLength) {
+//           rentalFound = true;
+//           break;
+//         }
+//       }
+//     }
+
+//     if (!rentalFound) {
+//       return res.status(404).json({
+//         success: false,
+//         message: `No rental record found for dressId: ${dressId}, userId: ${userId}, and date: ${date}`,
+//       });
+//     }
+
+//     // Save the updated DressDesign
+//     await dressDesign.save();
+
+//     return res.status(200).json({
+//       success: true,
+//       message: `Rental record successfully canceled for dressId: ${dressId}, userId: ${userId}, and date: ${date}`,
+//     });
+//   } catch (error) {
+//     return res.status(500).json({
+//       success: false,
+//       message: "Error canceling rental",
+//       error: error.message,
+//     });
+//   }
+// };
+const returnDress = async (req, res) => {
+  console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
+  
+  const { _id } = req.params; // Dress Design ID
+  const { userId, date, dressId } = req.body; // User ID, date, and dress ID to identify the rental record
+  try {
+    // Find the dress design by ID
+    const dressDesign = await DressDesign.findById(_id).exec();
+    if (!dressDesign) {
       return res.status(404).json({ message: "Dress design not found" });
     }
 
-    let foundDress = null;
-    let foundRentDate = null;
+    // Convert the provided date to a Date object
+    const targetDate = new Date(date);
+    if (isNaN(targetDate)) {
+      return res.status(400).json({ message: "Invalid date format" });
+    }
 
-    // עובר על כל המידות ומחפש את השמלה לפי ה-ID
-    for (let sizeEntry of dressDesign.dressListSizes) {
-      foundDress = sizeEntry.dresses.find(dress => dress._id.toString() === dressId.toString());
-      if (foundDress) {
-        foundRentDate = foundDress.renteDates.find(rent => rent.date.toISOString() === new Date(returnDate).toISOString() && rent.userId.toString() === userId.toString());
-        break;
+    let rentalFound = false;
+
+    // Iterate through the size entries in dressListSizes
+    for (const sizeEntry of dressDesign.dressListSizes) {
+      // Find the dress by dressId in the current size
+      const dress = sizeEntry.dresses.find(dress => dress._id.toString() === dressId);
+      if (dress) {
+        // Find the specific rental record in the renteDates array
+        const rentalRecord = dress.renteDates.find(
+          rent =>
+            rent.userId.toString() === userId &&
+            new Date(rent.date).toISOString() === targetDate.toISOString()
+        );
+
+        if (rentalRecord) {
+          // Update the isReturned field to true
+          rentalRecord.isReturned = true;
+          rentalFound = true;
+          break;
+        }
       }
     }
 
-    if (!foundDress) {
+    if (!rentalFound) {
       return res.status(404).json({
         success: false,
-        message: `Dress with ID ${dressId} not found in the design`,
+        message: `No rental record found for dressId: ${dressId}, userId: ${userId}, and date: ${date}`,
       });
     }
 
-    if (!foundRentDate) {
-      return res.status(404).json({
-        success: false,
-        message: `No rented dress found with ID ${dressId} for user ${userId} on ${returnDate}`,
-      });
-    }
-
-    // אם ההחזרה כבר התבצעה, נחזיר הודעת שגיאה
-    if (foundRentDate.isReturned) {
-      return res.status(400).json({
-        success: false,
-        message: `The dress has already been returned for the date ${returnDate}`,
-      });
-    }
-
-    // עדכון סטטוס ההחזרה
-    foundRentDate.isReturned = true;
+    // Save the updated DressDesign
     await dressDesign.save();
 
     return res.status(200).json({
       success: true,
-      message: `Dress successfully returned for the date ${returnDate} by user ${userId}`,
+      message: `Rental record successfully updated for dressId: ${dressId}, userId: ${userId}, and date: ${date}`,
     });
   } catch (error) {
     return res.status(500).json({
       success: false,
-      message: "Error returning dress",
+      message: "Error updating rental record",
       error: error.message,
     });
   }
@@ -544,15 +600,8 @@ const getAvailableKeysForDate = async (req, res) => {
   }
 };
 const cancelRent = async (req, res) => {
-  console.log("yeyey");
-  
   const { _id } = req.params; // Dress Design ID
   const { userId, date, dressId } = req.body; // User ID, date, and dress ID to identify the rental record
-console.log(userId);
-console.log(date);
-console.log(dressId);
-console.log(_id);
-
   try {
     // Find the dress design by ID
     const dressDesign = await DressDesign.findById(_id).exec();

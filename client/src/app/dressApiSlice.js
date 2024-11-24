@@ -70,10 +70,11 @@ getAllBookedDates: build.query({
     providesTags: ["BookedDates"]
 }),
 returnDress: build.mutation({
-    query: ({ dressId, returnDate, userPhone }) => ({
-      url: `/api/dress/return-dress`, // אין צורך ב-_id ב-URL
-      method: 'PUT',
-      body: { dressId, returnDate, userPhone },
+    query: ({id,dress}) =>({
+        
+    url: '/api/dress/'+id+'/cancel-dress',
+    method: "PUT",
+    body: dress
     }),
 }),
 cancelRentDress: build.mutation({

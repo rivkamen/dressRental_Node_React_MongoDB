@@ -118,37 +118,49 @@ const [cancelRentFunc]=useCancelRentDressMutation()
       alert("שגיאה בהחזרת השמלה");
     }
   };
-// const cancelRent=async (rowData)=>{
-//   try {
-//     await cancelRentFunc({
-//         id: rowData.id,
-//         dress: {
-//             date:rowData.date,
-//             userId:rowData.userId._id,
-//             dressId:rowData.dressId
-//             }
-        
-//     }).unwrap();
-//     refetch();
-
-// } catch (error) {
-//     if (error?.status === 409) {
-
-// alert("hi")
-//     } else {
-//       alert(error)
-//       console.log(error);
-
-// }
-// }
-// }
+  const returnDr = async (rowData) => {
+    const confirmation = await Swal.fire({
+      title: 'אישור ביטול השכרה',
+      text: 'האם אתה בטוח שברצונך לבטל את ההשכרה?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'כן, בטל השכרה',
+      cancelButtonText: 'ביטול',
+      reverseButtons: true, // To make the cancel button more prominent
+    });
+  
+    if (confirmation.isConfirmed) {
+      try {
+        await returnDress({
+          id: rowData.id,
+          dress: {
+            date: rowData.date,
+            userId: rowData.userId._id,
+            dressId: rowData.dressId,
+          },
+        }).unwrap();
+        refetch(); // Refresh the list after successful cancellation
+        Swal.fire('בוטל!', 'שמלה הוחזרה בהצלחה', 'success');
+      } catch (error) {
+        console.error(error);
+        Swal.fire({
+          title: 'שגיאה',
+          text: error?.data?.message || 'קרתה שגיאה בלתי צפויה. אנא נסה שוב.',
+          icon: 'error',
+          confirmButtonText: 'אישור',
+        });
+      }
+    } else {
+      Swal.fire('פעולה בוטלה', 'ביטול ההשכרה לא בוצע.', 'info');
+    }
+  };
 const cancelRent = async (rowData) => {
   const confirmation = await Swal.fire({
-    title: 'אישור ביטול השכרה',
-    text: 'האם אתה בטוח שברצונך לבטל את ההשכרה?',
+    title: 'אישור החזרת שמלה',
+    text: 'האם אתה בטוח שברצונך להחזיר את השמלה?',
     icon: 'warning',
     showCancelButton: true,
-    confirmButtonText: 'כן, בטל השכרה',
+    confirmButtonText: 'כן, החזר שמלה ',
     cancelButtonText: 'ביטול',
     reverseButtons: true, // To make the cancel button more prominent
   });
@@ -229,7 +241,7 @@ const cancelRent = async (rowData) => {
                 <Button 
                   className="returnBut" 
                   label="החזר שמלה" 
-                  onClick={() => handleReturnDress(rowData)} 
+                  onClick={() => returnDr(rowData)} 
                 />
               );
             } else {
