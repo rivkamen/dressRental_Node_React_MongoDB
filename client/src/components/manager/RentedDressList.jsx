@@ -2,6 +2,11 @@
 import React, { useState } from "react";
 import { useGetAllBookedDatesQuery, useReturnDressMutation } from "../../app/dressApiSlice";
 import { HDate } from "@hebcal/core";
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import { InputText } from 'primereact/inputtext';
+import { Button } from 'primereact/button';
+import './RentedDressesList.css';
 
 // Helper function to convert numbers to Hebrew numerals
 const hebrewNumbers = (number) => {
@@ -10,34 +15,28 @@ const hebrewNumbers = (number) => {
   const hundreds = ["", "ק", "ר", "ש", "ת"];
   let result = "";
 
-  // Process hundreds
   if (number >= 100) {
     result += hundreds[Math.floor(number / 100)];
     number %= 100;
   }
 
-  // Handle special cases for 15 and 16
   if (number === 15) return result + "טו";
   if (number === 16) return result + "טז";
 
-  // Process tens
   if (number >= 10) {
     result += tens[Math.floor(number / 10)];
     number %= 10;
   }
 
-  // Process units
   result += units[number];
 
   return result;
 };
 
-// };
 const formatHebrewDate = (gregorianDate) => {
   const hdate = new HDate(gregorianDate);
-  const hebrewDay = hebrewNumbers(hdate.getDate()); // Convert day to Hebrew numeral
-  
-  // Map of month names to the desired format
+  const hebrewDay = hebrewNumbers(hdate.getDate());
+
   const monthNames = {
     'Tishrei': 'תשרי',
     'Cheshvan': 'חשוון',
@@ -53,28 +52,22 @@ const formatHebrewDate = (gregorianDate) => {
     'Elul': 'אלול'
   };
 
-  // Get Hebrew month name and convert it
   const hebrewMonth = monthNames[hdate.getMonthName("h")] || hdate.getMonthName("h");
 
-  // Hebrew year conversion with manual formatting
   const rawYear = hdate.getFullYear();
-  
-  // Manually convert the year if needed
   let hebrewYear = rawYear.toString();
   if (hebrewYear === '5785') {
-    hebrewYear = 'תשפ״ה'; // Explicitly map 5785 to תשפ״ה
+    hebrewYear = 'תשפ״ה';
   } else {
-    // Use a more generalized conversion for other years
-    hebrewYear = `${hebrewYear.replace(/^5/, 'ת')}`;  // Replace first '5' with 'ת' for Hebrew years
+    hebrewYear = `${hebrewYear.replace(/^5/, 'ת')}`;
   }
 
   return `${hebrewDay} ${hebrewMonth} ${hebrewYear}`;
 };
 
-
 const RentedDressesList = () => {
   const { data: bookedDates, error, isLoading } = useGetAllBookedDatesQuery();
-  const [returnDress] = useReturnDressMutation(); // Mutation for returning dresses
+  const [returnDress] = useReturnDressMutation();
   const [sortBy, setSortBy] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -99,6 +92,7 @@ const RentedDressesList = () => {
     const searchLower = searchTerm.toLowerCase();
     return (
       booking.dressName.toLowerCase().includes(searchLower) ||
+      booking.dressSize.toLowerCase().includes(searchLower) ||
       booking.userName.toLowerCase().includes(searchLower) ||
       booking.userPhone.toLowerCase().includes(searchLower) ||
       new Date(booking.date).toLocaleDateString("he-IL").includes(searchLower)
@@ -124,56 +118,68 @@ const RentedDressesList = () => {
     <div>
       <h2>רשימת שמלות מושכרות</h2>
       <div>
-        <input
-          type="text"
+        <InputText 
+          dir='rtl' 
+          className="inputSearch"
           placeholder="חפש שמלה, שם שוכר או טלפון"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
       <div>
-        <button onClick={() => setSortBy("date")}>מיין לפי תאריך</button>
-        <button onClick={() => setSortBy("dressName")}>מיין לפי שם שמלה</button>
-        <button onClick={() => setSortBy("phone")}>מיין לפי טלפון</button>
+        <Button className="but" label="מיין לפי תאריך" onClick={() => setSortBy("date")} />
+        <Button className="but" label="מיין לפי שם שמלה" onClick={() => setSortBy("dressName")} />
+        <Button className="but" label="מיין לפי טלפון" onClick={() => setSortBy("phone")} />
       </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>שם שמלה</th>
-            <th>שוכר/ת</th>
-            <th>טלפון</th>
-            <th>תאריך השכרה</th>
-            <th>תאריך השכרה (עברי)</th>
-            <th>החזר שמלה</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sortedBookings.length === 0 ? (
-            <tr>
-              <td colSpan="6">לא נמצאו תוצאות</td>
-            </tr>
-          ) : (
-            sortedBookings.map((booking) => {
-              const gregorianDate = new Date(booking.date);
-              const jewishDate = formatHebrewDate(gregorianDate); // Convert to formatted Hebrew date
+      <DataTable className="myTab" value={sortedBookings} paginator rows={10} dir="rtl">
+        <Column className="myTab" field="dressName" header="שם שמלה" />
+        <Column className="myTab" field="dressSize" header="מידה" />
+        <Column className="myTab" field="userName" header="שוכר/ת" />
+        <Column className="myTab" field="userPhone" header="טלפון" />
+        <Column 
+          className="myTab" 
+          field="date" 
+          header="תאריך השכרה (לועזי)" 
+          body={(rowData) => new Date(rowData.date).toLocaleDateString("he-IL")} 
+        />
+        <Column 
+          className="myTab" 
+          field="jewishDate" 
+          header="תאריך השכרה (עברי)" 
+          body={(rowData) => formatHebrewDate(new Date(rowData.date))} 
+        />
+        <Column 
+          className="myTab" 
+          body={(rowData) => {
+            const today = new Date();
+            const bookingDate = new Date(rowData.date);
 
+            // Calculate difference in days
+            const dayDifference = Math.round((bookingDate - today) / (1000 * 60 * 60 * 24));
+
+            if (dayDifference >= -7 && dayDifference <= 7) {
+              // Show return button for dates within the past or next week
               return (
-                <tr key={booking._id}>
-                  <td>{booking.dressName}</td>
-                  <td>{booking.userName}</td>
-                  <td>{booking.userPhone}</td>
-                  <td>{gregorianDate.toLocaleDateString("he-IL")}</td>
-                  <td>{jewishDate}</td>
-                  <td>
-                    <button onClick={() => handleReturnDress(booking)}>החזר שמלה</button>
-                  </td>
-                </tr>
+                <Button 
+                  className="returnBut" 
+                  label="החזר שמלה" 
+                  onClick={() => handleReturnDress(rowData)} 
+                />
               );
-            })
-          )}
-        </tbody>
-      </table>
+            } else {
+              // Show alternate button for other dates
+              return (
+                <Button 
+                  className="alternateBut" 
+                  label="בטל השכרה" 
+                  onClick={() => alert("פעולה אחרת")} 
+                />
+              );
+            }
+          }} 
+        />
+      </DataTable>
     </div>
   );
 };

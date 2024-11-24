@@ -121,8 +121,10 @@ const getRentedDates = async (req, res) => {
                   userPhone: rent.userId.phone, // טלפון המשתמש
                   dressName: dress.name, // שם השמלה
                   dressId:dressItem._id,
+                  dressSize:size.key,
                   rentalDate: rent.date, // תאריך השכרה
-                  isRented: rent.isReturned // השמלה נחשבת למושכרת אם יש תאריך השכרה
+                  isRented: rent.isReturned,// השמלה נחשבת למושכרת אם יש תאריך השכרה,
+
                 });
               } else {
                 console.log("User not found for userId:", rent.userId); // לוג אם לא נמצא userId
@@ -153,61 +155,6 @@ console.log(rentedDates);
   }
 };
 
-
-// const createDressDesign = async (req, res) => {
-//   const { name, description, path, dressListSizes } = req.body;
-// console.log("here");
-//   console.log("name" +name+" description" +description+" path "+ path+" dressListSizes "+ dressListSizes)
-//   if (!name || !dressListSizes) {
-//     console.log("0");
-
-//     return res.status(400).json({ message: 'Required field is missing2' });
-//   }
-//   console.log("1");
-
-//   const imageUrll = path ? req.file.path : null;
-//   console.log("imageUrll"+imageUrll);
-//   try {
-//     console.log("2");
-
-//     const updatedDressListSizes = dressListSizes.map(sizeEntry => {
-//       console.log("hihihihih");
-
-//       console.log(sizeEntry);
-      
-//       return {
-//         key: sizeEntry.key,
-//         size: sizeEntry.size,
-//         dresses: sizeEntry.dresses.map(dress => ({
-//           ...dress,
-//           barcode: dress.barcode || uuidv4(), // הוספת ברקוד אם אין
-//           renteDates: dress.renteDates || []  // ודא ש-`renteDates` לא ריק
-//         }))
-//       };
-//     });
-//     console.log("hihihihih");
-    
-//     const dress = await DressDesign.create({
-//       name,
-//       description,
-//       images: imageUrll,
-//       dressListSizes: updatedDressListSizes,
-//     });
-//     console.log("hihihihih123");
-
-//     return res.status(201).json({
-//       success: true,
-//       message: `Dress design ${dress.name} created successfully`,
-//     });
-//   } catch (error) {
-//     // בדיקת שגיאה של ייחודיות על השדה name
-//     if (error.code === 11000 && error.keyPattern && error.keyPattern.name) {
-//       return res.status(400).json({ message: "Dress design name must be unique" });
-//     }
-
-//     return res.status(400).json({ message: "Failed to create dress design", error: error.message });
-//   }
-// };
 
 const getDressesDesign = async (req, res) => {
   try {
@@ -314,38 +261,6 @@ const deleteDressDesign = async (req, res) => {
     return res.status(500).json({ message: "Failed to delete dress design", error: error.message });
   }
 };
-// const addDressToDesign = async (req, res) => {
-//   const { _id } = req.params; // Design ID
-//   const { size, dress } = req.body; // Dress size and dress details
-
-//   try {
-//     const dressDesign = await DressDesign.findById(_id).exec();
-//     if (!dressDesign) {
-//       return res.status(404).json({ message: "Dress design not found" });
-//     }
-
-//     const sizeEntry = dressDesign.dressListSizes.find(entry => entry.size === size);
-    
-//     if (sizeEntry) {
-//       // Add the dress to the list of dresses for this size
-//       sizeEntry.dresses.push(dress);
-//     } else {
-//       // If size doesn't exist, add a new size entry
-//       dressDesign.dressListSizes.push({
-//         size: size,
-//         dresses: [dress],
-//       });
-//     }
-
-//     await dressDesign.save();
-//     return res.status(200).json({
-//       success: true,
-//       message: `Dress added to ${size} size list in design ${dressDesign.name}`,
-//     });
-//   } catch (error) {
-//     return res.status(500).json({ message: "Failed to add dress to design", error: error.message });
-//   }
-// };
 
 const addDressToDesign = async (req, res) => {
   const { _id } = req.params; // Design ID

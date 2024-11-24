@@ -1,0 +1,29 @@
+.myTab{
+background-color: lightgray;
+
+
+}
+.returnBut{
+    background-color: rgb(213, 1, 118);
+    border-color: rgb(213, 1, 118);
+
+}
+.but{
+    background-color: rgb(213, 1, 118);
+    border-color: rgb(213, 1, 118);
+    margin:10px;
+}
+.inputSearch{
+    border-color: rgb(213, 1, 118);
+    width: 400px;
+
+}
+.alternateBut{
+    border-color: rgb(213, 1, 118);
+    
+    background-color:gray;
+    color:rgb(213, 1, 118); ;
+
+
+
+}
