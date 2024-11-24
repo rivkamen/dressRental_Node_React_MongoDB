@@ -1,5 +1,4 @@
 
-
 .catalog {
     display: flex;
     align-items: flex-start;
@@ -17,7 +16,7 @@ div.p-dialog-header{
 }
 
 .dress-grid {
-    display: grid;
+    display: grid !important;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
     justify-content: center; /* Center the whole grid */
@@ -197,4 +196,25 @@ div.filter-sidebar.open {
         margin-right: 0;
         padding: 10px;
     }
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    /* אין צורך ב-position fixed */
+}
+
+.page-button {
+    padding: 10px 20px;
+    margin: 0 5px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.page-button:hover {
+    background-color: #0056b3;
 }
