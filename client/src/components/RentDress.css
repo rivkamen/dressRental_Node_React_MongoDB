@@ -17,7 +17,7 @@
 /* Jewish date picker styling */
 .react-jewish-date-picker {
     background-color: #ffffff;
-    border: 2px solid #007bff;
+    border: 2px solid rgb(213, 1, 118);
     border-radius: 10px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     padding: 30px;
@@ -42,7 +42,7 @@
 }
 
 .react-jewish-date-picker th {
-    background-color: #007bff;
+    background-color: rgb(213, 1, 118);
     color: white;
 }
 
@@ -52,7 +52,7 @@
 }
 
 .react-jewish-date-picker td.selected {
-    background-color: #007bff;
+    background-color: rgb(213, 1, 118);
     color: white;
 }
 

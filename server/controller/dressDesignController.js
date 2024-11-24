@@ -119,7 +119,7 @@ const getRentedDates = async (req, res) => {
               }
             }
           } else {
-            console.log("No rental dates for dress barcode:", dressItem.barcode); // לוג אם אין תאריכים
+            // console.log("No rental dates for dress barcode:", dressItem.barcode); // לוג אם אין תאריכים
             // rentedDates.push({
             //   dressName: dress.name, // שם השמלה
             //   isRented: false // השמלה לא מושכרת

@@ -40,7 +40,7 @@
     bottom: 20px;
     right: 20px;
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: rgb(213, 1, 118);
     color: white;
     border: none;
     border-radius: 4px;
@@ -48,7 +48,7 @@
 }
 
 .open-sidebar-button:hover {
-    background-color: #0056b3;
+    background-color: rgb(213, 1, 118);
 }
 
 /* MultiSelect adjustments */

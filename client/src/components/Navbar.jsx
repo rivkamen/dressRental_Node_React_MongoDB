@@ -83,6 +83,11 @@ const Navbar = () => {
             command: () => { window.location.pathname = "/catalogm"; }
         },
         {
+            label: 'השכרות',
+            icon: 'pi pi-shopping-cart',
+            command: () => { window.location.pathname = "/rentList"; }
+        },
+        {
             label: 'צור קשר',
             icon: 'pi pi-fw pi-envelope',
             command: () => { window.location.pathname = "/contactForm"; }

@@ -27,3 +27,26 @@ background-color: lightgray;
 
 
 }
+.myTab {
+    text-align: right; 
+  }
+  
+  .p-datatable-tbody > tr > td {
+    text-align: right; 
+    direction: rtl; 
+  }
+  
+  .p-datatable-thead > tr > th {
+    text-align: center; 
+    direction: rtl;
+  }
+  .p-datatable-tbody > tr > td:last-child {
+    text-align: left; 
+    direction: ltr;
+  }
+  
+  .returnBut,
+  .alternateBut {
+    margin-left: auto; 
+  }
+  

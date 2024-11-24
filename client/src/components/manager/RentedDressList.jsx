@@ -6,6 +6,8 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
+import { Paginator } from 'primereact/paginator';  // הוספתי את ה-import של ה-Paginator
+
 import './RentedDressesList.css';
 import ConfirmationDialog from './ConfirmationDialog'; // Import the ConfirmationDialog component
 import Swal from "sweetalert2";
@@ -178,7 +180,7 @@ const cancelRent = async (rowData) => {
 };
 
   return (
-    <div>
+    <div >
       <h2>רשימת שמלות מושכרות</h2>
       <div>
         <InputText 
@@ -243,6 +245,7 @@ const cancelRent = async (rowData) => {
           }} 
         />
       </DataTable>
+
     </div>
   );
 };
