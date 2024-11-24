@@ -112,7 +112,7 @@ const getRentedDates = async (req, res) => {
                   userName: rent.userId.name, // שם המשתמש
                   userPhone: rent.userId.phone, // טלפון המשתמש
                   dressName: dress.name, // שם השמלה
-                  dressId:dress.re_id,
+                  dressId:dress.dressListSizes.dresses.dress._id,
                   rentalDate: rent.date, // תאריך השכרה
                   isRented: rent.isReturned // השמלה נחשבת למושכרת אם יש תאריך השכרה
                 });
