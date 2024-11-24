@@ -76,8 +76,19 @@ returnDress: build.mutation({
       body: { dressId, returnDate, userPhone },
     }),
 }),
+cancelRentDress: build.mutation({
+    query: ({id,dress}) =>({
+        
+    url: '/api/dress/'+id+'/cancel-dress',
+    method: "PUT",
+    body: dress
+    }),
+
+    invalidatesTags:["Dresses"]
+
+}),
 
 })
 })
-export const {useReturnDressMutation,useGetAllBookedDatesQuery,useGetAllDressesQuery, useAddDressMutation,useUpdateDressMutation,useDeleteDressMutation,useAvailableDressMutation,useTakeDressMutation}=DressApiSlice
+export const {useReturnDressMutation,useGetAllBookedDatesQuery,useGetAllDressesQuery, useAddDressMutation,useUpdateDressMutation,useDeleteDressMutation,useAvailableDressMutation,useTakeDressMutation,useCancelRentDressMutation}=DressApiSlice
 

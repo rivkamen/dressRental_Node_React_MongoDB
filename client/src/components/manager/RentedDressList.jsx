@@ -1,12 +1,14 @@
 
 import React, { useState } from "react";
-import { useGetAllBookedDatesQuery, useReturnDressMutation } from "../../app/dressApiSlice";
+import { useCancelRentDressMutation, useGetAllBookedDatesQuery, useReturnDressMutation } from "../../app/dressApiSlice";
 import { HDate } from "@hebcal/core";
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import './RentedDressesList.css';
+import ConfirmationDialog from './ConfirmationDialog'; // Import the ConfirmationDialog component
+import Swal from "sweetalert2";
 
 // Helper function to convert numbers to Hebrew numerals
 const hebrewNumbers = (number) => {
@@ -65,11 +67,12 @@ const formatHebrewDate = (gregorianDate) => {
   return `${hebrewDay} ${hebrewMonth} ${hebrewYear}`;
 };
 
-const RentedDressesList = () => {
-  const { data: bookedDates, error, isLoading } = useGetAllBookedDatesQuery();
+const RentedDressesList = (props) => {
+  const { data: bookedDates, error, isLoading,refetch } = useGetAllBookedDatesQuery();
   const [returnDress] = useReturnDressMutation();
   const [sortBy, setSortBy] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+const [cancelRentFunc]=useCancelRentDressMutation()
 
   if (isLoading) return <p>טוען נתונים...</p>;
   if (error) return <p>שגיאה בטעינת נתוני השמלות המושכרות.</p>;
@@ -113,9 +116,67 @@ const RentedDressesList = () => {
       alert("שגיאה בהחזרת השמלה");
     }
   };
-const cancelRent=async (rowData)=>{
+// const cancelRent=async (rowData)=>{
+//   try {
+//     await cancelRentFunc({
+//         id: rowData.id,
+//         dress: {
+//             date:rowData.date,
+//             userId:rowData.userId._id,
+//             dressId:rowData.dressId
+//             }
+        
+//     }).unwrap();
+//     refetch();
 
-}
+// } catch (error) {
+//     if (error?.status === 409) {
+
+// alert("hi")
+//     } else {
+//       alert(error)
+//       console.log(error);
+
+// }
+// }
+// }
+const cancelRent = async (rowData) => {
+  const confirmation = await Swal.fire({
+    title: 'אישור ביטול השכרה',
+    text: 'האם אתה בטוח שברצונך לבטל את ההשכרה?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'כן, בטל השכרה',
+    cancelButtonText: 'ביטול',
+    reverseButtons: true, // To make the cancel button more prominent
+  });
+
+  if (confirmation.isConfirmed) {
+    try {
+      await cancelRentFunc({
+        id: rowData.id,
+        dress: {
+          date: rowData.date,
+          userId: rowData.userId._id,
+          dressId: rowData.dressId,
+        },
+      }).unwrap();
+      refetch(); // Refresh the list after successful cancellation
+      Swal.fire('בוטל!', 'השכרה בוטלה בהצלחה.', 'success');
+    } catch (error) {
+      console.error(error);
+      Swal.fire({
+        title: 'שגיאה',
+        text: error?.data?.message || 'קרתה שגיאה בלתי צפויה. אנא נסה שוב.',
+        icon: 'error',
+        confirmButtonText: 'אישור',
+      });
+    }
+  } else {
+    Swal.fire('פעולה בוטלה', 'ביטול ההשכרה לא בוצע.', 'info');
+  }
+};
+
   return (
     <div>
       <h2>רשימת שמלות מושכרות</h2>

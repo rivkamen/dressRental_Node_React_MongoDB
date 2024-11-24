@@ -102,7 +102,8 @@ const getRentedDates = async (req, res) => {
               if (rent.userId) {
 
                 rentedDates.push({
-
+                  id:dress._id,
+                  userId:rent.userId,
                   date: rent.date,
                   userName: rent.userId.name, // שם המשתמש
                   userPhone: rent.userId.phone, // טלפון המשתמש
@@ -543,8 +544,14 @@ const getAvailableKeysForDate = async (req, res) => {
   }
 };
 const cancelRent = async (req, res) => {
+  console.log("yeyey");
+  
   const { _id } = req.params; // Dress Design ID
   const { userId, date, dressId } = req.body; // User ID, date, and dress ID to identify the rental record
+console.log(userId);
+console.log(date);
+console.log(dressId);
+console.log(_id);
 
   try {
     // Find the dress design by ID
@@ -563,9 +570,17 @@ const cancelRent = async (req, res) => {
 
     // Iterate through the size entries in dressListSizes
     for (const sizeEntry of dressDesign.dressListSizes) {
+      console.log(sizeEntry.dresses);
+      
       // Find the dress by dressId in the current size
+      console.log(dressId);
+      
       const dress = sizeEntry.dresses.find(dress => dress._id.toString() === dressId);
       if (dress) {
+        console.log("dress");
+        console.log(dress);
+
+        
         // Filter out the specific rental record from the renteDates array
         const initialLength = dress.renteDates.length;
         dress.renteDates = dress.renteDates.filter(
