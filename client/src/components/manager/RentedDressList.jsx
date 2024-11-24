@@ -117,7 +117,7 @@ const cancelRent=async (rowData)=>{
 
 }
   return (
-    <div>
+    <div >
       <h2>רשימת שמלות מושכרות</h2>
       <div>
         <InputText 
