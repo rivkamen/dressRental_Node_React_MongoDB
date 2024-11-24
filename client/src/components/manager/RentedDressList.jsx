@@ -103,7 +103,7 @@ const RentedDressesList = () => {
 
   const handleReturnDress = async (booking) => {
     try {
-      const { dressId, userPhone } = booking;
+      const { dressId, userPhone, dressSize } = booking;
       const returnDate = new Date().toISOString();
 
       await returnDress({ dressId, returnDate, userPhone }).unwrap();
@@ -113,7 +113,9 @@ const RentedDressesList = () => {
       alert("שגיאה בהחזרת השמלה");
     }
   };
+const cancelRent=async (rowData)=>{
 
+}
   return (
     <div>
       <h2>רשימת שמלות מושכרות</h2>
@@ -173,7 +175,7 @@ const RentedDressesList = () => {
                 <Button 
                   className="alternateBut" 
                   label="בטל השכרה" 
-                  onClick={() => alert("פעולה אחרת")} 
+                  onClick={() =>cancelRent(rowData)} 
                 />
               );
             }

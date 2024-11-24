@@ -73,5 +73,7 @@ router.put("/:_id/addDress", DressDesignController.addDressToDesign);
 router.put("/:_id/deleteDress", DressDesignController.deleteDressFromDesign);
 router.put("/:_id/take-dress", DressDesignController.takeDress);
 router.get("/:_id/available-dress", DressDesignController.getAvailableKeysForDate);
+router.put("/:_id/cancel-dress",DressDesignController.cancelRent);
+
 
 module.exports = router;
