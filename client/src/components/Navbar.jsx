@@ -60,7 +60,7 @@ const Navbar = () => {
         },
         {
             label: 'צור קשר',
-            icon: 'pi pi-fw pi-envelope',
+            icon: 'pi pi-fw pi-comment',
             command: () => { window.location.pathname = "/contactForm"; }
         }
         ,
@@ -89,10 +89,19 @@ const Navbar = () => {
         },
         {
             label: 'צור קשר',
-            icon: 'pi pi-fw pi-envelope',
+            icon: 'pi pi-fw pi-comment',
             command: () => { window.location.pathname = "/contactForm"; }
         },
-        {
+        isAdmin
+        ? {
+            label: 'יציאת מנהל',
+            icon: 'pi pi-fw pi-sign-out',
+            command: () => {
+                sessionStorage.removeItem("adminToken");
+                window.location.pathname = "/";
+            }
+        }
+        : {
             label: 'כניסת מנהל',
             icon: 'pi pi-fw pi-user',
             command: () => { window.location.pathname = "/adminLogin"; }
