@@ -6,10 +6,11 @@
 
 /* תפריט הניווט */
 .p-menubar {
+    direction: rtl;
+
     background-color: rgba(83, 81, 81, 0.9); /* רקע אפור כהה */
     border: none;
     display: flex;
-    justify-content: space-evenly; /* חלוקה שווה */
     width: 100%; /* תפריט תופס את כל הרוחב */
     padding: 0;
 }
@@ -18,21 +19,23 @@
 .p-menubar .p-menuitem {
     flex: 1; /* כל כפתור תופס שטח שווה */
     text-align: center; /* טקסט ממורכז */
+
+
 }
 
 /* עיצוב הכפתורים */
 .p-menubar .p-menuitem-link {
     display: flex;
     align-items: center;
-    justify-content: center;
-    color: white !important; /* כיתוב לבן */
+    /* justify-content: center; */
+    justify-content:space-around; 
+    /* color: white !important; כיתוב לבן */
     font-weight: bold;
     font-size: 16px;
     height: 100%; /* תופס את כל הגובה */
     text-align: center;
-    text-decoration: none;
+    /* text-decoration: none; */
     background-color: transparent !important; /* ללא רקע */
-    padding: 10px;
     border: none; /* ללא גבולות */
 }
 
@@ -41,18 +44,7 @@
     color: rgb(213, 1, 118) !important; /* אייקון ורוד */
     margin-left: 10px; /* ריווח קל בין האייקון לכיתוב */
 }
-
-/* אין שינוי בעכבר */
-.p-menubar .p-menuitem-link:hover {
-    background-color: transparent !important; /* ללא שינוי רקע */
-    color: white !important; /* כיתוב נשאר לבן */
-    cursor: pointer; /* עכבר מצביע */
-}
-
-/* טיפול במצבים פעילים */
-.p-menubar .p-menuitem-link:focus,
-.p-menubar .p-menuitem-link:active {
-    background-color: transparent !important; /* ללא שינוי רקע */
-    color: white !important; /* כיתוב נשאר לבן */
-    outline: none; /* הסרת מסגרת */
+.p-menuitem-text {
+    color: rgb(255, 255, 255) !important; /* אייקון ורוד */
+    margin-left: 10px; /* ריווח קל בין האייקון לכיתוב */
 }

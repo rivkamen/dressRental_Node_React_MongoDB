@@ -19,6 +19,7 @@ import Renting from './components/manager/Renting.jsx';
 import EditDress from './components/manager/EditDress.jsx';
 import RentedDressesList from "./components/manager/RentedDressList.jsx"
 import AdminLogin from './components/manager/AdminLogin.jsx'
+import PlaceDetails from "./components/PlaceDetails.jsx";
 function App() {
 
   return (
@@ -43,6 +44,7 @@ function App() {
 
 
         </Routes>
+        <PlaceDetails></PlaceDetails>
       </BrowserRouter>
     </Provider>
     </div>
