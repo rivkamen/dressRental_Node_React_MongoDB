@@ -210,12 +210,104 @@ const Catalog = () => {
         }
     };
 
+    // return (
+    //     <div className="catalog">
+    //         <Dialog dir='rtl' header="הוספת שמלה" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
+    //             <AddDress handleCloseDialog={() => setVisible(false)} />
+    //         </Dialog>
+
+    //         {/* Dress Gallery */}
+    //         <div className="dress-grid">
+    //             {isLoading && <p>Loading...</p>}
+    //             {isError && <p>Error: {error.message}</p>}
+    //             {currentDresses.map((d) => (
+    //                 <div className="dress-item" key={d.id}>
+    //                     <Dress dress={d} />
+    //                 </div>
+    //             ))}
+    //             <div className="pagination">
+    //             <button 
+    //                 onClick={() => changePage(currentPage - 1)} 
+    //                 disabled={currentPage === 1}
+    //                 className="page-button"
+    //             >
+    //                 הקודם
+    //             </button>
+                
+    //             {/* Page number buttons */}
+    //             {[...Array(totalPages)].map((_, index) => (
+    //                 <button 
+    //                     key={index + 1} 
+    //                     onClick={() => changePage(index + 1)} 
+    //                     className={`page-number ${currentPage === index + 1 ? 'active' : ''}`}
+    //                 >
+    //                     {index + 1}
+    //                 </button>
+    //             ))}
+
+    //             <button 
+    //                 onClick={() => changePage(currentPage + 1)} 
+    //                 disabled={currentPage === totalPages}
+    //                 className="page-button"
+    //             >
+    //                 הבא
+    //             </button>
+    //         </div>
+
+    //         </div>
+
+    //         {/* Pagination Controls */}
+
+    //         {/* Button to open sidebar on small screens */}
+    //         {!isSidebarOpen && (
+    //             <button className="open-sidebar-button" onClick={() => setIsSidebarOpen(true)}>
+    //                 Open Filter
+    //             </button>
+    //         )}
+
+    //         {/* Filter Sidebar */}
+    //         <br/>
+    //         <br/>
+    //         <div className={`filter-sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
+    //             <InputText dir='rtl'
+    //                 value={searchTerm}
+    //                 onChange={(e) => setSearchTerm(e.target.value)}
+    //                 placeholder="חפש שמלה..."
+    //                 className="w-full"
+    //             />
+    //             <br/>
+    //             <br/>
+
+    //             <MultiSelect dir='rtl'
+    //                 value={selectedSizes} 
+    //                 onChange={(e) => setSelectedSizes(e.value)} 
+    //                 options={[...new Set(dresses.flatMap(dress => dress.dressListSizes.map(sizeEntry => sizeEntry.size)))].map(size => ({ label: size, value: size }))}
+    //                 placeholder="נשים/בנות"
+    //                 className="w-full"
+    //             />
+    //             <br/>
+                
+    //             <MultiSelect dir='rtl'
+    //                 value={selectedKeys} 
+    //                 onChange={(e) => setSelectedKeys(e.value)} 
+    //                 options={[...new Set(dresses.flatMap(dress => dress.dressListSizes.map(sizeEntry => sizeEntry.key)))].map(key => ({ label: key, value: key }))}
+    //                 placeholder="בחר מידה"
+    //                 className="w-full"
+    //             />
+    //             <Button className="addButton" label="הוספת שמלה" icon="pi pi-plus" onClick={() => setVisible(true)} />
+              
+    //             {window.innerWidth <= 500 && (
+    //                 <button onClick={() => setIsSidebarOpen(false)}>Close</button>
+    //             )}
+    //         </div>
+    //     </div>
+    // );
     return (
         <div className="catalog">
-            <Dialog dir='rtl' header="הוספת שמלה" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
+            <Dialog dir="rtl" header="הוספת שמלה" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
                 <AddDress handleCloseDialog={() => setVisible(false)} />
             </Dialog>
-
+    
             {/* Dress Gallery */}
             <div className="dress-grid">
                 {isLoading && <p>Loading...</p>}
@@ -226,48 +318,9 @@ const Catalog = () => {
                     </div>
                 ))}
             </div>
-
+    
             {/* Pagination Controls */}
-           
-
-            {/* Button to open sidebar on small screens */}
-            {!isSidebarOpen && (
-                <button className="open-sidebar-button" onClick={() => setIsSidebarOpen(true)}>
-                    Open Filter
-                </button>
-            )}
-
-            {/* Filter Sidebar */}
-            <br/>
-            <br/>
-            <div className={`filter-sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
-                <InputText dir='rtl'
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    placeholder="חפש שמלה..."
-                    className="w-full"
-                />
-                <br/>
-                <br/>
-
-                <MultiSelect dir='rtl'
-                    value={selectedSizes} 
-                    onChange={(e) => setSelectedSizes(e.value)} 
-                    options={[...new Set(dresses.flatMap(dress => dress.dressListSizes.map(sizeEntry => sizeEntry.size)))].map(size => ({ label: size, value: size }))}
-                    placeholder="נשים/בנות"
-                    className="w-full"
-                />
-                <br/>
-                
-                <MultiSelect dir='rtl'
-                    value={selectedKeys} 
-                    onChange={(e) => setSelectedKeys(e.value)} 
-                    options={[...new Set(dresses.flatMap(dress => dress.dressListSizes.map(sizeEntry => sizeEntry.key)))].map(key => ({ label: key, value: key }))}
-                    placeholder="בחר מידה"
-                    className="w-full"
-                />
-                <Button className="addButton" label="הוספת שמלה" icon="pi pi-plus" onClick={() => setVisible(true)} />
-                <div className="pagination">
+            <div className="pagination">
                 <button 
                     onClick={() => changePage(currentPage - 1)} 
                     disabled={currentPage === 1}
@@ -286,7 +339,7 @@ const Catalog = () => {
                         {index + 1}
                     </button>
                 ))}
-
+    
                 <button 
                     onClick={() => changePage(currentPage + 1)} 
                     disabled={currentPage === totalPages}
@@ -295,12 +348,40 @@ const Catalog = () => {
                     הבא
                 </button>
             </div>
-                {window.innerWidth <= 500 && (
-                    <button onClick={() => setIsSidebarOpen(false)}>Close</button>
-                )}
+    
+            {/* Sidebar and filters */}
+            {!isSidebarOpen && (
+                <button className="open-sidebar-button" onClick={() => setIsSidebarOpen(true)}>
+                    Open Filter
+                </button>
+            )}
+    
+            <div className={`filter-sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
+                <InputText dir="rtl"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    placeholder="חפש שמלה..."
+                    className="w-full"
+                />
+                <MultiSelect dir="rtl"
+                    value={selectedSizes} 
+                    onChange={(e) => setSelectedSizes(e.value)} 
+                    options={[...new Set(dresses.flatMap(dress => dress.dressListSizes.map(sizeEntry => sizeEntry.size)))].map(size => ({ label: size, value: size }))}
+                    placeholder="נשים/בנות"
+                    className="w-full"
+                />
+                <MultiSelect dir="rtl"
+                    value={selectedKeys} 
+                    onChange={(e) => setSelectedKeys(e.value)} 
+                    options={[...new Set(dresses.flatMap(dress => dress.dressListSizes.map(sizeEntry => sizeEntry.key)))].map(key => ({ label: key, value: key }))}
+                    placeholder="בחר מידה"
+                    className="w-full"
+                />
+                <Button className="addButton" label="הוספת שמלה" icon="pi pi-plus" onClick={() => setVisible(true)} />
             </div>
         </div>
     );
+    
 };
 
 export default Catalog;

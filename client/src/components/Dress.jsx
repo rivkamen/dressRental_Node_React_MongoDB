@@ -103,7 +103,7 @@ const Dress = (props) => {
         key={dress.id}
         style={{
             border: 'none',
-            width: '300px', // Set the width to a consistent value for all cards
+            width: '500px', // Set the width to a consistent value for all cards
             height: '550px', // Fixed height for consistency
             display: 'flex',
             flexDirection: 'column',

@@ -51,23 +51,17 @@ const Navbar = () => {
     const regularItems = [
         {
             label: 'דף הבית',
-            icon: 'pi pi-fw pi-home',
+            // icon: 'pi pi-fw pi-home',
             command: () => { window.location.pathname = "/"; }
         },
         {
             label: 'קטלוג',
-            icon: 'pi pi-fw pi-list',
+            // icon: 'pi pi-fw pi-list',
             command: () => { window.location.pathname = "/catalog"; }
-        },
-        {
-            label: 'צור קשר',
-            icon: 'pi pi-fw pi-comment',
-            command: () => { window.location.pathname = "/contactForm"; }
-        }
-        ,
+        }        ,
         {
             label: 'כניסת מנהל',
-            icon: 'pi pi-fw pi-user',
+            // icon: 'pi pi-fw pi-user',
             command: () => { window.location.pathname = "/adminLogin"; }
         }
     ];
@@ -75,28 +69,23 @@ const Navbar = () => {
     const adminItems = [
         {
             label: 'דף הבית',
-            icon: 'pi pi-fw pi-home',
+            // icon: 'pi pi-fw pi-home',
             command: () => { window.location.pathname = "/"; }
         },
         {
             label: 'קטלוג',
-            icon: 'pi pi-fw pi-list',
+            // icon: 'pi pi-fw pi-list',
             command: () => { window.location.pathname = "/catalogm"; }
         },
         {
             label: 'השכרות',
-            icon: 'pi pi-shopping-cart',
+            // icon: 'pi pi-shopping-cart',
             command: () => { window.location.pathname = "/rentList"; }
-        },
-        {
-            label: 'צור קשר',
-            icon: 'pi pi-fw pi-comment',
-            command: () => { window.location.pathname = "/contactForm"; }
         },
         isAdmin
         ? {
             label: 'יציאת מנהל',
-            icon: 'pi pi-fw pi-sign-out',
+            // icon: 'pi pi-fw pi-sign-out',
             command: () => {
                 sessionStorage.removeItem("adminToken");
                 window.location.pathname = "/";
@@ -104,7 +93,7 @@ const Navbar = () => {
         }
         : {
             label: 'כניסת מנהל',
-            icon: 'pi pi-fw pi-user',
+            // icon: 'pi pi-fw pi-user',
             command: () => { window.location.pathname = "/adminLogin"; }
         }
     ];

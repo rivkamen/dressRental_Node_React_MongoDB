@@ -5,7 +5,7 @@
   }
   
   .dress-image {
-    max-height: 200px;
+    max-height: 400px;
     object-fit: cover;
     border-radius: 5px;
   }
@@ -18,6 +18,7 @@
     display: flex;
     flex-direction: row;
     gap: 8px; 
+    margin-left: 43px;
   }
   
 
@@ -65,7 +66,7 @@
 } */
 .dress-item .p-grid .p-col.image-container img {
   max-width: 100%;        /* Allow image to scale but keep within max width */
-  max-height: 180px;      /* Fixed height for all images */
+  max-height: 250px;      /* Fixed height for all images */
   object-fit: contain;    /* Maintain the image's aspect ratio */
   padding: 0px;           /* Padding inside the border */
   display: block;         /* Remove any extra space below the image */
@@ -76,15 +77,23 @@
 }
 
 
-.image-container {
+/* .image-container {
   width: 100%;
-  height: 300px; /* Fixed height for consistent image size */
-  display: flex;
+  height: 300px; 
   align-items: center;
   justify-content: center;
-  position: relative; /* Enables absolute positioning for child elements */
+  position: relative; 
   overflow: hidden;
   border-radius: 5px;
+} */
+.image-container {
+  width: 100%;
+  height: auto; /* גובה דינמי לפי תוכן */
+  display: flex;
+  align-items: center; /* מרכז את התמונה אנכית */
+  justify-content: center; /* מרכז את התמונה אופקית */
+  position: relative; /* למנוע overflow */
+  overflow: hidden; /* הסתרה של כל תוכן שחורג */
 }
 
 /* Carousel arrows */
@@ -149,9 +158,9 @@ border-color:rgb(213, 1, 118); ;
   border-color:rgb(213, 1, 118); ;
 
 }
-div.text-xl.font-bold.text-900{
-  /* background-color: aliceblue; */
-}
+/* div.text-xl.font-bold.text-900{
+  /* background-color: aliceblue; 
+} */
 .text-700,.text-900{
   color: white !important;
 }

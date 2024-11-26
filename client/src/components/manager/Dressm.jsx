@@ -53,7 +53,7 @@ const Dressm = (props) => {
                 key={dress.id}
                 style={{
                     border: 'none',
-                    width: '300px', // Set the width to a consistent value for all cards
+                    width: '400px', // Set the width to a consistent value for all cards
                     height: '550px', // Fixed height for consistency
                     display: 'flex',
                     flexDirection: 'column',
@@ -94,10 +94,10 @@ const Dressm = (props) => {
     src={`http://localhost:3435/upload/${dress.images[0].split("\\").pop()}`}
     alt={dress.name}
     style={{
-        maxHeight: '250px',      // Consistent height for all images
+        maxHeight: '400px',      // Consistent height for all images
         maxWidth: '100%',        // Max width for the container
         objectFit: 'contain',    // Ensures no cropping
-        padding: '5px',          // Padding inside the border
+        // padding: '5px',          // Padding inside the border
         display: 'block',
         margin: '0 auto',        // Center the image horizontally
     }}
@@ -107,10 +107,10 @@ const Dressm = (props) => {
             )
         )}
     </div>
-    <div className="p-col" style={{ paddingTop: '10px' }}>
+    <div className="p-col" style={{ paddingBottom: '0px' }}>
         <div className="dress-info">
             <div className="text-xl font-bold text-900" >{dress.name}</div>
-            <div className="text-sm text-700">{dress.description}</div>
+            {/* <div className="text-sm text-700">{dress.description}</div> */}
         </div>
     </div>
 </div>
