@@ -29,6 +29,8 @@ div.p-dialog-header{
     padding: 20;
     /* border: 1px solid #e0e0e0; */
     /* border-radius: 8px; */
+    /* border: 1px solid #e0e0e0; */
+    /* border-radius: 8px; */
     box-shadow: 0 4px 22px rgba(0, 0, 0, 0.1); /* Slightly larger shadow */
     /* background-color: #fff; */
 }
@@ -141,8 +143,24 @@ div.filter-sidebar.open {
 }
 
 /* .dress-grid {
+/* .dress-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid */
+    /* gap: 20px; /* Space between grid items */
+    /* justify-content: center; Center the grid
+    padding: 20px;
+    margin-right: 0px;
+    overflow: auto; Enable independent scrolling
+    position: relative; Allow scrolling
+    height: 100vh; Ensure the grid takes full viewport height
+    z-index: 1; Ensure it appears above the fixed background
+    background: transparent; No background for the grid
+} */ 
+.dress-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* עיצוב רספונסיבי */
+    gap: 20px; /* מרווח בין העמודות */
+    justify-content: center;
     /* gap: 20px; /* Space between grid items */
     /* justify-content: center; Center the grid
     padding: 20px;
@@ -200,6 +218,46 @@ div.filter-sidebar.open {
     .dress-grid {
         grid-template-columns: repeat(1, 1fr); /* עמודה אחת בשורה */
     }
+    overflow: auto;
+    position: relative;
+    height: 100vh;
+    z-index: 1;
+    background: transparent;
+}
+
+/* מסכים גדולים - לפחות 1024px */
+/* עבור מסכים גדולים */
+@media (min-width: 1024px) {
+    .dress-grid .dress-item {
+        padding: 30px; /* הגדל את הריווח */
+        font-size: 1.2em; /* הגדל את הטקסט */
+        /* border: 2px solid #e0e0e0; עבה יותר */
+        box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2); /* צל יותר חזק */
+        transform: scale(1.1); /* הגדל את גודל הפריט */
+        transition: transform 0.3s ease; /* אנימציה חלקה */
+        margin-top: 40px;
+    }
+
+    .dress-grid {
+        margin-left: 20px;
+        grid-template-columns: repeat(3, 1fr); /* שלוש עמודות בשורה */
+
+        gap: 30px; /* הגדל את הריווח בין הפריטים */
+    }
+}
+
+/* מסכים בינוניים */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .dress-grid {
+        grid-template-columns: repeat(2, 1fr); /* שתי עמודות בשורה */
+    }
+}
+
+/* מסכים קטנים */
+@media (max-width: 767px) {
+    .dress-grid {
+        grid-template-columns: repeat(1, 1fr); /* עמודה אחת בשורה */
+    }
 }
 
 .filter-sidebar {
@@ -208,6 +266,7 @@ div.filter-sidebar.open {
     border-left: 1px solid #ccc;
     overflow-y: auto; /* Enable scrolling in the sidebar */
     background-color: rgba(47, 45, 45, 0.9); /* Optional: Transparent sidebar */
+    z-index: 2; 
     z-index: 2; 
     position: relative;
 }
@@ -240,15 +299,40 @@ div.filter-sidebar.open {
     .dress-grid {
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
         gap: 10px; 
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+        gap: 10px; 
         margin-right: 0;
         padding: 10px;
     }
 }
 /* .pagination {
+/* .pagination {
     display: flex;
     justify-content: center;
     margin-top: 20px;
     margin-bottom: 20px;
+} */
+.pagination {
+    display: flex; /* מאפשר יישור פנימי */
+    justify-content: center; /* ממרכז את הכפתורים */
+    margin-top: 20px; /* ריווח מעל */
+    margin-bottom: 20px; /* ריווח מתחת */
+    list-style: none; /* מסיר את הנקודות במקרה של ul/li */
+    padding: 0; /* מסיר מרווח פנימי */
+}
+
+.pagination li {
+    margin: 0 5px; /* ריווח בין הכפתורים */
+}
+
+.pagination a {
+    text-decoration: none; /* מסיר קו תחתי */
+    color: #007bff; /* צבע טקסט */
+    background-color: #f8f9fa; /* רקע */
+    padding: 8px 12px; /* מרווח פנימי */
+    border: 1px solid #dee2e6; /* מסגרת */
+    border-radius: 4px; /* פינות עגולות */
+    transition: background-color 0.3s ease, color 0.3s ease; /* אנימציה */
 } */
 .pagination {
     display: flex; /* מאפשר יישור פנימי */
@@ -279,6 +363,12 @@ div.filter-sidebar.open {
 }
 
 
+.pagination a:hover {
+    background-color: #007bff; /* רקע בכחול */
+    color: #fff; /* טקסט בלבן */
+}
+
+
 .page-button {
     padding: 10px 20px;
     margin: 0 5px;
@@ -291,6 +381,14 @@ div.filter-sidebar.open {
 
 .page-button:hover {
     background-color: #0056b3;
+}
+.catalog {
+    overflow: auto; /* כדי לאפשר גלילה */
+    scrollbar-width: none; /* הסתרת פס גלילה ב-Firefox */
+}
+
+.catalog::-webkit-scrollbar, body::-webkit-scrollbar {
+    display: none; /* הסתרת פס גלילה ב-Chrome ובדפדפנים מבוססי Webkit */
 }
 .catalog {
     overflow: auto; /* כדי לאפשר גלילה */

@@ -258,11 +258,14 @@ const Catalog = () => {
         }
     };
 
+
     return (
         <div className="catalog">
             <Dialog dir="rtl" header="הוספת שמלה" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
+            <Dialog dir="rtl" header="הוספת שמלה" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
                 <AddDress handleCloseDialog={() => setVisible(false)} />
             </Dialog>
+    
     
             {/* Dress Gallery */}
             <div className="dress-grid">
@@ -275,7 +278,9 @@ const Catalog = () => {
                 ))}
             </div>
     
+    
             {/* Pagination Controls */}
+            <div className="pagination">
             <div className="pagination">
                 <button 
                     onClick={() => changePage(currentPage - 1)} 
@@ -295,6 +300,7 @@ const Catalog = () => {
                         {index + 1}
                     </button>
                 ))}
+    
     
                 <button 
                     onClick={() => changePage(currentPage + 1)} 
@@ -334,9 +340,40 @@ const Catalog = () => {
                     className="w-full"
                 />
                 <Button className="addButton" label="הוספת שמלה" icon="pi pi-plus" onClick={() => setVisible(true)} />
+    
+            {/* Sidebar and filters */}
+            {!isSidebarOpen && (
+                <button className="open-sidebar-button" onClick={() => setIsSidebarOpen(true)}>
+                    Open Filter
+                </button>
+            )}
+    
+            <div className={`filter-sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
+                <InputText dir="rtl"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    placeholder="חפש שמלה..."
+                    className="w-full"
+                />
+                <MultiSelect dir="rtl"
+                    value={selectedSizes} 
+                    onChange={(e) => setSelectedSizes(e.value)} 
+                    options={[...new Set(dresses.flatMap(dress => dress.dressListSizes.map(sizeEntry => sizeEntry.size)))].map(size => ({ label: size, value: size }))}
+                    placeholder="נשים/בנות"
+                    className="w-full"
+                />
+                <MultiSelect dir="rtl"
+                    value={selectedKeys} 
+                    onChange={(e) => setSelectedKeys(e.value)} 
+                    options={[...new Set(dresses.flatMap(dress => dress.dressListSizes.map(sizeEntry => sizeEntry.key)))].map(key => ({ label: key, value: key }))}
+                    placeholder="בחר מידה"
+                    className="w-full"
+                />
+                <Button className="addButton" label="הוספת שמלה" icon="pi pi-plus" onClick={() => setVisible(true)} />
             </div>
         </div>
     );
+    
     
 };
 

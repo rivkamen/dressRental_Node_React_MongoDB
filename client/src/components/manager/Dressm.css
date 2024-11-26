@@ -1,26 +1,27 @@
 .dress-item {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
 
-.dress-image {
-  max-height: 400px;
-  object-fit: cover;
-  border-radius: 5px;
-}
-
-.dress-info {
-  text-align: center; 
-}
-
-.button-group {
-  display: flex;
-  flex-direction: row;
-  gap: 8px; 
-  margin-left: 43px;
-}
-
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .dress-image {
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+  
+  .dress-info {
+    text-align: center; 
+  }
+  
+  .button-group {
+    display: flex;
+    flex-direction: row;
+    gap: 8px; 
+    margin-left: 43px;
+  }
+  
 
 /* 
 .dress-image {
@@ -65,12 +66,13 @@ padding: 0%;
 
 } */
 .dress-item .p-grid .p-col.image-container img {
-max-width: 100%;        /* Allow image to scale but keep within max width */
-max-height: 250px;      /* Fixed height for all images */
-object-fit: contain;    /* Maintain the image's aspect ratio */
-padding: 0px;           /* Padding inside the border */
-display: block;         /* Remove any extra space below the image */
-margin: 0 auto;         /* Center the image inside the container */
+
+  max-width: 100%;        /* Allow image to scale but keep within max width */
+  max-height: 250px;      /* Fixed height for all images */
+  object-fit: contain;    /* Maintain the image's aspect ratio */
+  padding: 0px;           /* Padding inside the border */
+  display: block;         /* Remove any extra space below the image */
+  margin: 0 auto;         /* Center the image inside the container */
 }
 .dress-item .p-grid .p-col.image-container {
 margin-bottom: 10px; /* Decrease margin between image and text */
@@ -78,22 +80,23 @@ margin-bottom: 10px; /* Decrease margin between image and text */
 
 
 /* .image-container {
-width: 100%;
-height: 300px; 
-align-items: center;
-justify-content: center;
-position: relative; 
-overflow: hidden;
-border-radius: 5px;
+
+  width: 100%;
+  height: 300px; 
+  align-items: center;
+  justify-content: center;
+  position: relative; 
+  overflow: hidden;
+  border-radius: 5px;
 } */
 .image-container {
-width: 100%;
-height: auto; /* גובה דינמי לפי תוכן */
-display: flex;
-align-items: center; /* מרכז את התמונה אנכית */
-justify-content: center; /* מרכז את התמונה אופקית */
-position: relative; /* למנוע overflow */
-overflow: hidden; /* הסתרה של כל תוכן שחורג */
+  width: 100%;
+  height: auto; /* גובה דינמי לפי תוכן */
+  display: flex;
+  align-items: center; /* מרכז את התמונה אנכית */
+  justify-content: center; /* מרכז את התמונה אופקית */
+  position: relative; /* למנוע overflow */
+  overflow: hidden; /* הסתרה של כל תוכן שחורג */
 }
 
 /* Carousel arrows */
@@ -123,7 +126,6 @@ left: 10px; /* Distance from the left edge */
 right: 10px; /* Distance from the right edge */
 }
 
-/* Carousel indicators positioned at the bottom inside the image */
 .p-carousel-indicators {
 position: absolute;
 bottom: 25px;
@@ -142,12 +144,10 @@ background-color: rgba(37, 46, 46, 0.132);
 
 
 }
-/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 .carousel-indicators.p-carousel-indicators.p-reset{
 display: none;
 }
 
-/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 .dbut,.ebut{
 background-color: rgb(213, 1, 118);
 border-color:rgb(213, 1, 118); ;
@@ -158,12 +158,7 @@ background-color: rgb(213, 1, 118);
 border-color:rgb(213, 1, 118); ;
 
 }
-/* div.text-xl.font-bold.text-900{
-/* background-color: aliceblue; 
-} */
+
 .text-700,.text-900{
 color: white !important;
 }
-/* .text-900{
-color: rgb(213, 1, 118) !important;
-} */
