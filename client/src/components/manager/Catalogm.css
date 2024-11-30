@@ -169,8 +169,8 @@ div.filter-sidebar.open {
     position: relative; Allow scrolling
     height: 100vh; Ensure the grid takes full viewport height
     z-index: 1; Ensure it appears above the fixed background
-    background: transparent; No background for the grid
-} */ 
+    background: transparent; No background for the grid */ 
+}
 .dress-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* עיצוב רספונסיבי */
@@ -217,12 +217,13 @@ div.filter-sidebar.open {
 @media (max-width: 767px) {
     .dress-grid {
         grid-template-columns: repeat(1, 1fr); /* עמודה אחת בשורה */
-    }
+
     overflow: auto;
     position: relative;
     height: 100vh;
     z-index: 1;
-    background: transparent;
+    background: transparent;   
+ }
 }
 
 /* מסכים גדולים - לפחות 1024px */

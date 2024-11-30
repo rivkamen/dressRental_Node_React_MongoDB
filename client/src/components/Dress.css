@@ -1,159 +1,111 @@
-/* .dress-item {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
+.dress-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4%; /* צמצום המרווח */
 }
 
 .dress-image {
-    max-height: 200px;
-    object-fit: cover;
-    border-radius: 5px;
+  max-width: 80%; /* צמצום לרוחב קטן יותר */
+  max-height: 30%; /* צמצום הגובה */
+  object-fit: contain;
+  border-radius: 5px;
 }
 
 .dress-info {
-    text-align: center;
+  text-align: center;
+  position: relative;
+  left: 5%; /* הזזה קטנה לימין */
 }
 
-.button-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-} */
-.dress-item {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .dress-image {
-    max-height: 200px;
-    object-fit: cover;
-    border-radius: 5px;
-  }
-  
-  .dress-info {
-    text-align: center; 
-    left:90px;
-  }
-  
 .single-button {
-    left: 90px;
-  }
-  
-
-/* 
-.dress-image {
-    border-radius: 5px;
-    object-fit: cover;
-} */
+  position: relative;
+  left: 5%; /* הזזה קטנה לימין */
+}
 
 .image-background {
-    background-color: rgba(128, 128, 128, 0.3); /* Gray color */
-    width: 100%;
-    height: 100%;
-    border-radius: 5px; /* Same as image border-radius for a uniform shape */
-}
-/*change the color*/
-div.p-mb-3.dress-item{
-    background-color:rgb(74, 74, 74);
-
-}
-.dress-image {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain; /* Ensures the entire image fits inside the gray frame */
+  background-color: rgba(128, 128, 128, 0.3); /* צבע אפור */
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
 }
 
+div.p-mb-3.dress-item {
+  background-color: rgb(74, 74, 74);
+}
 
 .dress-item .p-grid .p-col.dress-info {
-  padding-top: 10px; /* Optional: You can adjust this to fine-tune the space */
+  padding-top: 2%; /* צמצום המרווח למעלה */
 }
-
-
 
 .p-carousel-content {
   display: flex;
-  justify-content: center;     /* Center align the image */
+  justify-content: center;
   align-items: center;
-  height: 100%;                /* Ensure carousel items are aligned to container */
+  height: 100%;
 }
 
-/* Position indicators at the bottom */
-
-
-
-/* .carousel-indicators.p-carousel-indicators.p-reset{
-  padding: 0%;
-  
-} */
 .dress-item .p-grid .p-col.image-container img {
-  max-width: 100%;        /* Allow image to scale but keep within max width */
-  max-height: 180px;      /* Fixed height for all images */
-  object-fit: contain;    /* Maintain the image's aspect ratio */
-  padding: 0px;           /* Padding inside the border */
-  display: block;         /* Remove any extra space below the image */
-  margin: 0 auto;         /* Center the image inside the container */
-}
-.dress-item .p-grid .p-col.image-container {
-  margin-bottom: 10px; /* Decrease margin between image and text */
+  max-width: 90%; /* צמצום לרוחב */
+  max-height: 50%; /* צמצום לגובה */
+  object-fit: contain;
+  padding: 0px;
+  display: block;
+  margin: 0 auto;
 }
 
+.dress-item .p-grid .p-col.image-container {
+  margin-bottom: 2%;
+}
 
 .image-container {
   width: 100%;
-  height: 300px; /* Fixed height for consistent image size */
+  height: 30%; /* צמצום הגובה */
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative; /* Enables absolute positioning for child elements */
+  position: relative;
   overflow: hidden;
   border-radius: 5px;
 }
 
-/* Carousel arrows */
+/* חיצים ב-carousel */
 .p-carousel-prev,
 .p-carousel-next {
   position: absolute;
-  top: 50%; /* Center vertically */
-  transform: translateY(-50%); /* Adjust for perfect centering */
-  z-index: 2; /* Ensure they appear on top of the image */
-  /* background-color: rgba(67, 64, 64, 0.5); Semi-transparent background */
-  color: rgb(0, 0, 0); /* White arrow color for visibility */
-  /* border-radius: 50%; Rounded background */
-  width: 35px;
-  height: 35px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  color: rgb(0, 0, 0);
+  width: 4%; /* צמצום הרוחב */
+  height: 4%; /* צמצום הגובה */
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
 }
 
-/* Specific position for each arrow */
+/* מיקום החיצים */
 .p-carousel-prev {
-  left: 10px; /* Distance from the left edge */
+  left: 2%;
 }
 
 .p-carousel-next {
-  right: 10px; /* Distance from the right edge */
+  right: 2%;
 }
 
-/* Carousel indicators positioned at the bottom inside the image */
+/* אינדיקטורים carousel בתחתית התמונה */
 .p-carousel-indicators {
   position: absolute;
-  bottom: 25px;
-  left: 5;
-  right: 5;
+  bottom: 2%;
+  left: 2%;
+  right: 2%;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  z-index: 1; /* Ensure indicators are above the image but below the arrows */
+  z-index: 1;
 }
-.carousel-indicators.p-carousel-indicators.p-reset{
-  padding: 2px;
-  background-color: rgba(37, 46, 46, 0.132);
- 
 
-  
+.carousel-indicators.p-carousel-indicators.p-reset {
+  padding: 0.5%;
+  background-color: rgba(37, 46, 46, 0.132);
 }

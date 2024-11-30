@@ -86,11 +86,12 @@ const Dress = (props) => {
                     src={imageUrl}
                     alt={dress.name}
                     style={{
-                        maxHeight: '250px',      // Consistent max height for all images
-                        maxWidth: '100%',        // Max width as per container
-                        objectFit: 'contain',    // Ensures no cropping
-                        padding: '2px',         // Optional padding for clarity
+                        maxHeight: '50%',         // מקסימום גובה כ-50% מגובה הקונטיינר
+                        maxWidth: '100%',         // רוחב מקסימלי של 100% מהקונטיינר
+                        objectFit: 'contain',     // שומר על התמונה ללא חיתוך
+                        padding: '1%',            // ריפוד של 1% לכל כיוון (למראה נקי יותר)
                     }}
+                    
                 />
             </div>
         );
@@ -103,7 +104,7 @@ const Dress = (props) => {
         key={dress.id}
         style={{
             border: 'none',
-            width: '500px', // Set the width to a consistent value for all cards
+            width: '400px', // Set the width to a consistent value for all cards
             height: '550px', // Fixed height for consistency
             display: 'flex',
             flexDirection: 'column',

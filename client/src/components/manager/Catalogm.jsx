@@ -261,7 +261,7 @@ const Catalog = () => {
 
     return (
         <div className="catalog">
-            <Dialog dir="rtl" header="הוספת שמלה" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
+            {/* <Dialog dir="rtl" header="הוספת שמלה" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}> */}
             <Dialog dir="rtl" header="הוספת שמלה" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
                 <AddDress handleCloseDialog={() => setVisible(false)} />
             </Dialog>
@@ -280,7 +280,7 @@ const Catalog = () => {
     
     
             {/* Pagination Controls */}
-            <div className="pagination">
+            {/* <div className="pagination"> */}
             <div className="pagination">
                 <button 
                     onClick={() => changePage(currentPage - 1)} 
@@ -370,6 +370,7 @@ const Catalog = () => {
                     className="w-full"
                 />
                 <Button className="addButton" label="הוספת שמלה" icon="pi pi-plus" onClick={() => setVisible(true)} />
+            </div>
             </div>
         </div>
     );
