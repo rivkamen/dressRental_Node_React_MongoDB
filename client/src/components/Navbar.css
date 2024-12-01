@@ -2,44 +2,54 @@
 .navbar-container {
     direction: rtl;
     background-color: rgba(83, 81, 81, 0.9); /* רקע אפור כהה עם שקיפות */
+
 }
 
 /* תפריט הניווט */
 .p-menubar {
-    direction: rtl;
 
+    direction: rtl;
+    justify-content: center;
     background-color: rgba(83, 81, 81, 0.9); /* רקע אפור כהה */
     border: none;
     display: flex;
     width: 100%; /* תפריט תופס את כל הרוחב */
     padding: 0;
+height: 50px;
 }
 
 /* כפתורים */
 .p-menubar .p-menuitem {
-    flex: 1; /* כל כפתור תופס שטח שווה */
-    text-align: center; /* טקסט ממורכז */
-
+    /* flex: 1; */
+    text-align: center;
 
 }
 
 /* עיצוב הכפתורים */
+
+
+/* כפתורים */
 .p-menubar .p-menuitem-link {
     display: flex;
     align-items: center;
-    /* justify-content: center; */
-    justify-content:space-around; 
-    /* color: white !important; כיתוב לבן */
+    justify-content: center;
     font-weight: bold;
-    font-size: 16px;
-    height: 100%; /* תופס את כל הגובה */
-    text-align: center;
-    /* text-decoration: none; */
-    background-color: transparent !important; /* ללא רקע */
-    border: none; /* ללא גבולות */
+    font-size: 20px;
+    height: 100%;
+    gap: 40px;
+    /* border: 2px solid rgb(213, 1, 118); מסגרת סביב הכפתור */
+    border-radius: 5px; /* רדיוס פינות קטן */
+    padding: 5px 15px; /* ריווח פנימי */
+    transition: background-color 0.3s, border-color 0.3s; /* אנימציה עדינה */
 }
 
-/* אייקונים */
+/* שינוי רקע כאשר עובר על הכפתור */
+.p-menubar .p-menuitem-link:hover {
+    background-color: rgb(213, 1, 118); /* רקע ורוד כאשר עובר */
+    color: white; /* שינוי צבע טקסט לכחול בהיר */
+    border-color: rgb(255, 255, 255); /* שינוי צבע מסגרת לכחול בהיר */
+}
+אייקונים
 .p-menuitem-icon {
     color: rgb(213, 1, 118) !important; /* אייקון ורוד */
     margin-left: 10px; /* ריווח קל בין האייקון לכיתוב */
