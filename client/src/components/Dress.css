@@ -57,7 +57,8 @@
 /*change the color*/
 div.p-mb-3.dress-item{
     background-color:rgb(74, 74, 74);
-
+    height:400px;
+    width:300px;
 }
 .dress-image {
   max-width: 100%;
@@ -153,7 +154,8 @@ div.p-mb-3.dress-item{
 .carousel-indicators.p-carousel-indicators.p-reset{
   padding: 2px;
   background-color: rgba(37, 46, 46, 0.132);
- 
-
-  
-}
+ }
+ /* div.dress-item{
+  height:400px;
+  width:300px;
+ } */
