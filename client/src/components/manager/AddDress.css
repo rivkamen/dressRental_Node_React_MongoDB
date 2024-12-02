@@ -11,60 +11,63 @@
 .swal2-overlay {
     z-index: 9998 !important; /* Optional: Adjusts overlay to prevent interference */
 }
-#pr_id_3_content{
-background-color: rgb(47, 45, 45);
 
+#pr_id_3_content {
+    background-color: rgb(47, 45, 45);
 }
-.addSize{
-    background-color:rgb(213, 1, 118);
-    border-color:rgb(213, 1, 118) ;
-    
-}
-.p-button.p-fileupload-choose.p-component{
+
+.addSize {
     background-color: rgb(213, 1, 118);
-}
-.p-fileupload .p-fileupload-buttonbar .p-button{
-      background-color: rgb(213, 1, 118);
-      border-color:rgb(213, 1, 118) ;
-}
-.p-inputtext{
-}
-/* { */
-.qty .p-inputnumber-input.p-inputtext.p-component.p-filled
-{
-    width: 60px;
-}
-.kind .p-dropdown-label.p-inputtext{
-
-}
-.size.p-component{
-    width: 50px;
-
-}
-.cancelB{
-background-color: gray;
-color:rgb(213, 1, 118) ;
-border-color:rgb(213, 1, 118) ;
-margin-right: 2px;
-}
-.okB{
-    background-color: rgb(213, 1, 118);
-    color:gray;
     border-color: rgb(213, 1, 118);
-    margin-left:2px;
 }
-.buttonsD{
+
+.p-button.p-fileupload-choose.p-component {
+    background-color: rgb(213, 1, 118);
+}
+
+.p-fileupload .p-fileupload-buttonbar .p-button {
+    background-color: rgb(213, 1, 118);
+    border-color: rgb(213, 1, 118);
+}
+
+.qty .p-inputnumber-input.p-inputtext.p-component.p-filled {
+    width: 3.125%; /* 60px מתוך 1920px */
+}
+
+.size.p-component {
+    width: 2.604%; /* 50px מתוך 1920px */
+}
+
+.cancelB {
+    background-color: gray;
+    color: rgb(213, 1, 118);
+    border-color: rgb(213, 1, 118);
+    margin-right: 0.104%; /* 2px מתוך 1920px */
+}
+
+.okB {
+    background-color: rgb(213, 1, 118);
+    color: gray;
+    border-color: rgb(213, 1, 118);
+    margin-left: 0.104%; /* 2px מתוך 1920px */
+}
+
+.buttonsD {
     text-align: center;
 }
-div.p-fileupload-content, div.p-fileupload-buttonbar{
+
+div.p-fileupload-content, div.p-fileupload-buttonbar {
     background: lightgray;
 }
-.p-inputtext{
+
+.p-inputtext {
     background: lightgray;
 }
-.kind{
+
+.kind {
     background: lightgray;
 }
-.delSize.p-button-icon.p-c.pi.pi-trash::before{
-color: blueviolet;
+
+.delSize.p-button-icon.p-c.pi.pi-trash::before {
+    color: blueviolet;
 }

@@ -20,6 +20,7 @@ import EditDress from './components/manager/EditDress.jsx';
 import RentedDressesList from "./components/manager/RentedDressList.jsx"
 import AdminLogin from './components/manager/AdminLogin.jsx'
 import PlaceDetails from "./components/PlaceDetails.jsx";
+import HomePage from "./components/Home.jsx";
 function App() {
 
   return (
@@ -28,6 +29,7 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
+        <Route path='/' element={<HomePage />} />
           <Route path='/register' element={<Register />} />
           <Route path='/rentList' element={<RentedDressesList />} />
           <Route path='/catalog' element={<Catalog />} />

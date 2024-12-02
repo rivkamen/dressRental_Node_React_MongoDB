@@ -17,13 +17,13 @@
 /* Jewish date picker styling */
 .react-jewish-date-picker {
     background-color: #ffffff;
-    border: 2px solid  rgba(213, 1, 118, 0.325);
+    border: 2px solid rgba(213, 1, 118, 0.325);
     border-radius: 10px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     padding: 30px;
     width: 400px;
     font-family: 'Alef', sans-serif;
-    font-size: 25px;
+    font-size: 16px; /* Set font size to 16px instead of using vw */
 }
 
 /* Additional styling */
@@ -38,11 +38,11 @@
     text-align: center;
     border: 1px solid #ddd;
     transition: background-color 0.3s ease;
-    font-size: 25px;
+    font-size: 16px; /* Set font size to 16px instead of using vw */
 }
 
 .react-jewish-date-picker th {
-    background-color:  rgba(213, 1, 118, 0.325);
+    background-color: rgba(213, 1, 118, 0.325);
     color: white;
 }
 
@@ -69,7 +69,7 @@
     padding: 12px 20px;
     cursor: pointer;
     margin-top: 15px;
-    font-size: 18px;
+    font-size: 14px; /* Set font size to 14px */
 }
 
 .react-jewish-date-picker button:hover {
@@ -79,16 +79,15 @@
 .selectedDate {
     width: 200px;
     height: 50px;
-    font-size: x-large;
+    font-size: 18px; /* Set font size to 18px */
 }
 
 .reactJewishDatePicker .selectedDate {
-    font-size: large;
+    font-size: 16px; /* Set font size to 16px */
     padding-top: 12px;
     margin-top: 50px;
     margin-right: 50px;
-    /* border: rgb(213, 1, 118); */
-    border:2px solid rgb(213, 1, 118)
+    border: 2px solid rgb(213, 1, 118);
 }
 
 .reactJewishDatePicker .calendarIcon {
@@ -100,46 +99,50 @@
 
 .text {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: x-large;
+    font-size: 20px; /* Set font size to 20px */
     text-align: center;
 }
-.sectext{
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size:medium;
-    text-align: center;
 
+.sectext {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 14px; /* Set font size to 14px */
+    text-align: center;
 }
+
 .p-carousel-next, .p-carousel-prev {
     display: flex;
     position: relative;
 }
-#cardid.pickDate.fullHeightCard{
+
+#cardid.pickDate.fullHeightCard {
     color: #ffffff;
 }
-svg.calendarIcon{
+
+svg.calendarIcon {
     color: rgb(213, 1, 118);
 }
-.reactJewishDatePicker .weekdayWrapper{
 
+.reactJewishDatePicker .weekdayWrapper {
     background-color: rgb(213, 1, 118);
-
 }
-.reactJewishDatePicker .selectedDay{
+
+.reactJewishDatePicker .selectedDay {
     background-color: rgba(213, 1, 118, 0.325);
 }
-.sizeBut{
+
+.sizeBut {
     background-color: rgb(213, 1, 118);
     border-color: rgb(213, 1, 118);
-
 }
+
 /* Adjust hover color for year list items */
 .react-jewish-datepicker .year-list-item:hover {
-    background-color: #f0c674 !important; /* Customize this color */
-    color: #ffffff !important;           /* Text color on hover */
+    background-color: #f0c674 !important;
+    color: #ffffff !important;
 }
 
 /* Adjust hover color for month list items */
 .react-jewish-datepicker .month-list-item:hover {
-    background-color: #f0c674 !important; /* Customize this color */
-    color: #ffffff !important;           /* Text color on hover */
+    background-color: #f0c674 !important;
+    color: #ffffff !important;
 }

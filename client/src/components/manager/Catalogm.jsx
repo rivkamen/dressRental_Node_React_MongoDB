@@ -83,6 +83,7 @@ const Catalog = () => {
 
     return (
         <div className="catalog">
+            {/* <Dialog dir="rtl" header="הוספת שמלה" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}> */}
             <Dialog dir="rtl" header="הוספת שמלה" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
                 <AddDress handleCloseDialog={() => setVisible(false)} />
             </Dialog>
@@ -100,7 +101,6 @@ const Catalog = () => {
     
             {/* Pagination Controls */}
            
-            {/* Sidebar and filters */}
             {!isSidebarOpen && (
                 <button className="open-sidebar-button" onClick={() => setIsSidebarOpen(true)}>
                     Open Filter
@@ -130,6 +130,7 @@ const Catalog = () => {
                 />
                 <Button className="addButton" label="הוספת שמלה" icon="pi pi-plus" onClick={() => setVisible(true)} />
                 <div className="pagination">
+         
                 <button 
                     onClick={() => changePage(currentPage - 1)} 
                     disabled={currentPage === 1}
@@ -160,7 +161,8 @@ const Catalog = () => {
     
             </div>
 
-        </div>
+            </div>
+
     );
     
 };
