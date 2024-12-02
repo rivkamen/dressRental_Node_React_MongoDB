@@ -50,3 +50,58 @@
         margin-left: auto; 
       }
       
+=======
+.myTab {
+  background-color: lightgray;
+  width: 100%; /* מתאם את הרוחב לאחוזים */
+  text-align: right;
+}
+
+.returnBut {
+  background-color: rgb(213, 1, 118);
+  border-color: rgb(213, 1, 118);
+  width: 100%; /* מתאם את הרוחב לאחוזים */
+}
+
+.but {
+  background-color: rgb(213, 1, 118);
+  border-color: rgb(213, 1, 118);
+  margin: 2%; /* המרה ליחידות אחוזים */
+}
+
+.inputSearch {
+  border-color: rgb(213, 1, 118);
+  width: 100%; /* מתאם את הרוחב לאחוזים */
+}
+
+.alternateBut {
+  border-color: rgb(213, 1, 118);
+  background-color: gray;
+  color: rgb(213, 1, 118);
+  width: 100%; /* מתאם את הרוחב לאחוזים */
+}
+
+.myTab {
+  text-align: right;
+}
+
+.p-datatable-tbody > tr > td {
+  text-align: right;
+  direction: rtl;
+}
+
+.p-datatable-thead > tr > th {
+  text-align: center;
+  direction: rtl;
+}
+
+.p-datatable-tbody > tr > td:last-child {
+  text-align: left;
+  direction: ltr;
+}
+
+.returnBut,
+.alternateBut {
+  margin-left: auto;
+  width: 100%; /* מתאם את הרוחב לאחוזים */
+}

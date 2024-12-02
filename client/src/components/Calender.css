@@ -1,29 +1,28 @@
 .calendar {
-    width: 300px;
-    margin: 0 auto;
-    text-align: center;
-    font-family: Arial, sans-serif;
-  }
-  
-  .calendar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .calendar-body {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
-  .calendar-day {
-    width: calc(100% / 7);
-    padding: 10px;
-    box-sizing: border-box;
-  }
-  
-  .calendar-day.empty {
-    background-color: #f0f0f0;
-  }
-  
+  width: 80%; /* מתאם את הרוחב לאחוזים */
+  margin: 0 auto;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5%; /* המרה ליחידות אחוזים */
+}
+
+.calendar-body {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.calendar-day {
+  width: 14.2857%; /* 100% / 7 ימים בשבוע = 14.2857% */
+  padding: 2%; /* המרה ליחידות אחוזים */
+  box-sizing: border-box;
+}
+
+.calendar-day.empty {
+  background-color: #f0f0f0;
+}

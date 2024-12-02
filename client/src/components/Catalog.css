@@ -6,21 +6,21 @@
 .dress-grid {
     flex: 1; /* Take the remaining space */
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid layout */
-    gap: 16px;
-    padding: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(10%, 1fr)); /* הרבה יותר צרות לכל כרטיס */
+    gap: 2%; /* Gap smaller between items */
+    padding: 2%; /* Smaller padding */
     overflow-y: auto; /* Scrollable if content exceeds height */
 }
 
 .filter-sidebar {
-    width: 250px; /* Fixed width for the sidebar */
-    padding: 16px;
+    width: 15%; /* הצמצום המשמעותי של רוחב הסיידבר */
+    padding: 2%; /* Smaller padding */
     background-color: #f8f8f8; /* Light background for contrast */
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Shadow for depth */
     height: 100vh; /* Full height */
     position: fixed; /* Fixed position */
     right: 0; /* Stick to the right */
-    top: 10; /* Start from the top */
+    top: 0; /* Start from the top */
     z-index: 1000; /* Ensure it stays on top */
     transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth open/close transition */
 }
@@ -37,9 +37,9 @@
 
 .open-sidebar-button {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    padding: 10px 20px;
+    bottom: 2%; /* מיקום יותר נמוך וקרוב לפינה */
+    right: 2%; /* מיקום יותר קרוב לפינה */
+    padding: 1% 3%; /* Padding קטן יותר */
     background-color: rgb(213, 1, 118);
     color: white;
     border: none;
@@ -53,13 +53,6 @@
 
 /* MultiSelect adjustments */
 .p-multiselect {
-    width: 100%; /* Make sure MultiSelect takes full width */
-    margin-bottom: 1rem; /* Add spacing between components */
+    width: 100%; /* Ensure MultiSelect takes full width */
+    margin-bottom: 1%; /* Smaller margin */
 }
-
-
-
-
-
-
-
