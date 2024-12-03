@@ -73,103 +73,144 @@ const RentDressm = (props) => {
     };
 
     return (
-        <Card id="cardid" className="pickDate fullHeightCard" style={{ width: '70%',height:'550px',marginTop:'45px', backgroundColor:'#646464' }}>
-            <div className="container fullHeightContent" style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between' }}>
-                {/* Left side: Image */}
-                <div className="p-col image-container" style={{ marginBottom: '10px', marginTop: '2px', width: '45%' }}>
-                    {dress.images && dress.images.length > 1 ? (
-                        <div
-                            style={{
-                                width: '100%',
-                                height: '700px',
-                                position: 'relative',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                            }}
-                        >
-                            <Carousel
-                                value={dress.images}
-                                itemTemplate={renderGalleryItem}
-                                numVisible={1}
-                                numScroll={1}
-                                indicatorsContentClassName="carousel-indicators"
-                            />
-                        </div>
-                    ) : (
-                        dress.images?.length === 1 && (
-                            <img
-                                className="dress-image"
-                                src={`http://localhost:3435/upload/${dress.images[0].split("\\").pop()}`}
-                                alt={dress.name}
-                                style={{
-                                    maxHeight: '250px',
-                                    maxWidth: '100%',
-                                    objectFit: 'contain',
-                                    padding: '5px',
-                                    display: 'block',
-                                    margin: '0 auto',
-                                }}
-                            />
-                        )
-                    )}
-                </div>
+        <div       style={{
+            display: 'flex',
+            justifyContent: 'center', // Center horizontally
+            // alignItems: 'center', // Center vertically
+            height: '100vh', // Full viewport height
+        }}>
+        <Card id="cardid" className="pickDate fullHeightCard" style={{ width: '70%',height:'550px',marginTop:'5px', backgroundColor:'#646464' }}>
+<div className="container fullHeightContent" style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between' }}>
 
-                {/* Right side: Content */}
-                <div className="leftContent" style={{ width: '45%' }}>
-                    <div dir="rtl" className="text" style={{ fontSize: '24px', fontWeight: 'bold' }}>
-                        {dress.name}
-                    </div>
-                    <div dir="rtl" className="sectext" style={{ fontSize: '18px', marginBottom: '20px' }}>
-                        {dress.description}
-                    </div>
+<div
+    className="p-col image-container"
+    style={{
+        marginTop: '5px', // 5px from the top
+        marginBottom: '10px',
+        width: '45%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+    }}
+>
+    {dress.images && dress.images.length > 1 ? (
+        <div
+            style={{
+                width: '100%',
+                height: '700px',
+                position: 'relative',
+                display: 'flex',
+                alignItems: 'start',
+                justifyContent: 'center',
+            }}
+        >
+            <Carousel
+                value={dress.images}
+                itemTemplate={renderGalleryItem}
+                numVisible={1}
+                numScroll={1}
+                indicatorsContentClassName="carousel-indicators"
+            />
+        </div>
+    ) : (
+        dress.images?.length === 1 && (
+            <img
+                className="dress-image"
+                src={`http://localhost:3435/upload/${dress.images[0].split("\\").pop()}`}
+                alt={dress.name}
+                style={{
+                    maxHeight: '250px',
+                    maxWidth: '100%',
+                    objectFit: 'contain',
+                    padding: '5px',
+                    display: 'block',
+                    margin: '0 auto',
+                }}
+            />
+        )
+    )}
+</div>
 
-                    {/* Date picker */}
-                    <div className="datePickerContainer" dir='rtl' style={{ fontSize: '20px', marginRight: '20px', padding: '10px' }}>
-                        בחר תאריך:
-                        <ReactJewishDatePicker
-                            value={basicJewishDay}
-                            isHebrew
-                            canSelect={customCanSelect} // Use the updated logic
-                            onClick={handleDateSelect}
-                            style={{ 
-                                fontSize: '20px',
-                                padding: '10px', 
-                                borderRadius: '10px',
-                                border: '2px solid #ccc',
-                                boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
-                            }}
+
+    <div className="rightContent" style={{ width: '45%' }}>
+        <div dir="rtl" className="text" style={{ fontSize: '24px', fontWeight: 'bold' }}>
+            {dress.name}
+        </div>
+        <div dir="rtl" className="sectext" style={{ fontSize: '18px', marginBottom: '20px' }}>
+            {dress.description}
+        </div>
+
+        <div className="datePickerContainer" dir="rtl" style={{ fontSize: '20px', marginBottom: '20px' }}>
+            <span style={{ fontWeight: 'bold' }}>בחר תאריך:</span>
+            <ReactJewishDatePicker
+                value={basicJewishDay}
+                isHebrew
+                canSelect={customCanSelect}
+                onClick={handleDateSelect}
+                style={{
+                    fontSize: '16px',
+                    padding: '10px',
+                    borderRadius: '8px',
+                    border: '2px solid #ccc',
+                    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+                    marginTop: '10px',
+                }}
+            />
+        </div>
+
+        {availableDresses.length > 0 && (<>
+             <h4 style={{ margin: 0 }} >: מידות פנויות בתאריך שנבחר</h4>
+
+            <div
+                className="sizesContainer"
+                dir="rtl"
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                    gap: '10px',
+                    maxHeight: '200px', // Adjust this value for the scroll area height
+                    overflowY: 'auto',
+                    // border: '1px solid #ccc',
+                    // borderRadius: '8px',
+                    padding: '10px',
+                }}
+            >
+                {availableDresses.map((dress, index) => (
+                    <div
+                        key={dress.key}
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            width: '100%',
+                        }}
+                    >
+                        <Button
+                            className="sizeBut"
+                            label={dress.key}
+                            onClick={() => handleRentClick(dress.key)}
+                            style={{ minWidth: '50px',minHeight: '50px', marginRight: '10px' }}
+                            rounded
                         />
+                        {availableDresses[index].availableDresses < 3 && (
+                            <span style={{ fontSize: '14px', color: 'white' }}>
+                               &nbsp; (נשארו {availableDresses[index].availableDresses})
+                            </span>
+                        )}
                     </div>
-                </div>
+                ))}
             </div>
+            </>
+        )}
+    </div>
+</div>
 
-            {/* Available dresses list */}
-            {availableDresses.length > 0 && (
-                <div dir='rtl'>
-                    <h4 style={{ padding: '10px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <i className="pi pi-calendar-clock" style={{ fontSize: '24px' }}></i>
-                        מידות פנויות בתאריך שנבחר
-                    </h4>
-                    <ul style={{ listStyleType: 'none' }}>
-                        {availableDresses.map((dress, index) => (
-                            <li key={dress.key}>
-                                <i className='pi pi-star-fill' style={{ fontSize: '16px' }}></i>&nbsp;&nbsp;
-                                <Button className='sizeBut'
-                                    label={dress.key} 
-                                    onClick={() => handleRentClick(dress.key)} 
-                                />
-                                {availableDresses[index].availableDresses < 3 && (
-                                    <span> (נשארו רק {availableDresses[index].availableDresses} )</span>
-                                )}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            )}
+
+           
 
             {isError && <p>Error fetching available dresses: {error?.message}</p>}
         </Card>
+        </div>
     );
 };
 
