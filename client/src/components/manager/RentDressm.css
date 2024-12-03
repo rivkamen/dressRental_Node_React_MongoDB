@@ -17,7 +17,7 @@
 /* Jewish date picker styling */
 .react-jewish-date-picker {
     background-color: #ffffff;
-    border: 2px solid rgba(213, 1, 118, 0.325);
+    border: 2px solid rgba(213, 1, 118, 0.32f);
     border-radius: 10px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     padding: 30px;
@@ -86,7 +86,7 @@
     font-size: 16px; /* Set font size to 16px */
     padding-top: 12px;
     margin-top: 50px;
-    margin-right: 50px;
+    margin-right: 20px;
     border: 2px solid rgb(213, 1, 118);
 }
 
