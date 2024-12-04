@@ -45,7 +45,9 @@ div.p-dialog-header{
 }
 
 .filter-sidebar.open {
-    display: block; /* Show sidebar when open */
+    display: block; 
+    position: fixed;
+    margin-top: 50px;
 }
 
 .open-sidebar-button {

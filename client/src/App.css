@@ -8,10 +8,13 @@ height: 100%;
   display: flex;
   justify-content: center; /* Centers horizontally */
   align-items: center;     /* Centers vertically */
-  height: 100vh;
-
-     /* Takes up 100% of the viewport height */
+  height: 100vh;  
 }
+.content-container {
+  margin-top: 50px; /* Same as navbar height */
+  /* padding: 20px; Optional for spacing */
+}
+
 /* Ensure html and body take full height */
 html, body {
   height: 100%;

@@ -29,6 +29,7 @@ function App() {
     <Provider store={store}>
       <BrowserRouter>
         <Navbar />
+        <div className="content-container">
         <Routes>
         <Route path='/' element={<HomePage />} />
           <Route path='/register' element={<Register />} />
@@ -48,6 +49,7 @@ function App() {
 
 
         </Routes>
+        </div>
         <PlaceDetails></PlaceDetails>
       </BrowserRouter>
     </Provider>
