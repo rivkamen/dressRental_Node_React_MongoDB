@@ -8,7 +8,9 @@ height: 100%;
   display: flex;
   justify-content: center; /* Centers horizontally */
   align-items: center;     /* Centers vertically */
-  height: 100vh;           /* Takes up 100% of the viewport height */
+  height: 100vh;
+
+     /* Takes up 100% of the viewport height */
 }
 /* Ensure html and body take full height */
 html, body {

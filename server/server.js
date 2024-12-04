@@ -28,6 +28,7 @@ app.use("/api/dress",require("./routes/DressDesignRoutes"))
 app.use("/api/message",require("./routes/ContactMessageRoutes"))
 app.use("/api/booked",require("./routes/BookedDateRoutes"))
 app.use("/api/functionToken/:token",require("./middleware/functionToken"))
+app.use('/api/rental-history', require('./routes/RentalHistoryRoutes'));
 
 app.get('/',(req,res)=>{
     res.send("This is the Home Page")

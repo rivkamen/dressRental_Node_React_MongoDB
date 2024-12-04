@@ -21,6 +21,7 @@ import RentedDressesList from "./components/manager/RentedDressList.jsx"
 import AdminLogin from './components/manager/AdminLogin.jsx'
 import PlaceDetails from "./components/PlaceDetails.jsx";
 import HomePage from "./components/Home.jsx";
+import RentalHistory from './components/manager/RentalHistory.jsx';
 function App() {
 
   return (
@@ -43,6 +44,7 @@ function App() {
           <Route path='/renting' element={<Renting/>}/>
           <Route path='/edit' element={<EditDress/>}/>
           <Route path='/adminLogin' element={<AdminLogin/>}/>
+          <Route path='/history' element={<RentalHistory/>}/>
 
 
         </Routes>

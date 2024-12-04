@@ -44,6 +44,11 @@ const Navbar = () => {
             // icon: 'pi pi-shopping-cart',
             command: () => { window.location.pathname = "/rentList"; }
         },
+        {
+            label: 'הסטוריה',
+            // icon: 'pi pi-shopping-cart',
+            command: () => { window.location.pathname = "/history"; }
+        },
         isAdmin
         ? {
             label: 'יציאת מנהל',
