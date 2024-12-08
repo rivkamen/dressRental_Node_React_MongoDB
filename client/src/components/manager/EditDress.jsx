@@ -273,52 +273,6 @@ let images=[];
         }
       };
       
-    
-    // const confirmEdit = async () => {
-    //     try {
-    //         // Combine existing images and newly uploaded images
-    //         const allImages = [
-    //             ...existingImages.map((image) => image.objectURL)
-    //         ];
-    //         await editDressFunc({
-    //             id: dress._id,
-    //             dress: {
-    //                 name: formik.values.name,
-    //                 description: formik.values.description,
-    //                 existImages:existingImages,
-    //                 path:newImages.map(file => ({ path: file })),
-    //                 dressListSizes: sizesData.map(size => ({
-    //                     key: size.key,
-    //                     size: size.size,
-    //                     dresses: Array(size.qty).fill({ renteDates: [] })
-    //                 }))
-    //             }
-    //         }).unwrap();
-
-    //         handleCloseDialog();
-    //         setIsConfirmationVisible(false);
-    //     } catch (error) {
-    //         if (error?.status === 409) {
-    //             Swal.fire({
-    //                 title: 'Conflict Error',
-    //                 text: 'The dress already exists with the same name. Please choose a different name.',
-    //                 icon: 'error',
-    //                 confirmButtonText: 'OK'
-    //             });
-    //         } else {
-    //             console.log("error");
-    //             console.log(error);
-                
-    //             Swal.fire({
-    //                 title: 'Error',
-    //                 text: error?.data?.message || 'An unexpected error occurred. Please try again.',
-    //                 icon: 'error',
-    //                 confirmButtonText: 'OK'
-    //             });
-    //         }
-    //         setIsConfirmationVisible(false);
-    //     }
-    // };
     const confirmEdit = async () => {
         try {
             // הכנת FormData עבור העלאת הקבצים החדשים
@@ -553,9 +507,11 @@ let images=[];
             <div>
                 <h5>Existing Images</h5>
                 <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+                    {console.log(existingImages)};
+                    
                     {existingImages.map((image, index) => (
                         <div key={index} style={{ marginRight: '10px', marginBottom: '10px' }}>
-                            <img src={image.objectURL} alt={`Dress ${index}`} style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
+                            <img src={'http://localhost:3435/upload/'+image.split("\\").pop()} alt={`Dress ${index}`} style={{ width: '100px', height: '100px', objectFit: 'cover' }} />
                             <Button
                                 icon="pi pi-trash"
                                 className="p-button-danger"
