@@ -174,64 +174,325 @@ const getDressDesignById = async (req, res) => {
 
 
 
+// const updateDressDesign = async (req, res) => {
+//   const { _id } = req.params;
+//   const { name, description, imageUrl, dressListSizes } = req.body;
+
+//   try {
+
+//     // חיפוש העיצוב לפי ה-ID
+//     const dress = await DressDesign.findById(_id).exec();
+
+//     if (!dress) {
+//       return res.status(404).json({ message: "Dress design not found" });
+//     }
+
+//     // אם יש שם חדש לעדכון, נוודא שהשם לא קיים כבר בעיצוב אחר
+//     if (name && name !== dress.name) {
+
+//       const existingDress = await DressDesign.findOne({ name }).exec();
+//       if (existingDress) {
+        
+//         return res.status(400).json({ message: "Dress design name must be unique" });
+//       }
+//       dress.name = name; // עדכון השם לאחר אימות ייחודיות
+//     }
+
+//     // עדכון שדות אחרים אם נשלחו
+//     if (description) dress.description = description;
+//     if (imageUrl) dress.images = imageUrl;
+
+//     // עדכון רשימת המידות והשמלות
+//     if (dressListSizes) {
+
+//       const updatedDressListSizes = dressListSizes.map(sizeEntry => {
+//         return {
+//           key: sizeEntry.key,
+//           size: sizeEntry.size,
+//           dresses: sizeEntry.dresses.map(dress => ({
+//             ...dress,
+//             barcode: dress.barcode || uuidv4(), // הוספת ברקוד אם אין
+//             renteDates: dress.renteDates || []  // ודא ש-`renteDates` לא ריק
+//           }))
+//         };
+//       });
+//       dress.dressListSizes = updatedDressListSizes;
+//     }
+
+
+//     // שמירת העדכון במסד הנתונים
+//     const updatedDress = await dress.save();
+
+
+//     return res.status(200).json({
+//       success: true,
+//       message: `Dress ${dress.name} updated successfully`,
+//     });
+//   } catch (error) {
+//     return res.status(500).json({ message: "Failed to update dress design", error: error.message });
+//   }
+// };
 const updateDressDesign = async (req, res) => {
+  console.log("Updating dress design...");
+
+  // הדפסת נתונים נכנסים
+  console.log("Request Params (req.params):", req.params);
+  console.log("Request Body (req.body):", req.body);
+  console.log("Request Files (req.files):", req.files);
+
   const { _id } = req.params;
-  const { name, description, imageUrl, dressListSizes } = req.body;
+  const { name, description, existImages, dressListSizes } = req.body;
+  const files = req.files;
 
   try {
+    // בדיקת תקינות ה-ID
+    if (!_id) {
+      console.error("Error: Missing ID in request");
+      return res.status(400).json({ message: "Missing dress ID" });
+    }
 
-    // חיפוש העיצוב לפי ה-ID
     const dress = await DressDesign.findById(_id).exec();
-
     if (!dress) {
+      console.error(`Error: Dress design with ID ${_id} not found`);
       return res.status(404).json({ message: "Dress design not found" });
     }
 
-    // אם יש שם חדש לעדכון, נוודא שהשם לא קיים כבר בעיצוב אחר
-    if (name && name !== dress.name) {
-
-      const existingDress = await DressDesign.findOne({ name }).exec();
-      if (existingDress) {
-        
-        return res.status(400).json({ message: "Dress design name must be unique" });
+    // עדכון שם
+    if (name) {
+      console.log("Name provided:", name);
+      if (name !== dress.name) {
+        console.log("Checking for duplicate name...");
+        const existingDress = await DressDesign.findOne({ name }).exec();
+        if (existingDress) {
+          console.error("Error: Duplicate dress name detected");
+          return res.status(400).json({ message: "Dress design name must be unique" });
+        }
+        dress.name = name;
       }
-      dress.name = name; // עדכון השם לאחר אימות ייחודיות
     }
 
-    // עדכון שדות אחרים אם נשלחו
-    if (description) dress.description = description;
-    if (imageUrl) dress.images = imageUrl;
+    // עדכון תיאור
+    if (description) {
+      console.log("Updating description...");
+      dress.description = description;
+    }
 
-    // עדכון רשימת המידות והשמלות
+    // עדכון תמונות קיימות
+    // if (existImages) {
+    //   console.log("Existing images provided:", existImages);
+    //   if (!Array.isArray(existImages)) {
+    //     console.error("Error: existImages is not an array");
+    //     return res.status(400).json({ message: "Invalid existImages format" });
+    //   }
+    //   console.log("Filtering existing images...");
+    //   console.log("Current dress images:", dress.images);
+    //   dress.images = dress.images.filter((imagePath) =>
+    //     existImages.includes(imagePath)
+    //   );
+    //   console.log("Updated existing images:", dress.images);
+    // }
+
+    // // טיפול בתמונות חדשות
+    // if (files && files.length > 0) {
+    //   console.log("Processing new images...");
+    //   const newImagePaths = files.map((file) => file.path);
+    //   console.log("New images paths:", newImagePaths);
+    //   dress.images = [...dress.images, ...newImagePaths];
+    // }
+// Update existing images (if provided)
+// if (existImages) {
+//   console.log("Existing images provided:", existImages);
+
+  // Convert to array if it's a single string
+//   const existImagesArray = Array.isArray(existImages)
+//     ? existImages
+//     : [existImages]; // אם זה מחרוזת יחידה, הפוך למערך
+
+//   console.log("Converted existImages to array:", existImagesArray);
+
+//   console.log("Filtering existing images...");
+//   console.log("Current dress images:", dress.images);
+
+//   dress.images = dress.images.filter((imagePath) =>
+//     existImagesArray.includes(imagePath)
+//   );
+//    if (files && files.length > 0) {
+//       console.log("Processing new images...");
+//       const newImagePaths = files.map((file) => file.path);
+//       console.log("New images paths:", newImagePaths);
+//       dress.images = [...dress.images, ...newImagePaths];
+//     }
+
+//   console.log("Updated existing images:", dress.images);
+// }
+if (existImages) {
+  console.log("Filtering existing images...");
+  const existImagesArray = Array.isArray(existImages) ? existImages : [existImages];
+  
+  // סינון התמונות הקיימות
+  dress.images = dress.images.filter((imagePath) => 
+    existImagesArray.includes(imagePath)
+  );
+  
+  console.log("Filtered existing images:", dress.images);
+
+  // רק לאחר מכן להוסיף את התמונות החדשות
+  if (files && files.length > 0) {
+    console.log("Processing new images...");
+    const newImagePaths = files.map((file) => file.path);
+    console.log("New images paths:", newImagePaths);
+
+    dress.images = [...dress.images, ...newImagePaths];
+    console.log("Updated images with new files:", dress.images);
+  }
+}
+
+    // עדכון גדלים
+    // if (dressListSizes) {
+    //   console.log("Updating dress list sizes...");
+    //   try {
+    //     const sizes = JSON.parse(dressListSizes);
+    //     console.log("Parsed sizes:", sizes);
+    //     dress.dressListSizes = sizes.map((sizeEntry) => ({
+    //       key: sizeEntry.key,
+    //       size: sizeEntry.size,
+    //       dresses: sizeEntry.dresses.map((dress) => ({
+    //         ...dress,
+    //         barcode: dress.barcode || uuidv4(),
+    //         renteDates: dress.renteDates || [],
+    //       })),
+    //     }));
+    //   } catch (error) {
+    //     console.error("Error parsing dressListSizes:", error.message);
+    //     return res.status(400).json({ message: "Invalid dressListSizes format" });
+    //   }
+    // }
     if (dressListSizes) {
-
-      const updatedDressListSizes = dressListSizes.map(sizeEntry => {
-        return {
+      console.log("Updating dress list sizes...");
+      try {
+        const parsedSizes = dressListSizes.map((size) =>
+          typeof size === "string" ? JSON.parse(size) : size
+        );
+        console.log("Parsed dressListSizes:", parsedSizes);
+    
+        dress.dressListSizes = parsedSizes.map((sizeEntry) => ({
           key: sizeEntry.key,
           size: sizeEntry.size,
-          dresses: sizeEntry.dresses.map(dress => ({
+          dresses: sizeEntry.dresses.map((dress) => ({
             ...dress,
-            barcode: dress.barcode || uuidv4(), // הוספת ברקוד אם אין
-            renteDates: dress.renteDates || []  // ודא ש-`renteDates` לא ריק
-          }))
-        };
-      });
-      dress.dressListSizes = updatedDressListSizes;
+            barcode: dress.barcode || uuidv4(),
+            renteDates: dress.renteDates || [],
+          })),
+        }));
+      } catch (error) {
+        console.error("Error parsing dressListSizes:", error.message);
+        return res.status(400).json({ message: "Invalid dressListSizes format" });
+      }
     }
-
-
-    // שמירת העדכון במסד הנתונים
+    
+    // שמירת עדכונים
+    console.log("Saving updated dress design...");
     const updatedDress = await dress.save();
-
+    console.log("Dress updated successfully:", updatedDress);
 
     return res.status(200).json({
       success: true,
       message: `Dress ${dress.name} updated successfully`,
+      data: updatedDress,
     });
   } catch (error) {
-    return res.status(500).json({ message: "Failed to update dress design", error: error.message });
+    console.error("Error updating dress design:", error);
+    return res
+      .status(500)
+      .json({ message: "Failed to update dress design", error: error.message });
   }
 };
+
+// const updateDressDesign = async (req, res) => {
+//   console.log("Updating dress design...");
+//   const { _id } = req.params;
+//   const { name, description, existImages, dressListSizes } = req.body;
+//   const files = req.files;
+// console.log("files");
+// console.log(files);
+// console.log("existImages");
+// console.log(existImages);
+// console.log("name");
+// console.log(name);
+
+
+//   try {
+//     const dress = await DressDesign.findById(_id).exec();
+//     if (!dress) {
+//       return res.status(404).json({ message: "Dress design not found" });
+//     }
+
+//     // Update the name (if provided) and ensure uniqueness
+//     if (name && name !== dress.name) {
+//       const existingDress = await DressDesign.findOne({ name }).exec();
+//       if (existingDress) {
+//         return res.status(400).json({ message: "Dress design name must be unique" });
+//       }
+//       dress.name = name;
+//     }
+
+//     // Update description (if provided)
+//     if (description) {
+//       dress.description = description;
+//     }
+
+//     // Update existing images (if provided)
+//     if (existImages && existImages.length > 0) {
+//       console.log("Existing images before update:", dress.images);
+//       dress.images = dress.images.filter((imagePath) =>
+//         existImages.includes(imagePath)
+//       );
+//       console.log("Updated existing images:", dress.images);
+//     }
+
+//     // Handle new images from `req.files`
+//     if (files && files.length > 0) {
+//       console.log("0");
+
+//       const newImagePaths = files.map((file) => file.path); // Extract file paths
+//       console.log("New images:", newImagePaths);
+//       dress.images = [...dress.images, ...newImagePaths]; // Merge new images
+//     }
+
+//     // Update dress list sizes
+//     if (dressListSizes) {
+//       console.log("1");
+//       console.log("dressListSizes");
+//       console.log(dressListSizes);
+      
+//       dress.dressListSizes = dressListSizes.map((sizeEntry) => ({
+//         key: sizeEntry.key,
+//         size: sizeEntry.size,
+//         dresses: sizeEntry.dresses.map((dress) => ({
+//           ...dress,
+//           barcode: dress.barcode || uuidv4(), // Add barcode if missing
+//           renteDates: dress.renteDates || [], // Ensure `renteDates` is initialized
+//         })),
+//       }));
+//     }
+//     console.log("2");
+
+//     // Save updates to the database
+//     const updatedDress = await dress.save();
+//     console.log("Dress updated successfully:", updatedDress);
+
+//     return res.status(200).json({
+//       success: true,
+//       message: `Dress ${dress.name} updated successfully`,
+//       data: updatedDress,
+//     });
+//   } catch (error) {
+//     console.error("Error updating dress design:", error.message);
+//     return res
+//       .status(500)
+//       .json({ message: "Failed to update dress design", error: error.message });
+//   }
+// };
 
 const deleteDressDesign = async (req, res) => {
   const { _id } = req.params;
