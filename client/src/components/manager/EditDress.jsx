@@ -455,6 +455,8 @@ let images=[];
             <div>
                 <Button label="הוסף מידה" type="button" onClick={addSize} />
                 <br /><br />
+                {console.log(sizesData)};
+                
                 {sizesData.length > 0 ? (
                     sizesData.map((size, index) => (
                         <div key={index} className="field" style={{ display: 'flex', alignItems: 'center' }}>
@@ -470,7 +472,7 @@ let images=[];
                                 placeholder="נשים/בנות"
                             />
                             <InputNumber
-                                value={size.qty > 0 ? size.qty : ''}
+                                value={size.dresses.length > 0 ? size.dresses.length : ''}
                                 onValueChange={(e) => updateSizeData(index, 'qty', e.value)}
                                 placeholder="כמות"
                                 min={0}

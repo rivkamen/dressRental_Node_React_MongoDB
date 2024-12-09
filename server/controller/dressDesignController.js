@@ -346,6 +346,16 @@ if (existImages) {
     console.log("Updated images with new files:", dress.images);
   }
 }
+else{
+  if (files && files.length > 0) {
+    console.log("Processing new images...");
+    const newImagePaths = files.map((file) => file.path);
+    console.log("New images paths:", newImagePaths);
+
+    dress.images = newImagePaths;
+    console.log("Updated images with new files:", dress.images);
+  }
+}
 
     // עדכון גדלים
     // if (dressListSizes) {
