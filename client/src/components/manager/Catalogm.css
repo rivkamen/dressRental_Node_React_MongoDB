@@ -7,7 +7,7 @@
     background-color: rgb(47, 45, 45);
 
     background-attachment: fixed; /* Fix the background in place */
-
+    padding-bottom: 200px;
 
 }
 div.p-dialog-header{
@@ -199,6 +199,8 @@ div.filter-sidebar.open {
         grid-template-columns: repeat(3, 1fr); /* שלוש עמודות בשורה */
 
         gap: 30px; /* הגדל את הריווח בין הפריטים */
+        margin-right: 250px;
+
     }
 }
 

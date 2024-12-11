@@ -1,45 +1,46 @@
 .catalog {
     display: flex;
-    height: 100vh; /* Full height */
+    height: 100vh; 
+    padding-bottom: 200px;
 }
 
 .dress-grid {
-    flex: 1; /* Take the remaining space */
+    flex: 1; 
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(10%, 1fr)); /* הרבה יותר צרות לכל כרטיס */
-    gap: 2%; /* Gap smaller between items */
-    padding: 2%; /* Smaller padding */
-    overflow-y: auto; /* Scrollable if content exceeds height */
+    grid-template-columns: repeat(auto-fill, minmax(10%, 1fr)); 
+    gap: 2%; 
+    padding: 2%; 
+    overflow-y: auto; 
 }
 
 .filter-sidebar {
-    width: 15%; /* הצמצום המשמעותי של רוחב הסיידבר */
-    padding: 2%; /* Smaller padding */
-    background-color: #f8f8f8; /* Light background for contrast */
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Shadow for depth */
-    height: 100vh; /* Full height */
-    position: fixed; /* Fixed position */
-    right: 0; /* Stick to the right */
-    top: 0; /* Start from the top */
-    z-index: 1000; /* Ensure it stays on top */
-    transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth open/close transition */
+    width: 15%; 
+    padding: 2%; 
+    background-color: #f8f8f8; 
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); 
+    height: 100vh; 
+    position: fixed; 
+    right: 0; 
+    top: 0; 
+    z-index: 1000; 
+    transition: transform 0.3s ease, opacity 0.3s ease; 
 }
 
 .filter-sidebar.open {
-    transform: translateX(0); /* Show the sidebar */
+    transform: translateX(0); 
     opacity: 1;
 }
 
 .filter-sidebar.closed {
-    transform: translateX(100%); /* Hide the sidebar */
-    opacity: 0; /* Fade out when hidden */
+    transform: translateX(100%); 
+    opacity: 0; 
 }
 
 .open-sidebar-button {
     position: fixed;
-    bottom: 2%; /* מיקום יותר נמוך וקרוב לפינה */
-    right: 2%; /* מיקום יותר קרוב לפינה */
-    padding: 1% 3%; /* Padding קטן יותר */
+    bottom: 2%;
+    right: 2%; 
+    padding: 1% 3%; 
     background-color: rgb(213, 1, 118);
     color: white;
     border: none;
@@ -51,8 +52,365 @@
     background-color: rgb(213, 1, 118);
 }
 
-/* MultiSelect adjustments */
 .p-multiselect {
-    width: 100%; /* Ensure MultiSelect takes full width */
-    margin-bottom: 1%; /* Smaller margin */
+    width: 100%; 
+    margin-bottom: 1%;
+} 
+.catalog {
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    /* background-color: rgb(83, 81, 81); */
+        /* background-color: rgb(58, 56, 56); */
+    background-color: rgb(47, 45, 45);
+
+    background-attachment: fixed; /* Fix the background in place */
+    padding-bottom: 200px;
+
+}
+div.p-dialog-header{
+    background-color: rgb(47, 45, 45);
+}
+
+.dress-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    justify-content: center; /* Center the whole grid */
+    justify-items:start ; /* Align last row items to the start */
+    padding: 20px;
+    margin-right: 250px;
+    overflow-y: auto;
+}
+.dress-grid .dress-item {
+    padding: 20;
+    /* border: 1px solid #e0e0e0; */
+    /* border-radius: 8px; */
+    box-shadow: 0 4px 22px rgba(0, 0, 0, 0.1); /* Slightly larger shadow */
+    /* background-color: #fff; */
+}
+
+
+.filter-sidebar {
+    width: 250px;
+    padding: 10px;
+    border-left: 1px solid #ccc;
+    transition: transform 0.3s ease;
+}
+
+.filter-sidebar.closed {
+    display: none; /* Hide sidebar on small screens */
+}
+
+.filter-sidebar.open {
+    display: block; 
+    position: fixed;
+    margin-top: 50px;
+}
+
+.open-sidebar-button {
+    display: none;
+    /* position: fixed; */
+    /* top: 10px; */
+    /* right: 10px; */
+    z-index: 1000;
+
+}
+.addButton{
+display: flex; 
+margin: auto;  
+/* border-color:rgb(213, 1, 118); 
+background-color:rgb(213, 1, 118); ; */
+border-color:rgb(213, 1, 118); 
+background-color:rgb(213, 1, 118); ;
+;
+
+
+
+}
+div.filter-sidebar.open {
+    /* background-color:rgb(83, 81, 81); */
+    background-color: rgb(47, 45, 45);
+
+
+}
+@media (max-width: 500px) {
+    .open-sidebar-button {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .filter-sidebar {
+        position: fixed;
+        right: 0;
+        top: 10;
+        height: 100%;
+        background-color:rgb(83, 81, 81);
+        z-index: 1000;
+        width: 70%;
+        transform: translateX(100%); /* Start off-screen */
+    }
+
+    .filter-sidebar.open {
+        transform: translateX(0); /* Slide-in effect */
+    }
+
+     .dress-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Make the columns wider */
+        gap: 10px; /* Adjust the gap for small screens */
+        margin-right: 0;
+        padding: 10px; /* Adjust padding for better spacing */
+
+    }
+}
+.p-multiselect-label.p-placeholder{
+    background-color: lightgray;
+    border-color:rgb(213, 1, 118);
+    border: 2px;
+
+}
+.p-multiselect-trigger{
+    background-color: lightgray;
+    color: black;
+    border-color:rgb(213, 1, 118); ;
+    border: 2px;
+
+
+}
+.p-multiselect .p-multiselect-label.p-placeholder {
+    color: black;
+}
+.p-inputtext{
+    color:black;
+}
+
+
+
+
+.catalog {
+    display: flex;
+    align-items: flex-start;
+    position: relative; /* For child positioning */
+    min-height: 100vh; /* Cover the full viewport */
+    background-color: rgb(47, 45, 45); /* Background color */
+    background-size: cover; /* Make the background image cover the area */
+    background-position: center; /* Center the image */
+    background-attachment: fixed; /* Fix the background in place */
+    overflow: visible; /* Ensure content can overflow */
+}
+
+/* .dress-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid */
+    /* gap: 20px; /* Space between grid items */
+    /* justify-content: center; Center the grid
+    padding: 20px;
+    margin-right: 0px;
+    overflow: auto; Enable independent scrolling
+    position: relative; Allow scrolling
+    height: 100vh; Ensure the grid takes full viewport height
+    z-index: 1; Ensure it appears above the fixed background
+    background: transparent; No background for the grid
+} */ 
+.dress-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* עיצוב רספונסיבי */
+    gap: 20px; /* מרווח בין העמודות */
+    justify-content: center;
+    padding: 20px;
+    margin-right: 0px;
+    overflow: auto; 
+    position: relative; 
+    height: 100vh; 
+    z-index: 1; 
+    background: transparent;
+}
+.dress-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* עיצוב רספונסיבי */
+    gap: 20px; /* מרווח בין העמודות */
+    justify-content: center;
+    padding: 20px;
+    margin-right: 0px;
+    overflow: auto;
+    position: relative;
+    height: 100vh;
+    z-index: 1;
+    background: transparent;
+}
+
+/* מסכים גדולים - לפחות 1024px */
+/* עבור מסכים גדולים */
+@media (min-width: 1024px) {
+    .dress-grid .dress-item {
+        padding: 30px; /* הגדל את הריווח */
+        font-size: 1.2em; /* הגדל את הטקסט */
+        /* border: 2px solid #e0e0e0; עבה יותר */
+        box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2); /* צל יותר חזק */
+        transform: scale(1.1); /* הגדל את גודל הפריט */
+        transition: transform 0.3s ease; /* אנימציה חלקה */
+        margin-top: 40px;
+    }
+
+    .dress-grid {
+        margin-left: 20px;
+        grid-template-columns: repeat(3, 1fr); /* שלוש עמודות בשורה */
+
+        gap: 30px; /* הגדל את הריווח בין הפריטים */
+        margin-right: 250px;
+    }
+}
+
+/* מסכים בינוניים */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .dress-grid {
+        grid-template-columns: repeat(2, 1fr); /* שתי עמודות בשורה */
+    }
+}
+
+/* מסכים קטנים */
+@media (max-width: 767px) {
+    .dress-grid {
+        grid-template-columns: repeat(1, 1fr); /* עמודה אחת בשורה */
+
+    overflow: auto;
+    position: relative;
+    height: 100vh;
+    z-index: 1;
+    background: transparent;   
+ }
+}
+
+/* מסכים גדולים - לפחות 1024px */
+/* עבור מסכים גדולים */
+@media (min-width: 1024px) {
+    .dress-grid .dress-item {
+        padding: 30px; /* הגדל את הריווח */
+        font-size: 1.2em; /* הגדל את הטקסט */
+        /* border: 2px solid #e0e0e0; עבה יותר */
+        box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2); /* צל יותר חזק */
+        transform: scale(1.1); /* הגדל את גודל הפריט */
+        transition: transform 0.3s ease; /* אנימציה חלקה */
+        margin-top: 40px;
+    }
+
+    .dress-grid {
+        margin-left: 20px;
+        grid-template-columns: repeat(3, 1fr); /* שלוש עמודות בשורה */
+
+        gap: 30px; /* הגדל את הריווח בין הפריטים */
+    }
+}
+
+/* מסכים בינוניים */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .dress-grid {
+        grid-template-columns: repeat(2, 1fr); /* שתי עמודות בשורה */
+    }
+}
+
+/* מסכים קטנים */
+@media (max-width: 767px) {
+    .dress-grid {
+        grid-template-columns: repeat(1, 1fr); /* עמודה אחת בשורה */
+    }
+}
+
+.filter-sidebar {
+    width: 250px;
+    padding: 10px;
+    border-left: 1px solid #ccc;
+    overflow-y: auto; /* Enable scrolling in the sidebar */
+    background-color: rgba(47, 45, 45, 0.9); /* Optional: Transparent sidebar */
+    z-index: 2; 
+    position: relative;
+}
+
+.filter-sidebar.closed {
+    display: none;
+}
+
+.filter-sidebar.open {
+    display: block;
+}
+
+@media (max-width: 500px) {
+    .filter-sidebar {
+        position: fixed;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 70%;
+        transform: translateX(100%);
+        z-index: 1000;
+        overflow-y: auto;
+        background-color: rgba(83, 81, 81, 0.9);
+    }
+
+    .filter-sidebar.open {
+        transform: translateX(0);
+    }
+
+    .dress-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+        gap: 10px; 
+        margin-right: 0;
+        padding: 10px;
+    }
+}
+/* .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+} */
+.pagination {
+    display: flex; /* מאפשר יישור פנימי */
+    justify-content: center; /* ממרכז את הכפתורים */
+    margin-top: 20px; /* ריווח מעל */
+    margin-bottom: 20px; /* ריווח מתחת */
+    list-style: none; /* מסיר את הנקודות במקרה של ul/li */
+    padding: 0; /* מסיר מרווח פנימי */
+}
+
+.pagination li {
+    margin: 0 5px; /* ריווח בין הכפתורים */
+}
+
+.pagination a {
+    text-decoration: none; /* מסיר קו תחתי */
+    color: #007bff; /* צבע טקסט */
+    background-color: #f8f9fa; /* רקע */
+    padding: 8px 12px; /* מרווח פנימי */
+    border: 1px solid #dee2e6; /* מסגרת */
+    border-radius: 4px; /* פינות עגולות */
+    transition: background-color 0.3s ease, color 0.3s ease; /* אנימציה */
+}
+
+.pagination a:hover {
+    background-color: #007bff; /* רקע בכחול */
+    color: #fff; /* טקסט בלבן */
+}
+
+
+.page-button {
+    padding: 10px 20px;
+    margin: 0 5px;
+    cursor: pointer;
+    background-color:rgb(213, 1, 118);;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.page-button:hover {
+    background-color: #0056b3;
+}
+.catalog {
+    overflow: auto; /* כדי לאפשר גלילה */
+    scrollbar-width: none; /* הסתרת פס גלילה ב-Firefox */
+}
+
+.catalog::-webkit-scrollbar, body::-webkit-scrollbar {
+    display: none; /* הסתרת פס גלילה ב-Chrome ובדפדפנים מבוססי Webkit */
 }

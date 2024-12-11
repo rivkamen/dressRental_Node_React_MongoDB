@@ -97,6 +97,7 @@ const Catalog = () => {
                         <Dress dress={d} />
                     </div>
                 ))}
+
             </div>
     
             {/* Pagination Controls */}

@@ -12,7 +12,7 @@ height: 100%;
 }
 .content-container {
   margin-top: 50px; /* Same as navbar height */
-  /* padding: 20px; Optional for spacing */
+  /* margin-bottom: 1000px; */
 }
 
 /* Ensure html and body take full height */

@@ -57,7 +57,7 @@ const Dressm = (props) => {
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
-                    padding: '15px',
+                    padding: '10px',
                 }}
             >
                 
@@ -114,8 +114,8 @@ const Dressm = (props) => {
 </div>
 
 
-                <div className="p-col dress-buttons">
-                    <div className="button-group">
+                <div className="p-col dress-buttons" style={{paddingLeft:'5px',paddingRight:'5px',paddingBottom:'15px'}}>
+                    <div className="button-group" >
                         <Button className="ebut"style={{width:'60px', height:'60px', backgroundColor:'inherit', color:'#F00084'}} icon="pi pi-pencil" onClick={() => setEditVisible(true)} />
                         <Button className="dbut" style={{width:'60px', height:'60px'}}
                             icon="pi pi-trash"

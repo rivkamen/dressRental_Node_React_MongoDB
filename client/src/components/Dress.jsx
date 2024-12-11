@@ -46,7 +46,7 @@ const Dress = (props) => {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            padding: '15px'
+            padding: '10px'
             
         }}
     >
