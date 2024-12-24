@@ -726,7 +726,7 @@
 // };
 // export default RentedDressesList;
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import { useCancelRentDressMutation, useGetAllBookedDatesQuery, useReturnDressMutation } from "../../app/dressApiSlice";
 import { HDate } from "@hebcal/core";
 import { DataTable } from 'primereact/datatable';
@@ -735,13 +735,23 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
 import Swal from "sweetalert2";
+import { useLocation, useNavigate } from "react-router";
+
 
 import './RentedDressesList.css';
 
 const RentedDressesList = () => {
+      const location = useLocation();
+      const navigate = useNavigate();
   const { data: bookedDates = [], error, isLoading, refetch } = useGetAllBookedDatesQuery();
   const [returnDress] = useReturnDressMutation();
   const [cancelRentFunc] = useCancelRentDressMutation();
+useEffect(() => {
+        const token = sessionStorage.getItem('adminToken');
+        if (!token) {
+            navigate('/');
+        }
+    }, [navigate]);
 
   const [sortBy, setSortBy] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");

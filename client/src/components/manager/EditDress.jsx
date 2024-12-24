@@ -195,6 +195,7 @@ import { classNames } from 'primereact/utils';
 import ConfirmationDialog from './ConfirmationDialog'; // Import the ConfirmationDialog component
 import Swal from "sweetalert2";
 import { FileUpload } from 'primereact/fileupload';
+import { useLocation, useNavigate } from "react-router";
 import { Toast } from 'primereact/toast'; // Import Toast component
 const formData = new FormData();
 
@@ -206,6 +207,14 @@ const EditDress = (props) => {
     const toast = useRef(null); // Initialize toast reference
     const [existingImages, setExistingImages] = useState(dress?.images || []); // Track existing images
     const [newImages, setNewImages] = useState([]); // Track newly uploaded images
+        const location = useLocation();
+        const navigate = useNavigate();
+        useEffect(() => {
+            const token = sessionStorage.getItem('adminToken');
+            if (!token) {
+                navigate('/');
+            }
+        }, [navigate]);
 let images=[];
     const genderOptions = [
         { label: 'נשים', value: 'women' },

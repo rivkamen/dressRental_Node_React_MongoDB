@@ -1,5 +1,7 @@
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState , useEffect} from 'react';
+
+
 import { Button } from 'primereact/button';
 import { InputNumber } from 'primereact/inputnumber';
 import { Dropdown } from 'primereact/dropdown';
@@ -21,6 +23,12 @@ const AddDress = (props) => {
     const location = useLocation();
     const navigate = useNavigate();
     const toast = useRef(null);
+    useEffect(() => {
+        const token = sessionStorage.getItem('adminToken');
+        if (!token) {
+            navigate('/');
+        }
+    }, [navigate]);
 
     const genderOptions = [
         { label: 'נשים', value: 'women' },

@@ -18,6 +18,13 @@ const RentPage = () => {
 
     const [createUserFunc] = useCreateUserMutation();
     const { data: user, error, isLoading } = useGetUserByPhoneQuery(phone, { skip: !phoneSubmitted });
+    useEffect(() => {
+        const token = sessionStorage.getItem('adminToken');
+        if (!token) {
+            navigate('/');
+        }
+    }, [navigate]);
+
     const handleDisabledClick = () => {
         Swal.fire({
             icon: 'info',

@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from 'primereact/card';
 import { useLocation, useNavigate } from 'react-router';
 import "react-jewish-datepicker/dist/index.css";
@@ -19,6 +19,12 @@ const RentDressm = (props) => {
     const { state } = location;
     const dress = state ? state.dress : null;
     const navigate = useNavigate();
+    useEffect(() => {
+        const token = sessionStorage.getItem('adminToken');
+        if (!token) {
+            navigate('/');
+        }
+    }, [navigate]);
 
     // Get current date
     const currentDate = new Date();
