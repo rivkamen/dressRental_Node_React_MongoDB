@@ -9,10 +9,12 @@ import './Navbar.css'
 
 const Navbar = () => {
     const adminToken = sessionStorage.getItem("adminToken");
+    
     const isAdmin=adminToken!=null;
     const regularItems = [
         {
             label: 'דף הבית',
+
             // icon: 'pi pi-fw pi-home',
             command: () => { window.location.pathname = "/"; }
         },

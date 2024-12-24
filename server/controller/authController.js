@@ -6,11 +6,16 @@ const login = async (req, res) => {
     if (!username || !password)
         return res.status(400).json({ message: 'required field is missing' })
     const user = await Admin.findOne({ username }).lean()
+
     if (user) {
+        
         const match = await bcrypt.compare(password, user.password)
         if (match) {
+
             const userInfo = { _id: user._id, username: user.username }
+
             const token = jwt.sign(userInfo, process.env.ACCESS_TOKEN_SECRET)
+
             return res.json({ token: token })
         }
         else

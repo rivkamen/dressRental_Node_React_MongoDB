@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken")
 
 const functionToken = (req, res) => {
+   console.log("token");
    
     const token = req.params.token
     jwt.verify(
