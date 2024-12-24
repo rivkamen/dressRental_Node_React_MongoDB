@@ -1,8 +1,17 @@
-import React from 'react';
-import { useLocation } from 'react-router';
+import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from "react-router";
+
 
 const RentDresss = () => {
     const location = useLocation();
+    const navigate = useNavigate();
+    useEffect(() => {
+        const token = sessionStorage.getItem('adminToken');
+        if (!token) {
+            navigate('/');
+        }
+    }, [navigate]);
+
     const { userId, dress, chosenDate, size } = location.state;
 
     return (

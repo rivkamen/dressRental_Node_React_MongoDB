@@ -7,6 +7,7 @@ import AddDress from './AddDress';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { MultiSelect } from 'primereact/multiselect';
+import { useLocation, useNavigate } from "react-router";
 
 const Catalog = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -19,7 +20,14 @@ const Catalog = () => {
     // Pagination states
     const [currentPage, setCurrentPage] = useState(1);
     const dressesPerPage = 10; // Number of dresses per page
-
+        const location = useLocation();
+        const navigate = useNavigate();
+        useEffect(() => {
+            const token = sessionStorage.getItem('adminToken');
+            if (!token) {
+                navigate('/');
+            }
+        }, [navigate]);
     const filteredDresses = dresses.filter(dress => {
         const matchesSearchTerm = dress.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
                           (dress.description && dress.description.toLowerCase().includes(searchTerm.toLowerCase()));

@@ -1,8 +1,8 @@
 
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from 'primereact/button';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from "react-router";
 import { useDeleteDressMutation } from '../../app/dressApiSlice';
 import { Dialog } from 'primereact/dialog';
 import { Carousel } from 'primereact/carousel';
@@ -14,9 +14,15 @@ const Dressm = (props) => {
     const { dress } = props;
     const [editVisible, setEditVisible] = useState(false);
     const [isConfirmationVisible, setIsConfirmationVisible] = useState(false);
+    const location = useLocation();
     const navigate = useNavigate();
-    const [deleteFuncDress] = useDeleteDressMutation();
-
+        const [deleteFuncDress] = useDeleteDressMutation();
+        useEffect(() => {
+            const token = sessionStorage.getItem('adminToken');
+            if (!token) {
+                navigate('/');
+            }
+        }, [navigate]);
     const handleNavigate = () => {
         navigate('/rentm', { state: { dress: dress } });
     };

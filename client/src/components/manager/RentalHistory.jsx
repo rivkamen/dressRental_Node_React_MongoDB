@@ -1,15 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useGetRentalHistoryQuery } from '../../app/rentalHistorySlice';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import { useLocation, useNavigate } from "react-router";
 
-const RentalHistory = () => {
+const RentalHistory = () => {    
+  const location = useLocation();
+    const navigate = useNavigate();
   const { data, error, isLoading } = useGetRentalHistoryQuery();
 
+  console.log(data);
+    useEffect(() => {
+        const token = sessionStorage.getItem('adminToken');
+        if (!token) {
+            navigate('/');
+        }
+    }, [navigate]);
+    
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
-  console.log(data);
-
   return (
     <div>
       <h2>Rental History</h2>
