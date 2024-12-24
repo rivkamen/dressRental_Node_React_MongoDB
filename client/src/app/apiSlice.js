@@ -6,7 +6,8 @@ const apiSlice = createApi({
         baseUrl: 'http://localhost:3435/',
         credentials: 'include',
         prepareHeaders: (headers, { getState }) => {
-            const token = getState().auth.token
+            const token = sessionStorage.getItem("adminToken")
+            //getState().auth.token
             console.log("Token sent in headers:", token);
 
             if (token) {
