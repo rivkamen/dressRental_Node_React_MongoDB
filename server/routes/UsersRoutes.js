@@ -6,10 +6,10 @@ const verifyJWT = require("../middleware/verifyJWT")
 // router.use(verifyJWT)
 router.get("/", UserController.getUsers)
 router.post("/",UserController.createUser)
-router.put("/:_id",verifyJWT, UserController.updateUser)
-router.delete("/:_id",verifyJWT, UserController.deleteUser)
-router.get("/:_id",verifyJWT, UserController.getUserById)
-router.get("/phone/:phone",verifyJWT, UserController.getUserByPhone)
+router.put("/:_id", UserController.updateUser)
+router.delete("/:_id", UserController.deleteUser)
+router.get("/:_id", UserController.getUserById)
+router.get("/phone/:phone", UserController.getUserByPhone)
 
 
 module.exports = router

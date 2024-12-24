@@ -73,13 +73,13 @@ const getUserByPhone=async(req,res)=>{
    const user=await User.findOne({phone}).lean()
 
   
-  const admin=await Admin.findById({_id:req.user._id})
+  const admin=await Admin.findById({_id:req?.user?._id})
   
   if(!user)
   {
     return  res.status(401).json({message:"not found"})
   }
-  if(user._id==req.user._id || admin){//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  if(user._id==req?.user?._id || admin){//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     
       return res.json(user)
   }

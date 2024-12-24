@@ -91,6 +91,7 @@ height: 50px;
     border-radius: 5px;
     padding: 5px 15px;
     transition: background-color 0.3s, border-color 0.3s;
+    background-color: rgba(83, 81, 81, 0.9);
 }
 
 /* Hover Effect */
@@ -110,4 +111,7 @@ height: 50px;
 .p-menuitem-text {
     color: rgb(255, 255, 255) !important;
     margin-left: 10px;
+}
+.p-menubar .p-menubar-root-list{
+    background-color: #413e40;
 }
