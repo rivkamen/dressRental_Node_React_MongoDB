@@ -243,7 +243,7 @@
 // };
 
 // export default Renting;
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from "react-router";
 import { useTakeDressMutation } from "../../app/dressApiSlice";
 import Swal from "sweetalert2";
@@ -258,6 +258,12 @@ const Renting = () => {
     // Fetch the user by ID with useGetUserByIdQuery hook
     const { data: user, error, isLoading } = useGetUserByIdQuery(userId);
     const [takeDressFunc] = useTakeDressMutation();
+useEffect(() => {
+        const token = sessionStorage.getItem('adminToken');
+        if (!token) {
+            navigate('/');
+        }
+    }, [navigate]);
 
     const handleTakeDress = async () => {
         try {

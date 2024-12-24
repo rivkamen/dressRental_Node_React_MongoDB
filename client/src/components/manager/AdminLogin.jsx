@@ -73,17 +73,23 @@
 // };
 
 // export default AdminLogin;
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAdminLoginMutation } from '../../app/userApiSlice';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from "react-router";
 
 const AdminLogin = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [login, { isLoading }] = useAdminLoginMutation();
-  const navigate = useNavigate();
-
+    const location = useLocation();
+    const navigate = useNavigate();
+        useEffect(() => {
+            const token = sessionStorage.getItem('adminToken');
+            if (!token) {
+                navigate('/');
+            }
+        }, [navigate]);
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
