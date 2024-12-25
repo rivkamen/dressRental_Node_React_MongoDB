@@ -5,3 +5,33 @@
 .inputPhone{
     border-color:rgb(213, 1, 118);
 }
+.divOfButtons{
+    width: 300px;
+}
+.useButton{
+    background-color: rgb(213, 1, 118);
+    border-color:  rgb(213, 1, 118);
+    margin: 5px;
+}
+.useReturnButton{
+    margin: 5px; 
+    background-color:rgba(83, 81, 81, 0.9);
+    padding-left:20px;
+    padding-right:20px;
+
+    border-color:  rgb(213, 1, 118);
+    color: rgb(213, 1, 118);
+    
+}
+.userDetails{
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+.align-right {
+    text-align: right;
+    direction: rtl;
+    margin: auto;
+    width: 250px;
+}
