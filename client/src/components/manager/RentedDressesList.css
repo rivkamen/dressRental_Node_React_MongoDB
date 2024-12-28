@@ -1,107 +1,116 @@
-.myTab{
-    background-color: lightgray;
-    
-    
-    }
-    .returnBut{
-        background-color: rgb(213, 1, 118);
-        border-color: rgb(213, 1, 118);
-    
-    }
-    .but{
-        background-color: rgb(213, 1, 118);
-        border-color: rgb(213, 1, 118);
-        margin:10px;
-    }
-    .inputSearch{
-        border-color: rgb(213, 1, 118);
-        width: 400px;
-    
-    }
-    .alternateBut{
-        border-color: rgb(213, 1, 118);
-        
-        background-color:gray;
-        color:rgb(213, 1, 118); ;
-    
-    
-    
-    }
-    .myTab {
-        text-align: right; 
-      }
-      
-      .p-datatable-tbody > tr > td {
-        text-align: right; 
-        direction: rtl; 
-      }
-      
-      .p-datatable-thead > tr > th {
-        text-align: center; 
-        direction: rtl;
-      }
-      .p-datatable-tbody > tr > td:last-child {
-        text-align: left; 
-        direction: ltr;
-      }
-      
-      .returnBut,
-      .alternateBut {
-        margin-left: auto; 
-      }
-      
+/* RentedDressesList.css */
 
-.myTab {
-  background-color: lightgray;
-  width: 100%; /* מתאם את הרוחב לאחוזים */
-  text-align: right;
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
 }
 
-.returnBut {
-  background-color: rgb(213, 1, 118);
-  border-color: rgb(213, 1, 118);
-  width: 100%; /* מתאם את הרוחב לאחוזים */
-}
-
-.but {
-  background-color: rgb(213, 1, 118);
-  border-color: rgb(213, 1, 118);
-  margin: 2%; /* המרה ליחידות אחוזים */
-}
-
-.inputSearch {
-  border-color: rgb(213, 1, 118);
-  width: 100%; /* מתאם את הרוחב לאחוזים */
-}
-
-.alternateBut {
-  border-color: rgb(213, 1, 118);
-  background-color: gray;
-  color: rgb(213, 1, 118);
-  width: 100%; /* מתאם את הרוחב לאחוזים */
-}
-
-.myTab {
-  text-align: right;
-}
-
-.p-datatable-tbody > tr > td {
-  text-align: right;
-  direction: rtl;
-}
-
-.p-datatable-thead > tr > th {
+h2 {
   text-align: center;
-  direction: rtl;
+  color: #000000;
+  margin-top: 20px;
 }
 
-.p-datatable-tbody > tr > td:last-child {
-  text-align: left;
-  direction: ltr;
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
 }
 
-.returnBut,
-.alternateBut {
-  margin-left: auto;
-  width: 100%; /* מתאם את הרוחב לאחוזים */
+.filters input,
+.filters .p-dropdown {
+  font-size: 16px;
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 250px;
+}
+
+.filters input:focus,
+.filters .p-dropdown:focus {
+  border-color: rgb(213, 1, 118);;
+  outline: none;
+}
+
+.filters button {
+  background-color: rgb(213, 1, 118);;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.filters button:hover {
+  background-color: rgb(213, 1, 118);;
+}
+.p-button{
+  background-color: rgb(213, 1, 118);;
+border: rgb(213, 1, 118);
+}
+.p-datatable {
+  width: 90%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.p-datatable th,
+.p-datatable td {
+  padding: 12px 15px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.p-datatable th {
+  background-color: rgb(213, 1, 118);;
+  color: white;
+  font-weight: bold;
+}
+
+.p-datatable tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.p-datatable tr:hover {
+  background-color: #f1f1f1;
+}
+
+.p-datatable td {
+  color: #333;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.action-buttons button {
+  background-color: rgb(213, 1, 118);;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.action-buttons button:hover {
+  background-color: rgb(213, 1, 118);;
+}
+
+.action-buttons button.delete {
+  background-color: #dc3545;
+}
+
+.action-buttons button.delete:hover {
+  background-color: #a71d2a;
 }

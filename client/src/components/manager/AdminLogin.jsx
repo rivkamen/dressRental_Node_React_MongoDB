@@ -84,17 +84,6 @@ const AdminLogin = () => {
   const [login, { isLoading }] = useAdminLoginMutation();
     const location = useLocation();
     const navigate = useNavigate();
-// <<<<<<< HEAD
-//         useEffect(() => {
-//             const token = sessionStorage.getItem('adminToken');
-//             if (!token) {
-//                 navigate('/');
-//             }
-//         }, [navigate]);
-
-// =======
-// >>>>>>> 35103b1b5fe7a52744248212da5768cbd29bcc3f
-
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
