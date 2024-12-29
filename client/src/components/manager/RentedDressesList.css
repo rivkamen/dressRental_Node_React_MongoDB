@@ -48,10 +48,10 @@ h2 {
 .filters button:hover {
   background-color: rgb(213, 1, 118);;
 }
-.p-button{
+/* .p-button-success p-mr-2{
   background-color: rgb(213, 1, 118);;
 border: rgb(213, 1, 118);
-}
+} */
 .p-datatable {
   width: 90%;
   margin: 0 auto;
@@ -108,9 +108,17 @@ border: rgb(213, 1, 118);
 }
 
 .action-buttons button.delete {
-  background-color: #dc3545;
+  background-color: rgb(213, 1, 118);
 }
 
 .action-buttons button.delete:hover {
-  background-color: #a71d2a;
+  background-color: rgb(213, 1, 118);
+}
+.p-button.p-button-danger, .p-button-group.p-button-danger > .p-button, .p-splitbutton.p-button-danger > .p-button, .p-fileupload-choose.p-button-danger{
+  background-color: rgb(213, 1, 118);
+
+}
+.p-button.p-button-success, .p-button-group.p-button-success > .p-button, .p-splitbutton.p-button-success > .p-button, .p-fileupload-choose.p-button-success{
+  background-color: rgb(213, 1, 118);
+
 }
