@@ -162,8 +162,8 @@ const getRentedDates = async (req, res) => {
         for (let dressItem of size.dresses) {
           if (dressItem.renteDates && dressItem.renteDates.length > 0) {
             // סינון ההשכרות שבהן isRented אינו false
-            const filteredRenteDates = dressItem.renteDates.filter(rent => rent.isReturned !== false);
-
+            const filteredRenteDates = dressItem.renteDates.filter(rent => rent.status !== 'returned');
+ 
             for (let rent of filteredRenteDates) {
               // בדיקה אם פרטי המשתמש קיימים
               if (rent.userId) {
@@ -805,29 +805,42 @@ const returnDress = async (req, res) => {
   const { _id } = req.params; // Dress Design ID
   const { userId, date, dressId } = req.body; // User ID, date, and dress ID to identify the rental record
   try {
+  console.log('1');
+
     // Find the dress design by ID
     const dressDesign = await DressDesign.findById(_id).exec();
     if (!dressDesign) {
+  console.log('2');
+
       console.log(_id);
       
       return res.status(404).json({ message: "Dress design not found" });
     }
+    console.log('3');
 
     // Convert the provided date to a Date object
     const targetDate = new Date(date);
+  console.log('4');
+
     if (isNaN(targetDate)) {
+  console.log('5');
+
       return res.status(400).json({ message: "Invalid date format" });
     }
 
     let rentalFound = false;
+    console.log('6');
 
     // Iterate through the size entries in dressListSizes
     for (const sizeEntry of dressDesign.dressListSizes) {
+  console.log('7');
+
       // Find the dress by dressId in the current size
       const dress = sizeEntry.dresses.find(dress => dress._id.toString() === dressId);
       if (dress) {
         console.log(dress.renteDates);
         console.log(userId, targetDate);
+  console.log('8');
         
         // Find the specific rental record in the renteDates array
         const rentalRecord = dress.renteDates.find(
@@ -835,10 +848,13 @@ const returnDress = async (req, res) => {
             rent.userId.toString() === userId &&
             new Date(rent.date).toISOString() === targetDate.toISOString()
         );
+        console.log('9');
 
         if (rentalRecord) {
+  console.log('10');
+
           // Update the isReturned field to true
-          rentalRecord.isReturned = true;
+          rentalRecord.status = "returned";
           rentalFound = true;
           break;
         }
@@ -846,8 +862,8 @@ const returnDress = async (req, res) => {
     }
 
     if (!rentalFound) {
-      console.log('hi');
-      
+  console.log('11');
+   
       return res.status(404).json({
         success: false,
         message: `No rental record found for dressId: ${dressId}, userId: ${userId}, and date: ${date}`,
@@ -862,6 +878,10 @@ const returnDress = async (req, res) => {
       message: `Rental record successfully updated for dressId: ${dressId}, userId: ${userId}, and date: ${date}`,
     });
   } catch (error) {
+  console.log('12');
+  console.log(error);
+
+
     return res.status(500).json({
       success: false,
       message: "Error updating rental record",

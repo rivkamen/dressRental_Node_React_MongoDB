@@ -237,7 +237,7 @@ const RentedDressesList = () => {
 
     if (confirmation.isConfirmed) {
       try {
-        await returnDress({
+        await cancelRentFunc({
           id: rowData.id,
           dress: {
             date: rowData.date,
