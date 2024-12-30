@@ -31,7 +31,7 @@ const getRentalHistory  = async (req, res) => {
                     dressId: dressItem._id,
                     dressSize: size.key,
                     rentalDate: rent.date,
-                    isReturned: rent.isReturned,
+                    status: rent.status,
                     isCurrent: !rent.isReturned // true אם ההשכרה נוכחית
                   });
                 } else {
