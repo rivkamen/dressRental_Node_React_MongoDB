@@ -2,7 +2,7 @@
 
 
 import React, { useState, useEffect } from 'react';
-import { useCancelRentDressMutation, useGetAllBookedDatesQuery, useReturnDressMutation } from "../../app/dressApiSlice";
+import { useCancelRentDressMutation, useGetAllBookedDatesQuery, useReturnDressMutation,useRentingDressMutation } from "../../app/dressApiSlice";
 import { HDate } from "@hebcal/core";
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -19,6 +19,7 @@ const RentedDressesList = () => {
   const navigate = useNavigate();
   const { data: bookedDates = [], error, isLoading, refetch } = useGetAllBookedDatesQuery();
   const [returnDress] = useReturnDressMutation();
+  const [rentingDress] = useRentingDressMutation();
   const [cancelRentFunc] = useCancelRentDressMutation();
 
   useEffect(() => {
@@ -58,30 +59,7 @@ const RentedDressesList = () => {
     return result;
   };
 
-  // const filterBookings = () => {
-  //   const searchLower = searchTerm.toLowerCase();
-
-  //   return bookedDates.filter((booking) => {
-  //     const matchesSearchTerm =
-  //       booking.dressName.toLowerCase().includes(searchLower) ||
-  //       booking.userName.toLowerCase().includes(searchLower) ||
-  //       booking.userPhone.includes(searchLower);
-
-  //     const bookingDate = new Date(booking.date);
-  //     const withinWeek = Math.abs(new Date() - bookingDate) <= 7 * 24 * 60 * 60 * 1000;
-
-  //     if (statusFilter === "withinWeek") {
-  //       return matchesSearchTerm && withinWeek;
-  //     }
-
-  //     if (statusFilter === "pastWeek") {
-  //       return matchesSearchTerm && new Date(booking.date) < new Date();
-  //     }
-
-  //     return matchesSearchTerm;
-  //   });
-  // };
-
+  
   const filterBookings = () => {
     const searchLower = searchTerm.toLowerCase();
   
@@ -260,7 +238,42 @@ const RentedDressesList = () => {
       Swal.fire('פעולה בוטלה', 'ביטול ההשכרה לא בוצע.', 'info');
     }
   };
+  const activeRent = async (rowData) => {
+    const confirmation = await Swal.fire({
+      title: 'אישור ביטול השכרה',
+      text: 'האם אתה בטוח שברצונך לקחת את השמלה?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'כן, לקח שמלה ',
+      cancelButtonText: 'ביטול',
+      reverseButtons: true,
+    });
 
+    if (confirmation.isConfirmed) {
+      try {
+        await rentingDress({
+          id: rowData.id,
+          dress: {
+            date: rowData.date,
+            userId: rowData.userId._id,
+            dressId: rowData.dressId,
+          },
+        }).unwrap();
+        refetch();
+        Swal.fire('אושר!', 'שמלה נלקחה בהצלחה ', 'success');
+      } catch (error) {
+        console.error(error);
+        Swal.fire({
+          title: 'שגיאה',
+          text: error?.data?.message || 'קרתה שגיאה בלתי צפויה. אנא נסה שוב.',
+          icon: 'error',
+          confirmButtonText: 'אישור',
+        });
+      }
+    } else {
+      Swal.fire('פעולה בוטלה', 'ביטול ההשכרה לא בוצע.', 'info');
+    }
+  };
   const filterOptions = [
     { label: "הצג הכל", value: "" },
     { label: "שבוע הקרוב", value: "withinWeek" },
@@ -284,16 +297,7 @@ const RentedDressesList = () => {
           placeholder="פילטר לפי סטטוס"
         />
       </div>
-      {/* <DataTable
-        value={visibleBookings}
-        paginator
-        rows={rowsPerPage}
-        onPage={onPageChange}
-        rowsPerPageOptions={[5, 10, 20]}
-        currentPageReportTemplate="מציג {first} עד {last} מתוך {totalRecords} פריטים"
-        paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-        dir='rtl'
-      > */}
+     
       <DataTable
         value={visibleBookings}
         paginator
@@ -321,8 +325,39 @@ const RentedDressesList = () => {
           body={(rowData) => new Date(rowData.date).toLocaleDateString("he-IL")}
           sortable
         />
+<Column
+  header="פעולות"
+  body={(rowData) => {
+    const isActive = rowData.status === "active";
+console.log(rowData.status);
 
-        <Column
+    return (
+      <div>
+        <Button
+          icon="pi pi-refresh"
+          onClick={() => handleReturnDress(rowData)}
+          className="p-button-success p-mr-2"
+          disabled={!isActive}
+        />
+        <Button
+          icon="pi pi-times"
+          onClick={() => cancelRent(rowData)}
+          className="p-button-danger"
+          style={{ marginRight: "2%" }}
+          disabled={isActive}
+        />
+        <Button
+          icon="pi pi-home"
+          onClick={() => activeRent(rowData)}
+          className="p-button-danger"
+          style={{ marginRight: "2%" }}
+          disabled={isActive}
+        />
+      </div>
+    );
+  }}
+/>
+        {/* <Column
           header="פעולות"
           body={(rowData) => (
             <div>
@@ -337,9 +372,15 @@ const RentedDressesList = () => {
                 className="p-button-danger"
                 style={{ marginRight: "2%" }}
               />
+                <Button
+                icon="pi pi-home"
+                onClick={() => activeRent(rowData)}
+                className="p-button-danger"
+                style={{ marginRight: "2%" }}
+              />
             </div>
           )}
-        />
+        /> */}
       </DataTable>
     </div>
   );

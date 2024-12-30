@@ -77,6 +77,14 @@ returnDress: build.mutation({
     body: dress
     }),
 }),
+rentingDress: build.mutation({
+    query: ({id,dress}) =>({
+    
+    url: '/api/dress/'+id+'/renting-dress',
+    method: "PUT",
+    body: dress
+    }),
+}),
 cancelRentDress: build.mutation({
     query: ({id,dress}) =>({
         
@@ -91,5 +99,5 @@ cancelRentDress: build.mutation({
 
 })
 })
-export const {useReturnDressMutation,useGetAllBookedDatesQuery,useGetAllDressesQuery, useAddDressMutation,useUpdateDressMutation,useDeleteDressMutation,useAvailableDressMutation,useTakeDressMutation,useCancelRentDressMutation}=DressApiSlice
+export const {useReturnDressMutation,useGetAllBookedDatesQuery,useGetAllDressesQuery, useAddDressMutation,useUpdateDressMutation,useDeleteDressMutation,useAvailableDressMutation,useTakeDressMutation,useCancelRentDressMutation,useRentingDressMutation}=DressApiSlice
 
