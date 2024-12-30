@@ -71,8 +71,8 @@ getAllBookedDates: build.query({
 }),
 returnDress: build.mutation({
     query: ({id,dress}) =>({
-        
-    url: '/api/dress/'+id+'/cancel-dress',
+    
+    url: '/api/dress/'+id+'/return-dress',
     method: "PUT",
     body: dress
     }),

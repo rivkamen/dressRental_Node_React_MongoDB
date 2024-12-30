@@ -69,9 +69,79 @@ if(checkName)
     return res.status(400).json({ message: "Failed to create dress design", error: error.message });
   }
 };
-const getRentedDates = async (req, res) => {
+// const getRentedDates = async (req, res) => {
 
+//   try {
+//     const dresses = await DressDesign.find().populate({
+//       path: 'dressListSizes.dresses.renteDates.userId', // מבצע populate על ה-userId בתאריכים
+//       select: 'name phone' // בוחר להחזיר את שם המשתמש והטלפון
+//     }).lean();
+
+//     if (!dresses || dresses.length === 0) {
+//       return res.status(404).json({ message: "No dresses found" });
+//     }
+    
+
+//     // ניצור מערך של תאריכים מושכרים
+//     let rentedDates = [];
+
+//     // עבור כל שמלה, נשלוף את התאריכים והמשתמשים
+//     for (let dress of dresses) {
   
+      
+      
+//       // עבור כל שמלה, נבדוק אם יש תאריכים מושכרים
+//       for (let size of dress.dressListSizes) {
+//         for (let dressItem of size.dresses) {
+//           if (dressItem.renteDates && dressItem.renteDates.length > 0) {
+
+//             for (let rent of dressItem.renteDates) {
+
+//               // בדיקה אם פרטי המשתמש קיימים
+//               if (rent.userId) {
+
+//                 rentedDates.push({
+//                   id:dress._id,
+//                   userId:rent.userId,
+//                   date: rent.date,
+//                   userName: rent.userId.name, // שם המשתמש
+//                   userPhone: rent.userId.phone, // טלפון המשתמש
+//                   dressName: dress.name, // שם השמלה
+//                   dressId:dressItem._id,
+//                   dressSize:size.key,
+//                   rentalDate: rent.date, // תאריך השכרה
+//                   isRented: rent.isReturned,// השמלה נחשבת למושכרת אם יש תאריך השכרה,
+
+//                 });
+//               } else {
+//                 console.log("User not found for userId:", rent.userId); // לוג אם לא נמצא userId
+//               }
+//             }
+//           } else {
+//             // console.log("No rental dates for dress barcode:", dressItem.barcode); // לוג אם אין תאריכים
+//             // rentedDates.push({
+//             //   dressName: dress.name, // שם השמלה
+//             //   isRented: false // השמלה לא מושכרת
+//             // });
+//           }
+//         }
+//       }
+//     }
+
+//     // אם לא נמצאו תאריכים מושכרים
+//     if (rentedDates.length === 0) {
+//       return res.status(404).json({ message: "No rental dates found" });
+//     }
+
+//     // מחזירים את כל התאריכים המושכרים
+//     return res.status(200).json(rentedDates);
+
+//   } catch (error) {
+//     return res.status(500).json({ error: error.message });
+//   }
+// };
+
+const getRentedDates = async (req, res) => {
   try {
     const dresses = await DressDesign.find().populate({
       path: 'dressListSizes.dresses.renteDates.userId', // מבצע populate על ה-userId בתאריכים
@@ -81,49 +151,38 @@ const getRentedDates = async (req, res) => {
     if (!dresses || dresses.length === 0) {
       return res.status(404).json({ message: "No dresses found" });
     }
-    
 
     // ניצור מערך של תאריכים מושכרים
     let rentedDates = [];
 
     // עבור כל שמלה, נשלוף את התאריכים והמשתמשים
     for (let dress of dresses) {
-  
-      
-      
-      // עבור כל שמלה, נבדוק אם יש תאריכים מושכרים
+      // עבור כל גודל שמלה
       for (let size of dress.dressListSizes) {
         for (let dressItem of size.dresses) {
           if (dressItem.renteDates && dressItem.renteDates.length > 0) {
+            // סינון ההשכרות שבהן isRented אינו false
+            const filteredRenteDates = dressItem.renteDates.filter(rent => rent.isReturned !== false);
 
-            for (let rent of dressItem.renteDates) {
-
+            for (let rent of filteredRenteDates) {
               // בדיקה אם פרטי המשתמש קיימים
               if (rent.userId) {
-
                 rentedDates.push({
-                  id:dress._id,
-                  userId:rent.userId,
+                  id: dress._id,
+                  userId: rent.userId,
                   date: rent.date,
                   userName: rent.userId.name, // שם המשתמש
                   userPhone: rent.userId.phone, // טלפון המשתמש
                   dressName: dress.name, // שם השמלה
-                  dressId:dressItem._id,
-                  dressSize:size.key,
+                  dressId: dressItem._id,
+                  dressSize: size.key,
                   rentalDate: rent.date, // תאריך השכרה
-                  isRented: rent.isReturned,// השמלה נחשבת למושכרת אם יש תאריך השכרה,
-
+                  isRented: rent.isReturned, // השמלה נחשבת למושכרת אם יש תאריך השכרה
                 });
               } else {
                 console.log("User not found for userId:", rent.userId); // לוג אם לא נמצא userId
               }
             }
-          } else {
-            // console.log("No rental dates for dress barcode:", dressItem.barcode); // לוג אם אין תאריכים
-            // rentedDates.push({
-            //   dressName: dress.name, // שם השמלה
-            //   isRented: false // השמלה לא מושכרת
-            // });
           }
         }
       }
@@ -141,6 +200,7 @@ const getRentedDates = async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 };
+
 
 
 const getDressesDesign = async (req, res) => {
@@ -748,6 +808,8 @@ const returnDress = async (req, res) => {
     // Find the dress design by ID
     const dressDesign = await DressDesign.findById(_id).exec();
     if (!dressDesign) {
+      console.log(_id);
+      
       return res.status(404).json({ message: "Dress design not found" });
     }
 
@@ -764,6 +826,9 @@ const returnDress = async (req, res) => {
       // Find the dress by dressId in the current size
       const dress = sizeEntry.dresses.find(dress => dress._id.toString() === dressId);
       if (dress) {
+        console.log(dress.renteDates);
+        console.log(userId, targetDate);
+        
         // Find the specific rental record in the renteDates array
         const rentalRecord = dress.renteDates.find(
           rent =>
@@ -781,6 +846,8 @@ const returnDress = async (req, res) => {
     }
 
     if (!rentalFound) {
+      console.log('hi');
+      
       return res.status(404).json({
         success: false,
         message: `No rental record found for dressId: ${dressId}, userId: ${userId}, and date: ${date}`,
@@ -872,7 +939,11 @@ const getAvailableKeysForDate = async (req, res) => {
 };
 const cancelRent = async (req, res) => {
   const { _id } = req.params; // Dress Design ID
+  console.log(_id);
+  
   const { userId, date, dressId } = req.body; // User ID, date, and dress ID to identify the rental record
+  console.log(userId, date, dressId);
+  
   try {
     // Find the dress design by ID
     const dressDesign = await DressDesign.findById(_id).exec();

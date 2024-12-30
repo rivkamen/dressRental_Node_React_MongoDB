@@ -500,8 +500,10 @@ const RentedDressesList = () => {
     });
 
     if (confirmation.isConfirmed) {
+      console.log(rowData);
+
       try {
-        await returnDress({ dressId: rowData.dressId, returnDate: new Date().toISOString(), userPhone: rowData.userPhone }).unwrap();
+        await returnDress({id:rowData.id,dress:{dressId: rowData.dressId, date: rowData.date, userId: rowData.userId._id}}).unwrap();
         refetch();
         Swal.fire('הצלחה', 'השמלה הוחזרה בהצלחה!', 'success');
       } catch (error) {
