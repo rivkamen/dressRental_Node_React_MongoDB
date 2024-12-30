@@ -77,20 +77,79 @@ const RentPage = () => {
     };
 
     // Check if user was found in the query response
+    // useEffect(() => {
+    //     if (user) {
+    //         setExistingUser(user); // Found user
+    //         setPhoneSubmitted(false); // Reset submission state
+    //     } else if (!isLoading && phoneSubmitted && error) {
+    //         Swal.fire({
+    //             icon: 'error',
+    //             title: 'Error',
+    //             text: 'An error occurred while searching for the phone number.',
+    //         });
+    //         setPhoneSubmitted(false); // Reset submission state on error
+    //     }
+    // }, [user, isLoading, error, phoneSubmitted]);
+    // useEffect(() => {
+    //     if (user) {
+    //         setExistingUser(user); // משתמש נמצא
+    //         setPhoneSubmitted(false); // איפוס מצב חיפוש
+    //     } else if (!isLoading && phoneSubmitted) {
+    //         if (error?.status === 401 && error?.data?.message === "not found") {
+    //             // משתמש לא נמצא, מעבר למילוי פרטי משתמש חדש
+    //             setExistingUser(null);
+    //         } else if (error) {
+    //             Swal.fire({
+    //                 icon: 'error',
+    //                 title: 'Error',
+    //                 text: 'An error occurred while searching for the phone number.',
+    //             });
+    //         }
+    //         setPhoneSubmitted(false); // איפוס מצב חיפוש
+    //     }
+    // }, [user, isLoading, error, phoneSubmitted]);
+    // useEffect(() => {
+    //     if (user) {
+    //         setExistingUser(user); // משתמש נמצא
+    //         setPhoneSubmitted(false); // איפוס מצב חיפוש
+    //     } else if (!isLoading && phoneSubmitted) {
+    //         console.log('Error received:', error); // Debugging
+    //         if (error?.status === 401 && error?.data?.message === "not found") {
+    //             setExistingUser(null); // משתמש לא נמצא
+    //         } else if (error) {
+    //             Swal.fire({
+    //                 icon: 'error',
+    //                 title: 'Error',
+    //                 text: 'An error occurred while searching for the phone number.',
+    //             });
+    //         }
+    //         setPhoneSubmitted(false); // איפוס מצב חיפוש
+    //     }
+    // }, [user, isLoading, error, phoneSubmitted]);
+    
     useEffect(() => {
         if (user) {
-            setExistingUser(user); // Found user
-            setPhoneSubmitted(false); // Reset submission state
-        } else if (!isLoading && phoneSubmitted && error) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'An error occurred while searching for the phone number.',
-            });
-            setPhoneSubmitted(false); // Reset submission state on error
+            // אם נמצא משתמש
+            setExistingUser(user); 
+            setPhoneSubmitted(false); // לא צריך לשמור את מצב הטלפון לאחר שמצאנו משתמש
+        } else if (phoneSubmitted && !isLoading) {
+            // טיפול במקרה בו לא נמצא המשתמש
+            if (error?.status === 401 && error?.data?.message === "not found") {
+                // לא נמצא, נמשיך למילוי פרטי משתמש
+                setExistingUser(null); 
+                console.log("User not found, proceed to create new user form");
+            } else if (error) {
+                // אם יש שגיאה אחרת
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: `An error occurred while searching for the phone number. ${error.message || ""}`,
+                });
+                setPhoneSubmitted(false);
+            }
         }
     }, [user, isLoading, error, phoneSubmitted]);
-
+    
     // Proceed with existing user
     const handleProceedWithUser = () => {
         if (existingUser?._id) {
@@ -171,11 +230,7 @@ title='חזור'
     </div>
 </div>
 </div>
-
-
-
 )}
-
                     {existingUser && (
                         <div dir="rtl" >
                             <br />

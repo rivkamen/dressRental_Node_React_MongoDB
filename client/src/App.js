@@ -25,7 +25,7 @@ import RentalHistory from './components/manager/RentalHistory.jsx';
 function App() {
 
   return (
-<div class="App">
+<div className="App">
     <Provider store={store}>
       <BrowserRouter>
         <Navbar />
@@ -46,7 +46,7 @@ function App() {
           <Route path='/edit' element={<EditDress/>}/>
           <Route path='/adminLogin' element={<AdminLogin/>}/>
           <Route path='/history' element={<RentalHistory/>}/>
-
+<Route></Route>
 
         </Routes>
         </div>
