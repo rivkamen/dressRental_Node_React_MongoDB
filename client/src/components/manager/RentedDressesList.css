@@ -94,7 +94,7 @@ border: rgb(213, 1, 118);
 }
 
 .action-buttons button {
-  background-color: rgb(213, 1, 118);;
+  background-color: rgb(213, 1, 118);
   color: white;
   border: none;
   padding: 8px 12px;
@@ -103,14 +103,23 @@ border: rgb(213, 1, 118);
   font-size: 14px;
 }
 
-.action-buttons button:hover {
-  background-color: rgb(213, 1, 118);;
+/* ברירת מחדל: במסכים גדולים, כיתוב מוצג והאייקון מוסתר */
+.action-buttons .p-button .p-button-label {
+  display: inline; /* הצגת הכיתוב */
 }
 
-.action-buttons button.delete {
-  background-color: #dc3545;
+.action-buttons .p-button .pi {
+  display: none; /* הסתרת האייקון */
 }
 
-.action-buttons button.delete:hover {
-  background-color: #a71d2a;
+/* במסכים קטנים: האייקון מוצג והכיתוב מוסתר */
+@media (max-width: 768px) {
+  .action-buttons .p-button .p-button-label {
+    display: none; /* הסתרת הכיתוב */
+  }
+
+  .action-buttons .p-button .pi {
+    display: inline-block; /* הצגת האייקון */
+  }
 }
+
