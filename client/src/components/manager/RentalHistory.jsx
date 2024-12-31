@@ -42,9 +42,9 @@ const RentalHistory = () => {
             body={(rowData) => rowData.userPhone || 'Unknown'} 
           />
           <Column 
-            field="isReturned" 
-            header="Returned" 
-            body={(rowData) => (rowData.isReturned ? 'Yes' : 'No')} 
+            field="status" 
+            header="status" 
+            body={(rowData) => (rowData.status=="returned" ? 'הוחזר' :rowData.status=="active"?'בשימוש': 'הוזמן')} 
           />
           <Column 
             field="isCurrent" 
