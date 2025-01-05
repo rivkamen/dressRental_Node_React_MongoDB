@@ -278,8 +278,8 @@ const RentedDressesList = () => {
   };
   const filterOptions = [
     { label: "הצג הכל", value: "" },
-    { label: "בעתיד", value: "notYet" },
-    { label:"בבית הלקוח", value: "atUse" },
+    { label: "ממתין להשכרה", value: "notYet" },
+    { label:"בהשכרה", value: "atUse" },
   ];
 
   return (
