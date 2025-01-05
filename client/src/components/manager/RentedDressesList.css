@@ -94,7 +94,7 @@ border: rgb(213, 1, 118);
 }
 
 .action-buttons button {
-  background-color: rgb(213, 1, 118);;
+  background-color: rgb(213, 1, 118);
   color: white;
   border: none;
   padding: 8px 12px;
@@ -103,8 +103,9 @@ border: rgb(213, 1, 118);
   font-size: 14px;
 }
 
-.action-buttons button:hover {
-  background-color: rgb(213, 1, 118);;
+/* ברירת מחדל: במסכים גדולים, כיתוב מוצג והאייקון מוסתר */
+.action-buttons .p-button .p-button-label {
+  display: inline; /* הצגת הכיתוב */
 }
 
 .action-buttons button.delete {
@@ -120,5 +121,4 @@ border: rgb(213, 1, 118);
 }
 .p-button.p-button-success, .p-button-group.p-button-success > .p-button, .p-splitbutton.p-button-success > .p-button, .p-fileupload-choose.p-button-success{
   background-color: rgb(213, 1, 118);
-
 }

@@ -82,8 +82,8 @@ const AdminLogin = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [login, { isLoading }] = useAdminLoginMutation();
-    const location = useLocation();
-    const navigate = useNavigate();
+  const location = useLocation();
+  const navigate = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
@@ -152,12 +152,12 @@ const AdminLogin = () => {
           onClick={() => navigate('/register')}
           style={{
             width: '50%',
-              padding: '10px',
-              backgroundColor: 'rgb(213, 1, 118)',
-              color: 'white',
-              border: 'none',
-              borderRadius: '5px',
-              cursor: 'pointer',
+            padding: '10px',
+            backgroundColor: 'rgb(213, 1, 118)',
+            color: 'white',
+            border: 'none',
+            borderRadius: '5px',
+            cursor: 'pointer',
           }}
         >
           הרשמה

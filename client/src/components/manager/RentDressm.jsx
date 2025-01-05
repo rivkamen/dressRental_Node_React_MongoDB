@@ -210,10 +210,6 @@ const RentDressm = (props) => {
         )}
     </div>
 </div>
-
-
-           
-
             {isError && <p>Error fetching available dresses: {error?.message}</p>}
         </Card>
         </div>

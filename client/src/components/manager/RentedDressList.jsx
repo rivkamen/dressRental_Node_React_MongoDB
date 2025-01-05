@@ -64,22 +64,24 @@ const RentedDressesList = () => {
     const searchLower = searchTerm.toLowerCase();
   
     return bookedDates.filter((booking) => {
+      console.log("booking");
+      console.log(booking);
+      
       const matchesSearchTerm =
         booking.dressName.toLowerCase().includes(searchLower) ||
         booking.userName.toLowerCase().includes(searchLower) ||
         booking.userPhone.includes(searchLower);
   
       const bookingDate = new Date(booking.date);
-      const today = new Date();
-      const withinWeek = Math.abs(today - bookingDate) <= 7 * 24 * 60 * 60 * 1000;
-      const isPast = bookingDate < today;
+      const notYet = booking.status==='rent'
+      const atUse = booking.status==='active'
   
-      if (statusFilter === "withinWeek") {
-        return matchesSearchTerm && withinWeek && !isPast;
+      if (statusFilter === "notYet") {
+        return matchesSearchTerm && notYet && !atUse;
       }
   
-      if (statusFilter === "pastWeek") {
-        return matchesSearchTerm && isPast && !withinWeek;
+      if (statusFilter === "atUse") {
+        return matchesSearchTerm && atUse && !notYet;
       }
   
       // Show all if no specific filter is applied
@@ -276,8 +278,8 @@ const RentedDressesList = () => {
   };
   const filterOptions = [
     { label: "הצג הכל", value: "" },
-    { label: "שבוע הקרוב", value: "withinWeek" },
-    { label: "עבר שבוע", value: "pastWeek" },
+    { label: "בעתיד", value: "notYet" },
+    { label:"בבית הלקוח", value: "atUse" },
   ];
 
   return (
@@ -325,7 +327,7 @@ const RentedDressesList = () => {
           body={(rowData) => new Date(rowData.date).toLocaleDateString("he-IL")}
           sortable
         />
-<Column
+{/* <Column
   header="פעולות"
   body={(rowData) => {
     const isActive = rowData.status === "active";
@@ -333,30 +335,113 @@ console.log(rowData.status);
 
     return (
       <div>
+        {isActive&&
         <Button
           icon="pi pi-refresh"
           onClick={() => handleReturnDress(rowData)}
           className="p-button-success p-mr-2"
           disabled={!isActive}
-        />
+        />}
+         {!isActive&&
         <Button
           icon="pi pi-times"
           onClick={() => cancelRent(rowData)}
           className="p-button-danger"
           style={{ marginRight: "2%" }}
           disabled={isActive}
-        />
+        />}
+         {!isActive&&
         <Button
           icon="pi pi-home"
           onClick={() => activeRent(rowData)}
           className="p-button-danger"
           style={{ marginRight: "2%" }}
           disabled={isActive}
-        />
+        />}
+      </div>
+    );
+  }}
+/> */}
+{/* <Column
+  header="פעולות"
+  body={(rowData) => {
+    const isActive = rowData.status === "active";
+
+    return (
+      <div className="action-buttons">
+        {isActive && (
+          <Button
+            icon="pi pi-refresh"
+            label="החזר שמלה"
+            onClick={() => handleReturnDress(rowData)}
+            className="p-button-success"
+            disabled={!isActive}
+          />
+        )}
+        {!isActive && (
+          <>
+            <Button 
+            label=" בטל השכרה "
+              icon="pi pi-times"
+              
+              onClick={() => cancelRent(rowData)}
+              className="p-button-danger"
+              disabled={isActive}
+            />
+            <Button
+              icon="pi pi-home"
+              label="לקח שמלה"
+              onClick={() => activeRent(rowData)}
+              className="p-button-primary"
+              disabled={isActive}
+            />
+          </>
+        )}
+      </div>
+    );
+  }}
+/> */}
+<Column
+  header="פעולות"
+  body={(rowData) => {
+    const isActive = rowData.status === "active";
+
+    return (
+      <div className="action-buttons">
+        {isActive && (
+          <Button style={{ backgroundColor:'rgb(83, 81, 81)'}}
+            icon="pi pi-refresh"
+            label="החזר שמלה"
+            onClick={() => handleReturnDress(rowData)}
+            className="p-button-success"
+            disabled={!isActive}
+            
+          />
+        )}
+        {!isActive && (
+          <>
+            
+            <Button
+              icon="pi pi-home"
+              label="לקיחת שמלה"
+              onClick={() => activeRent(rowData)}
+              className="p-button-primary"
+              disabled={isActive}
+            />
+            <Button style={{border:'1px solid rgb(213, 1, 118)', backgroundColor:'lightgray', color:'rgb(213, 1, 118)'}}
+              icon="pi pi-times"
+              label="ביטול השכרה"
+              onClick={() => cancelRent(rowData)}
+              className="p-button-danger"
+              disabled={isActive}
+            />
+          </>
+        )}
       </div>
     );
   }}
 />
+
         {/* <Column
           header="פעולות"
           body={(rowData) => (
