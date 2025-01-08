@@ -11,6 +11,7 @@ import { Button } from 'primereact/button';
 import { Dropdown } from 'primereact/dropdown';
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router";
+import { toJewishDate, toGregorianDate,toHebrewJewishDate, formatJewishDateInHebrew, oHebrewJewishDate, JewishMonth} from "jewish-date";
 
 import './RentedDressesList.css';
 
@@ -102,70 +103,21 @@ const RentedDressesList = () => {
   };
 
   const formatHebrewDate = (gregorianDate) => {
-    const hdate = new HDate(gregorianDate);
-    const hebrewDay = hebrewNumbers(hdate.getDate());
-
-    const monthNames = {
-      Tishrei: "תשרי",
-      Cheshvan: "חשוון",
-      Kislev: "כסלו",
-      Tevet: "טבת",
-      "Sh'vat": "שבט",
-      Adar: "אדר",
-      Nisan: "ניסן",
-      Iyar: "אייר",
-      Sivan: "סיוון",
-      Tamuz: "תמוז",
-      Av: "אב",
-      Elul: "אלול",
-    };
-
-    const hebrewMonth = monthNames[hdate.getMonthName("h")] || hdate.getMonthName("h");
-
-    const rawYear = hdate.getFullYear();
-    let hebrewYear = rawYear.toString();
-
-    // Use a proper mapping for Hebrew years
-    const units = ["", "א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט"];
-    const tens = ["", "י", "כ", "ל", "מ", "נ", "ס", "ע", "פ", "צ"];
-    const hundreds = ["", "ק", "ר", "ש", "ת"];
-    // פונקציה להמרת תאריך לעברי
-
-    let formattedYear = "";
-    if (rawYear >= 5700) {
-      const yearPart = rawYear - 5700; // Start from 5700
-      const hundredIndex = Math.floor(yearPart / 100);
-      const tenIndex = Math.floor((yearPart % 100) / 10);
-      const unitIndex = yearPart % 10;
-
-      // Add hundreds place
-      if (hundredIndex > 0) formattedYear += hundreds[hundredIndex];
-
-      // Handle special cases for טו and טז
-      if (tenIndex === 1 && (unitIndex === 5 || unitIndex === 6)) {
-        if (unitIndex === 5) formattedYear += "טו";
-        else if (unitIndex === 6) formattedYear += "טז";
-      } else {
-        // Add tens place
-        if (tenIndex > 0) formattedYear += tens[tenIndex];
-        // Add units place
-        if (unitIndex > 0) formattedYear += units[unitIndex];
-      }
-
-      // Add geresh (׳) or gershayim (״)
-      if (formattedYear.length > 1) {
-        // Add gershayim before the last two letters
-        formattedYear =
-          formattedYear.slice(0, -1) + "״" + formattedYear.slice(-1);
-      } else {
-        // Add geresh for single-letter years
-        formattedYear += "׳";
-      }
+    
+    const date = new Date(gregorianDate); // וודא שהתאריך נכנס כ- Date תקני
+    if (isNaN(date)) {
+      return 'תאריך לא תקין'; // אם התאריך לא תקין
     }
+  console.log("date");
+  console.log(date);
+  const jewishDate = toJewishDate(new Date(gregorianDate));
 
-    return `${hebrewDay} ${hebrewMonth} ${formattedYear}`;
+  const jewishDateInHebrew = toHebrewJewishDate(jewishDate);
+
+  
+  return `${jewishDateInHebrew.day} ${jewishDateInHebrew.monthName} ${jewishDateInHebrew.year}`;
   };
-
+  
   const handleReturnDress = async (rowData) => {
     const confirmation = await Swal.fire({
       title: 'אישור החזרת שמלה',
@@ -327,80 +279,7 @@ const RentedDressesList = () => {
           body={(rowData) => new Date(rowData.date).toLocaleDateString("he-IL")}
           sortable
         />
-{/* <Column
-  header="פעולות"
-  body={(rowData) => {
-    const isActive = rowData.status === "active";
-console.log(rowData.status);
 
-    return (
-      <div>
-        {isActive&&
-        <Button
-          icon="pi pi-refresh"
-          onClick={() => handleReturnDress(rowData)}
-          className="p-button-success p-mr-2"
-          disabled={!isActive}
-        />}
-         {!isActive&&
-        <Button
-          icon="pi pi-times"
-          onClick={() => cancelRent(rowData)}
-          className="p-button-danger"
-          style={{ marginRight: "2%" }}
-          disabled={isActive}
-        />}
-         {!isActive&&
-        <Button
-          icon="pi pi-home"
-          onClick={() => activeRent(rowData)}
-          className="p-button-danger"
-          style={{ marginRight: "2%" }}
-          disabled={isActive}
-        />}
-      </div>
-    );
-  }}
-/> */}
-{/* <Column
-  header="פעולות"
-  body={(rowData) => {
-    const isActive = rowData.status === "active";
-
-    return (
-      <div className="action-buttons">
-        {isActive && (
-          <Button
-            icon="pi pi-refresh"
-            label="החזר שמלה"
-            onClick={() => handleReturnDress(rowData)}
-            className="p-button-success"
-            disabled={!isActive}
-          />
-        )}
-        {!isActive && (
-          <>
-            <Button 
-            label=" בטל השכרה "
-              icon="pi pi-times"
-              
-              onClick={() => cancelRent(rowData)}
-              className="p-button-danger"
-              disabled={isActive}
-            />
-            <Button
-              icon="pi pi-home"
-              label="לקח שמלה"
-              onClick={() => activeRent(rowData)}
-              className="p-button-primary"
-              disabled={isActive}
-            />
-          </>
-        )}
-      </div>
-    );
-  }}
-/> */}
 <Column
   header="פעולות"
   body={(rowData) => {
@@ -442,30 +321,6 @@ console.log(rowData.status);
   }}
 />
 
-        {/* <Column
-          header="פעולות"
-          body={(rowData) => (
-            <div>
-              <Button
-                icon="pi pi-refresh"
-                onClick={() => handleReturnDress(rowData)}
-                className="p-button-success p-mr-2"
-              />
-              <Button
-                icon="pi pi-times"
-                onClick={() => cancelRent(rowData)}
-                className="p-button-danger"
-                style={{ marginRight: "2%" }}
-              />
-                <Button
-                icon="pi pi-home"
-                onClick={() => activeRent(rowData)}
-                className="p-button-danger"
-                style={{ marginRight: "2%" }}
-              />
-            </div>
-          )}
-        /> */}
       </DataTable>
     </div>
   );

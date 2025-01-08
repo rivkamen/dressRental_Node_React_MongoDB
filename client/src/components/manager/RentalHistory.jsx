@@ -5,6 +5,8 @@ import { Column } from 'primereact/column';
 import { useLocation, useNavigate } from "react-router";
 import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
+import hebrewDate  from 'hebrew-date';
+import { toJewishDate, toGregorianDate,toHebrewJewishDate, formatJewishDateInHebrew, oHebrewJewishDate, JewishMonth} from "jewish-date";
 
 const RentalHistory = () => {    
   const location = useLocation();
@@ -15,6 +17,26 @@ const RentalHistory = () => {
   const [statusFilter, setStatusFilter] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+
+
+  const formatHebrewDate = (gregorianDate) => {
+    
+    const date = new Date(gregorianDate); // וודא שהתאריך נכנס כ- Date תקני
+    if (isNaN(date)) {
+      return 'תאריך לא תקין'; // אם התאריך לא תקין
+    }
+  console.log("date");
+  console.log(date);
+  const jewishDate = toJewishDate(new Date(gregorianDate));
+
+  const jewishDateInHebrew = toHebrewJewishDate(jewishDate);
+
+  
+  return `${jewishDateInHebrew.day} ${jewishDateInHebrew.monthName} ${jewishDateInHebrew.year}`;
+  };
+  
+ 
+
   const filterOptions = [
     { label: "הצג הכל", value: "" },
     { label: "ממתין להשכרה", value: "notYet" },
@@ -126,6 +148,11 @@ const RentalHistory = () => {
             field="rentalDate" 
             header="תאריך השכרה" 
             body={(rowData) => new Date(rowData.rentalDate).toLocaleDateString()} 
+          />
+                    <Column 
+            field="rentalDate" 
+            header="תאריך השכרה עברי" 
+            body={(rowData) => formatHebrewDate(rowData.rentalDate)} 
           />
           <Column 
             field="userName" 
