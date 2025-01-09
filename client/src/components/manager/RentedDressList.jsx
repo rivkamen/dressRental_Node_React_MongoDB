@@ -219,17 +219,61 @@ const RentedDressesList = () => {
       Swal.fire('פעולה בוטלה', 'ביטול ההשכרה לא בוצע.', 'info');
     }
   };
+  // const activeRent = async (rowData) => {
+  //   const confirmation = await Swal.fire({
+  //     title: 'אישור ביטול השכרה',
+  //     text: 'האם אתה בטוח שברצונך לקחת את השמלה?',
+  //     icon: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonText: 'כן, לקח שמלה ',
+  //     cancelButtonText: 'ביטול',
+  //     reverseButtons: true,
+  //   });
+
+  //   if (confirmation.isConfirmed) {
+  //     try {
+  //       await rentingDress({
+  //         id: rowData.id,
+  //         dress: {
+  //           date: rowData.date,
+  //           userId: rowData.userId._id,
+  //           dressId: rowData.dressId,
+  //         },
+  //       }).unwrap();
+  //       refetch();
+  //       Swal.fire('אושר!', 'שמלה נלקחה בהצלחה ', 'success');
+  //     } catch (error) {
+  //       console.error(error);
+  //       Swal.fire({
+  //         title: 'שגיאה',
+  //         text: error?.data?.message || 'קרתה שגיאה בלתי צפויה. אנא נסה שוב.',
+  //         icon: 'error',
+  //         confirmButtonText: 'אישור',
+  //       });
+  //     }
+  //   } else {
+  //     Swal.fire('פעולה בוטלה', 'ביטול ההשכרה לא בוצע.', 'info');
+  //   }
+  // };
   const activeRent = async (rowData) => {
+    const today = new Date();
+    const returnDate = new Date(rowData.date); // assuming `returnDate` exists in `rowData`
+    const daysRemaining = Math.ceil((returnDate - today) / (1000 * 60 * 60 * 24)); // Calculate remaining days
+    
+   console.log("daysRemaining");
+   console.log(daysRemaining);
+   
+  
     const confirmation = await Swal.fire({
-      title: 'אישור ביטול השכרה',
-      text: 'האם אתה בטוח שברצונך לקחת את השמלה?',
-      icon: 'warning',
+      title: 'אישור לקיחת שמלה',
+      text: `?נותרו ${daysRemaining} ימים עד לאירוע, האם ברצונך להמשיך`,
+      icon: 'info',
       showCancelButton: true,
-      confirmButtonText: 'כן, לקח שמלה ',
+      confirmButtonText: 'כן, לקח שמלה',
       cancelButtonText: 'ביטול',
       reverseButtons: true,
     });
-
+  
     if (confirmation.isConfirmed) {
       try {
         await rentingDress({
@@ -241,7 +285,7 @@ const RentedDressesList = () => {
           },
         }).unwrap();
         refetch();
-        Swal.fire('אושר!', 'שמלה נלקחה בהצלחה ', 'success');
+        Swal.fire('אושר!', 'שמלה נלקחה בהצלחה', 'success');
       } catch (error) {
         console.error(error);
         Swal.fire({
@@ -252,9 +296,10 @@ const RentedDressesList = () => {
         });
       }
     } else {
-      Swal.fire('פעולה בוטלה', 'ביטול ההשכרה לא בוצע.', 'info');
+      Swal.fire('פעולה בוטלה', 'לקיחת השמלה לא בוצעה.', 'info');
     }
   };
+  
   const filterOptions = [
     { label: "הצג הכל", value: "" },
     { label: "ממתין להשכרה", value: "notYet" },
@@ -267,17 +312,18 @@ const RentedDressesList = () => {
     <div>
       <h2>רשימת שמלות מושכרות</h2>
       <div className="filters">
-        <InputText
-          dir="rtl"
-          placeholder="חיפוש לפי שמלה, שם או טלפון"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
+       
         <Dropdown
           options={filterOptions}
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.value)}
           placeholder="פילטר לפי סטטוס"
+        />
+         <InputText
+          dir="rtl"
+          placeholder="חיפוש לפי שמלה, שם או טלפון"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
      
