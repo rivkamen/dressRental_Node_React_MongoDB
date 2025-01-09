@@ -114,7 +114,7 @@ const RentalHistory = () => {
 
   return (
     <div style={{direction:'rtl'}}>
-      <h2>Rental History</h2>
+      <h2 style={{color:"white"}}>הסטוריית הזמנות</h2>
       <div className="filters">
               <InputText
                 dir="rtl"
@@ -167,12 +167,12 @@ const RentalHistory = () => {
           <Column 
             field="status" 
             header="סטטוס הזמנה" 
-            body={(rowData) => (rowData.status=="returned" ? 'הוחזר' :rowData.status=="active"?'בשימוש': 'הוזמן')} 
+            body={(rowData) => (rowData.status=="returned" ? 'הוחזר' :rowData.status=="active"?'מושכר': 'הוזמן')} 
           />
 
         </DataTable>
       ) : (
-        <p>No rental history available.</p>
+        <p>אין נתונים בהיסטוריה</p>
       )}
     </div>
   );

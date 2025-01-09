@@ -16,12 +16,20 @@ import { toJewishDate, toGregorianDate,toHebrewJewishDate, formatJewishDateInHeb
 import './RentedDressesList.css';
 
 const RentedDressesList = () => {
+
   const location = useLocation();
   const navigate = useNavigate();
   const { data: bookedDates = [], error, isLoading, refetch } = useGetAllBookedDatesQuery();
   const [returnDress] = useReturnDressMutation();
   const [rentingDress] = useRentingDressMutation();
   const [cancelRentFunc] = useCancelRentDressMutation();
+  const [sortBy, setSortBy] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("");
+  const [currentPage, setCurrentPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [filteredRentals, setFilteredRentals] = useState(bookedDates);
+
 
   useEffect(() => {
     const token = sessionStorage.getItem('adminToken');
@@ -30,12 +38,25 @@ const RentedDressesList = () => {
     }
   }, [navigate]);
 
-  const [sortBy, setSortBy] = useState(null);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [statusFilter, setStatusFilter] = useState("");
-  const [currentPage, setCurrentPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
 
+  useEffect(() => {
+    if (statusFilter === 'Need to Return') {
+      const today = new Date();
+      const oneWeekFromNow = new Date(today);
+      oneWeekFromNow.setDate(today.getDate() + 7);
+
+      const filtered = bookedDates.filter((rental) => {
+        const returnDate = new Date(rental.returnDate); // Assuming `returnDate` exists in `rental`
+        return returnDate <= oneWeekFromNow && returnDate >= today;
+      });
+      setFilteredRentals(filtered);
+    } else if (statusFilter === '') {
+      setFilteredRentals(bookedDates); // Show all if no filter selected
+    } else {
+      const filtered = bookedDates.filter((rental) => rental.status === statusFilter);
+      setFilteredRentals(filtered);
+    }
+  }, [statusFilter, bookedDates]);
   const hebrewNumbers = (number) => {
     const units = ["", "א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט"];
     const tens = ["", "י", "כ", "ל", "מ", "נ", "ס", "ע", "פ", "צ"];
@@ -73,10 +94,16 @@ const RentedDressesList = () => {
         booking.userName.toLowerCase().includes(searchLower) ||
         booking.userPhone.includes(searchLower);
   
-      const bookingDate = new Date(booking.date);
       const notYet = booking.status==='rent'
       const atUse = booking.status==='active'
-  
+      if (statusFilter === "today") {
+        const bookingDate = new Date(booking.date);
+        bookingDate.setDate(bookingDate.getDate() + 7);
+
+        const date = new Date();
+
+        return matchesSearchTerm && date.toISOString().split('T')[0] === bookingDate.toISOString().split('T')[0] && atUse
+      }
       if (statusFilter === "notYet") {
         return matchesSearchTerm && notYet && !atUse;
       }
@@ -232,6 +259,8 @@ const RentedDressesList = () => {
     { label: "הצג הכל", value: "" },
     { label: "ממתין להשכרה", value: "notYet" },
     { label:"בהשכרה", value: "atUse" },
+    { label:"חוזר היום", value: "today" }
+
   ];
 
   return (
