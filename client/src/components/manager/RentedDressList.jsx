@@ -310,7 +310,7 @@ const RentedDressesList = () => {
 
   return (
     <div>
-      <h2>רשימת שמלות מושכרות</h2>
+      <h2 style={{color:"white"}}>רשימת שמלות מושכרות</h2>
       <div className="filters">
        
         <Dropdown

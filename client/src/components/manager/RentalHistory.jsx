@@ -142,32 +142,32 @@ const RentalHistory = () => {
         currentPageReportTemplate="מציג {first} עד {last} מתוך {totalRecords} פריטים"
         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
         dir="rtl">
-          <Column field="dressName" header="שם שמלה" />
-          <Column field="dressSize" header="מידה" />
+          <Column field="dressName" header="שם שמלה" sortable/>
+          <Column field="dressSize" header="מידה" sortable/>
           <Column 
             field="rentalDate" 
             header="תאריך השכרה" 
-            body={(rowData) => new Date(rowData.rentalDate).toLocaleDateString()} 
+            body={(rowData) => new Date(rowData.rentalDate).toLocaleDateString()} sortable
           />
                     <Column 
             field="rentalDate" 
             header="תאריך השכרה עברי" 
-            body={(rowData) => formatHebrewDate(rowData.rentalDate)} 
+            body={(rowData) => formatHebrewDate(rowData.rentalDate)} sortable
           />
           <Column 
             field="userName" 
             header="משתמש" 
-            body={(rowData) => rowData.userName || 'Unknown'} 
+            body={(rowData) => rowData.userName || 'Unknown'} sortable
           />
           <Column 
             field="userPhone" 
             header="טלפון" 
-            body={(rowData) => rowData.userPhone || 'Unknown'} 
+            body={(rowData) => rowData.userPhone || 'Unknown'} sortable
           />
           <Column 
             field="status" 
             header="סטטוס הזמנה" 
-            body={(rowData) => (rowData.status=="returned" ? 'הוחזר' :rowData.status=="active"?'מושכר': 'הוזמן')} 
+            body={(rowData) => (rowData.status=="returned" ? 'הוחזר' :rowData.status=="active"?'מושכר': 'הוזמן')} sortable
           />
 
         </DataTable>
