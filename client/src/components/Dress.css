@@ -19,7 +19,9 @@
 
 .single-button {
   position: relative;
-  left: 5%; /* הזזה קטנה לימין */
+  border-color: rgb(213, 1, 118);
+  background-color: rgb(213, 1, 118);
+
 }
 
 .image-background {

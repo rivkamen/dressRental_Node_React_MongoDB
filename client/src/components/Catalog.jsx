@@ -8,13 +8,13 @@ import { useGetAllDressesQuery } from '../app/dressApiSlice';
 import { Button } from 'primereact/button';
 
 const Catalog = () => {
-    const [currentPage, setCurrentPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedSizes, setSelectedSizes] = useState([]); // MultiSelect for sizes
     const [selectedKeys, setSelectedKeys] = useState([]); // MultiSelect for keys
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const { data: dresses = [], isLoading, isError, error } = useGetAllDressesQuery();
-    const dressesPerPage = 10;
+    const [currentPage, setCurrentPage] = useState(1);
+        const dressesPerPage = 10; // Number of dresses per page
     // Filtering dresses based on search term, sizes, and keys
     const filteredDresses = dresses.filter(dress => {
         // const matchesSearchTerm = dress.name.toLowerCase().includes(searchTerm.toLowerCase()) || dress.description.toLowerCase().includes(searchTerm.toLowerCase()) ;
@@ -27,11 +27,36 @@ const Catalog = () => {
             dress.dressListSizes && dress.dressListSizes.some(sizeEntry => selectedKeys.includes(sizeEntry.key)) : true;
         return matchesSearchTerm && matchesSizes && matchesKeys;
     });
+
+    const changePage = (pageNumber) => {
+        console.log(pageNumber);
+        
+        if (pageNumber < 1) {
+            setCurrentPage(1);
+        } else if (pageNumber > totalPages) {
+            setCurrentPage(totalPages);
+        } else {
+            setCurrentPage(pageNumber);
+        }
+    };
+
     const indexOfLastDress = currentPage * dressesPerPage;
     const indexOfFirstDress = indexOfLastDress - dressesPerPage;
     const currentDresses = filteredDresses.slice(indexOfFirstDress, indexOfLastDress);
 
     const totalPages = Math.ceil(filteredDresses.length / dressesPerPage);
+
+    useEffect(() => {
+            // Force reflow to fix rendering issue
+            const grid = document.querySelector('.dress-grid');
+            if (grid) {
+                
+                grid.style.display = 'none'; // Temporarily hide the grid
+                setTimeout(() => {
+                    grid.style.display = 'grid'; // Restore the grid layout
+                }, 10); // Short delay to force reflow
+            }
+        }, [currentDresses]);
     useEffect(() => {
         const handleResize = () => {
             setIsSidebarOpen(window.innerWidth > 600);
@@ -55,15 +80,7 @@ const Catalog = () => {
 
 
     // Function to change page
-    const changePage = (pageNumber) => {
-        if (pageNumber < 1) {
-            setCurrentPage(1);
-        } else if (pageNumber > totalPages) {
-            setCurrentPage(totalPages);
-        } else {
-            setCurrentPage(pageNumber);
-        }
-    };
+
 
 
     return (
