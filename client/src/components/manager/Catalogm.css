@@ -70,35 +70,7 @@ div.filter-sidebar.open {
     /* background-color:rgb(83, 81, 81); */
     background-color: rgb(47, 45, 45);
 }
-@media (max-width: 500px) {
-    .open-sidebar-button {
-        display: block;
-        margin-bottom: 10px;
-    }
 
-    .filter-sidebar {
-        position: fixed;
-        right: 0;
-        top: 10;
-        height: 100%;
-        background-color:rgb(83, 81, 81);
-        z-index: 1000;
-        width: 70%;
-        transform: translateX(100%); /* Start off-screen */
-    }
-
-    .filter-sidebar.open {
-        transform: translateX(0); /* Slide-in effect */
-    }
-
-     .dress-grid {
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Make the columns wider */
-        gap: 10px; /* Adjust the gap for small screens */
-        margin-right: 0;
-        padding: 10px; /* Adjust padding for better spacing */
-
-    }
-}
 .p-multiselect-label.p-placeholder{
     background-color: lightgray;
     border-color:rgb(213, 1, 118);
@@ -167,7 +139,7 @@ div.filter-sidebar.open {
     gap: 20px; /* מרווח בין העמודות */
     justify-content: center;
     padding: 20px;
-    margin-right: 0px;
+    margin-right: 250px;
     overflow: auto;
     position: relative;
     height: 100vh;
@@ -175,9 +147,25 @@ div.filter-sidebar.open {
     background: transparent;
 }
 
+
+/* .dress-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+    margin: 0 auto; 
+    max-width: 1200px; 
+    overflow: auto;
+    height: 100vh;
+    z-index: 1;
+    background: transparent;
+} */
+
+
 /* מסכים גדולים - לפחות 1024px */
 /* עבור מסכים גדולים */
-@media (min-width: 1024px) {
+@media (min-width: 2048px) {
     .dress-grid .dress-item {
         padding: 30px; /* הגדל את הריווח */
         font-size: 1.2em; /* הגדל את הטקסט */
@@ -199,7 +187,7 @@ div.filter-sidebar.open {
 }
 
 /* מסכים בינוניים */
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1290px) {
     .dress-grid {
         grid-template-columns: repeat(2, 1fr); /* שתי עמודות בשורה */
     }
@@ -220,7 +208,7 @@ div.filter-sidebar.open {
 
 /* מסכים גדולים - לפחות 1024px */
 /* עבור מסכים גדולים */
-@media (min-width: 1024px) {
+@media (min-width: 1291px) {
     .dress-grid .dress-item {
         padding: 30px; /* הגדל את הריווח */
         font-size: 1.2em; /* הגדל את הטקסט */
@@ -240,14 +228,14 @@ div.filter-sidebar.open {
 }
 
 /* מסכים בינוניים */
-@media (min-width: 768px) and (max-width: 1023px) {
+@media (min-width: 948px) and (max-width: 1023px) {
     .dress-grid {
         grid-template-columns: repeat(2, 1fr); /* שתי עמודות בשורה */
     }
 }
 
 /* מסכים קטנים */
-@media (max-width: 767px) {
+@media (max-width: 947px) {
     .dress-grid {
         grid-template-columns: repeat(1, 1fr); /* עמודה אחת בשורה */
     }
@@ -270,31 +258,36 @@ div.filter-sidebar.open {
 .filter-sidebar.open {
     display: block;
 }
+@media (max-width:600px) {
+    .open-sidebar-button {
+        display: block;
+        margin-bottom: 10px;
+    }
 
-@media (max-width: 500px) {
     .filter-sidebar {
         position: fixed;
         right: 0;
-        top: 0;
+        top: 10;
         height: 100%;
-        width: 70%;
-        transform: translateX(100%);
+        background-color:rgb(83, 81, 81);
         z-index: 1000;
-        overflow-y: auto;
-        background-color: rgba(83, 81, 81, 0.9);
+        width: 70%;
+        transform: translateX(100%); /* Start off-screen */
     }
 
     .filter-sidebar.open {
-        transform: translateX(0);
+        transform: translateX(0); /* Slide-in effect */
     }
 
-    .dress-grid {
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
-        gap: 10px; 
+     .dress-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Make the columns wider */
+        gap: 10px; /* Adjust the gap for small screens */
         margin-right: 0;
-        padding: 10px;
+        padding: 10px; /* Adjust padding for better spacing */
+
     }
 }
+/*  */
 /* .pagination {
     display: flex;
     justify-content: center;

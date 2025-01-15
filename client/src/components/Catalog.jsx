@@ -57,7 +57,7 @@ const Catalog = () => {
             </div>
 
             {/* Button for small screens */}
-            {window.innerWidth <= 500 && (
+            {window.innerWidth <= 600 && (
                 <button className="open-sidebar-button" onClick={() => setIsSidebarOpen(true)}>
                     Open Filter
                 </button>

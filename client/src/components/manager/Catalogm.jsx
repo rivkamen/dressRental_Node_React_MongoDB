@@ -56,7 +56,7 @@ const Catalog = () => {
 
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth > 500) {
+            if (window.innerWidth > 600) {
                 setIsSidebarOpen(true); // Sidebar open on larger screens
             } else {
                 setIsSidebarOpen(false); // Sidebar closed by default on smaller screens
