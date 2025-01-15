@@ -212,33 +212,25 @@ div.filter-sidebar.open {
     z-index: 1; Ensure it appears above the fixed background
     background: transparent; No background for the grid
 } */ 
+
 .dress-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* עיצוב רספונסיבי */
     gap: 20px; /* מרווח בין העמודות */
     justify-content: center;
     padding: 20px;
-    margin-right: 0px;
-    overflow: auto; 
-    position: relative; 
-    height: 100vh; 
-    z-index: 1; 
-    background: transparent;
-}
-.dress-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* עיצוב רספונסיבי */
-    gap: 20px; /* מרווח בין העמודות */
-    justify-content: center;
-    padding: 20px;
-    margin-right: 0px;
+    margin-right: 250px;
     overflow: auto;
     position: relative;
     height: 100vh;
     z-index: 1;
     background: transparent;
 }
+.closeButton{
+    background-color: rgb(213, 1, 118);
+    border-color: rgb(213, 1, 118);
 
+}
 /* מסכים גדולים - לפחות 1024px */
 /* עבור מסכים גדולים */
 @media (min-width: 1291px) {
@@ -413,4 +405,40 @@ div.filter-sidebar.open {
 
 .catalog::-webkit-scrollbar, body::-webkit-scrollbar {
     display: none; /* הסתרת פס גלילה ב-Chrome ובדפדפנים מבוססי Webkit */
+}
+
+
+
+.pagination li {
+    margin: 0 5px; /* ריווח בין הכפתורים */
+}
+
+.pagination a {
+    text-decoration: none; /* מסיר קו תחתי */
+    color: #007bff; /* צבע טקסט */
+    background-color: #f8f9fa; /* רקע */
+    padding: 8px 12px; /* מרווח פנימי */
+    border: 1px solid #dee2e6; /* מסגרת */
+    border-radius: 4px; /* פינות עגולות */
+    transition: background-color 0.3s ease, color 0.3s ease; /* אנימציה */
+}
+
+.pagination a:hover {
+    background-color: #007bff; /* רקע בכחול */
+    color: #fff; /* טקסט בלבן */
+}
+
+
+.page-button {
+    padding: 10px 20px;
+    margin: 0 5px;
+    cursor: pointer;
+    background-color:rgb(213, 1, 118);;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.page-button:hover {
+    background-color: #0056b3;
 }

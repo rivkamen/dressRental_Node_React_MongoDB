@@ -64,7 +64,7 @@ margin: auto;
 /* border-color:rgb(213, 1, 118); 
 background-color:rgb(213, 1, 118); ; */
 border-color:rgb(213, 1, 118); 
-background-color:rgb(213, 1, 118); ;
+background-color:rgb(213, 1, 118); 
 }
 div.filter-sidebar.open {
     /* background-color:rgb(83, 81, 81); */
@@ -120,19 +120,7 @@ div.filter-sidebar.open {
     z-index: 1; Ensure it appears above the fixed background
     background: transparent; No background for the grid
 } */ 
-.dress-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* עיצוב רספונסיבי */
-    gap: 20px; /* מרווח בין העמודות */
-    justify-content: center;
-    padding: 20px;
-    margin-right: 0px;
-    overflow: auto; 
-    position: relative; 
-    height: 100vh; 
-    z-index: 1; 
-    background: transparent;
-}
+
 .dress-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* עיצוב רספונסיבי */
@@ -148,20 +136,10 @@ div.filter-sidebar.open {
 }
 
 
-/* .dress-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    justify-content: center;
-    padding: 20px;
-    margin: 0 auto; 
-    max-width: 1200px; 
-    overflow: auto;
-    height: 100vh;
-    z-index: 1;
-    background: transparent;
-} */
-
+.closeButton{
+    background-color: rgb(213, 1, 118);
+    border-color: rgb(213, 1, 118);
+}
 
 /* מסכים גדולים - לפחות 1024px */
 /* עבור מסכים גדולים */

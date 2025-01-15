@@ -112,7 +112,7 @@ const Catalog = () => {
            
             {!isSidebarOpen && (
                 <button className="open-sidebar-button" onClick={() => setIsSidebarOpen(true)}>
-                    Open Filter
+                    אפשרויות נוספות
                 </button>
             )}
     
@@ -138,8 +138,10 @@ const Catalog = () => {
                     className="w-full"
                 />
                 <Button className="addButton" label="הוספת שמלה" icon="pi pi-plus" onClick={() => setVisible(true)} />
+
+                    
                 <div className="pagination">
-         
+                
                 <button 
                     onClick={() => changePage(currentPage - 1)} 
                     disabled={currentPage === 1}
@@ -166,7 +168,18 @@ const Catalog = () => {
                 >
                     הבא
                 </button>
+
+        
             </div>
+
+            <br/>
+
+                {window.innerWidth <= 600 && (
+                    <>
+                                        <br/>
+
+                    <Button className="closeButton"  onClick={() => setIsSidebarOpen(false)}>סגור</Button></>
+                )}
     
             </div>
 
