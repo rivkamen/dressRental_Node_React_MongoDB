@@ -1,0 +1,44 @@
+
+.qty .p-inputnumber-input.p-inputtext.p-component.p-filled {
+    width: 3.125%; /* 60px מתוך 1920px */
+}
+
+.addSize {
+    background-color: rgb(213, 1, 118);
+    border-color: rgb(213, 1, 118);
+}
+.size.p-component {
+    width: 2.604%; /* 50px מתוך 1920px */
+}
+
+.cancelB {
+    background-color: gray;
+    color: rgb(213, 1, 118);
+    border-color: rgb(213, 1, 118);
+    margin-right: 0.104%; /* 2px מתוך 1920px */
+}
+
+.okB {
+    background-color: rgb(213, 1, 118);
+    color: gray;
+    border-color: rgb(213, 1, 118);
+    margin-left: 0.104%; /* 2px מתוך 1920px */
+}
+
+
+div.p-fileupload-content, div.p-fileupload-buttonbar {
+    background: lightgray;
+}
+
+.p-inputtext {
+    background: lightgray;
+}
+
+.kind {
+    background: lightgray;
+}
+
+.delSize.p-button-icon.p-c.pi.pi-trash::before {
+    color: blueviolet;
+}
+

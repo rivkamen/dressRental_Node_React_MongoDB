@@ -423,3 +423,15 @@ const RentDress = () => {
 };
 
 export default RentDress;
+
+
+
+
+
+
+
+
+
+
+
+

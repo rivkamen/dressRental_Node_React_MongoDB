@@ -142,29 +142,29 @@ const RentalHistory = () => {
         currentPageReportTemplate="מציג {first} עד {last} מתוך {totalRecords} פריטים"
         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
         dir="rtl">
-          <Column field="dressName" header="שם שמלה" sortable/>
-          <Column field="dressSize" header="מידה" sortable/>
-          <Column 
+          <Column style={{textAlign:'start'}} field="dressName" header="שם שמלה" sortable/>
+          <Column style={{textAlign:'start'}} field="dressSize" header="מידה" sortable/>
+          <Column style={{textAlign:'start'}}
             field="rentalDate" 
             header="תאריך השכרה" 
             body={(rowData) => new Date(rowData.rentalDate).toLocaleDateString()} sortable
           />
-                    <Column 
+          <Column style={{textAlign:'start'}}
             field="rentalDate" 
             header="תאריך השכרה עברי" 
             body={(rowData) => formatHebrewDate(rowData.rentalDate)} sortable
           />
-          <Column 
+          <Column style={{textAlign:'start'}}
             field="userName" 
             header="משתמש" 
             body={(rowData) => rowData.userName || 'Unknown'} sortable
           />
-          <Column 
+          <Column style={{textAlign:'start'}}
             field="userPhone" 
             header="טלפון" 
             body={(rowData) => rowData.userPhone || 'Unknown'} sortable
           />
-          <Column 
+          <Column style={{textAlign:'start'}}
             field="status" 
             header="סטטוס הזמנה" 
             body={(rowData) => (rowData.status=="returned" ? 'הוחזר' :rowData.status=="active"?'מושכר': 'הוזמן')} sortable

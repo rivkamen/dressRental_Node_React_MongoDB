@@ -339,23 +339,23 @@ const RentedDressesList = () => {
         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
         dir="rtl"
       >
-        <Column sortable field="dressName" header="שם שמלה"  />
-        <Column field="userName" header="שם משתמש" sortable />
-        <Column field="userPhone" header="טלפון" sortable />
-        <Column
+        <Column  style={{textAlign:'start'}}sortable field="dressName" header="שם שמלה"  />
+        <Column style={{textAlign:'start'}} field="userName" header="שם משתמש" sortable />
+        <Column  style={{textAlign:'start'}}field="userPhone" header="טלפון" sortable />
+        <Column style={{textAlign:'start'}}
           field="date"
           header="תאריך עברי"
           body={(rowData) => formatHebrewDate(new Date(rowData.date))}
           sortable
         />
-        <Column
+        <Column style={{textAlign:'start'}}
           field="date"
           header="תאריך לועזי"
           body={(rowData) => new Date(rowData.date).toLocaleDateString("he-IL")}
           sortable
         />
 
-<Column
+<Column style={{textAlign:'start'}}
   header="פעולות"
   body={(rowData) => {
     const isActive = rowData.status === "active";

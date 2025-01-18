@@ -87,4 +87,13 @@ a{
 }
 .p-dialog .p-dialog-content{
   background-color: rgb(47, 45, 45);
+  text-align: center;
+  color: aliceblue;
+}
+.p-dialog .p-dialog-footer{
+  background-color: rgb(47, 45, 45);
+
+}
+.p-dialog .p-dialog-header .p-dialog-title{
+  font-size:1rem;
 }

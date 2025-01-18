@@ -197,6 +197,7 @@ import Swal from "sweetalert2";
 import { FileUpload } from 'primereact/fileupload';
 import { useLocation, useNavigate } from "react-router";
 import { Toast } from 'primereact/toast'; // Import Toast component
+import './EditDress.css'
 const formData = new FormData();
 
 const EditDress = (props) => {
@@ -348,85 +349,7 @@ let images=[];
         }
     };
     
-    // const confirmEdit = async () => {
-    //     try {
-    //         const formData = new FormData();
-            
-    //         // Append the existing images if needed (optional for your case)
-    //         existingImages.forEach((image) => {
-    //             formData.append('existImages', image.objectURL); // or adjust to pass image path if required
-    //         });
-    
-    //         // Append the newly uploaded images
-    //         newImages.forEach((file) => {
-    //             formData.append('newImages', file);
-    //         });
-    
-    //         // Append the rest of the data like dress details
-    //         formData.append('name', formik.values.name);
-    //         formData.append('description', formik.values.description);
-    
-    //         sizesData.forEach((size) => {
-    //             formData.append('sizes[]', JSON.stringify({
-    //                 key: size.key,
-    //                 size: size.size,
-    //                 dresses: Array(size.qty).fill({ renteDates: [] }),
-    //             }));
-    //         });
-    
-    //         const response = await fetch('/your-endpoint', {
-    //             method: 'POST',
-    //             body: formData,
-    //         });
-    
-    //         const result = await response.json();
-    
-    //         if (response.ok) {
-    //             handleCloseDialog();
-    //             setIsConfirmationVisible(false);
-    //         } else {
-    //             throw new Error(result.message || 'An error occurred');
-    //         }
-    //     } catch (error) {
-    //         console.error(error);
-    //         Swal.fire({
-    //             title: 'Error',
-    //             text: error.message || 'An unexpected error occurred. Please try again.',
-    //             icon: 'error',
-    //             confirmButtonText: 'OK'
-    //         });
-    //         setIsConfirmationVisible(false);
-    //     }
-    // };
-    
-    // const confirmEdit = async () => {
-    //     try {
-    //       // Prepare FormData
-    //       const formData = new FormData();
-    //       formData.append('name', formik.values.name);
-    //       formData.append('description', formik.values.description);
-    //       formData.append('existImages', existingImages); // Add files
-    //       sizesData.forEach((size, index) => {
-    //         formData.append(`sizes[${index}]`, JSON.stringify(size));
-    //       });
-    //       newImages.forEach((file) => formData.append('path', file)); // Add files
-
-    //       // Send FormData to backend
-    //       await editDressFunc({ id: dress._id, formData }).unwrap();
-      
-    //       handleCloseDialog();
-    //       setIsConfirmationVisible(false);
-    //     } catch (error) {
-    //       console.error("Error:", error);
-    //       Swal.fire({
-    //         title: 'Error',
-    //         text: error.message || 'An unexpected error occurred. Please try again.',
-    //         icon: 'error',
-    //         confirmButtonText: 'OK',
-    //       });
-    //     }
-    //   };
-      
+         
     const cancelEdit = () => {
         setIsConfirmationVisible(false);
     };
@@ -440,9 +363,11 @@ let images=[];
     if (!dress) return <p>Loading dress data...</p>;
 
     return (
-        <form onSubmit={formik.handleSubmit}>
+        <form onSubmit={formik.handleSubmit} dir='rtl'>
+<Toast ref={toast} />
+
             <div className="field">
-                <InputText
+                <InputText   style={{ width: '100%',borderColor:'#D50176',backgroundColor:"lightgray" }}
                     placeholder="שם השמלה"
                     value={formik.values.name}
                     name="name"
@@ -453,7 +378,7 @@ let images=[];
             </div>
 
             <div className="field">
-                <InputText
+                <InputText   style={{ width: '100%',borderColor:'#D50176',backgroundColor:"lightgray" }}
                     placeholder="תיאור"
                     value={formik.values.description}
                     name="description"
@@ -462,42 +387,73 @@ let images=[];
             </div>
 
             <div>
-                <Button label="הוסף מידה" type="button" onClick={addSize} />
+               <Button className="addSize" label="הוסף מידה" type="button" onClick={addSize} />
                 <br /><br />
-                {console.log(sizesData)};
                 
                 {sizesData.length > 0 ? (
                     sizesData.map((size, index) => (
-                        <div key={index} className="field" style={{ display: 'flex', alignItems: 'center' }}>
-                            <InputText
+<div 
+    key={index}
+    className="field"
+    style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px', // Add space between items
+        width: '100%',
+       
+    }}
+>                            <InputText
+                              style={{
+            flex: '0 0 100px', // Fixed width for the dropdown (150px)
+        }}
+        className='size'
                                 placeholder="מידה"
                                 value={size.key}
                                 onChange={(e) => updateSizeData(index, 'key', e.target.value)}
                             />
-                            <Dropdown
+                            <Dropdown className='kind'
                                 value={size.size}
+                                
                                 options={genderOptions}
                                 onChange={(e) => updateSizeData(index, 'size', e.value)}
                                 placeholder="נשים/בנות"
                             />
-                            <InputNumber
+                            <InputNumber className='qty'
                                 value={size.dresses.length > 0 ? size.dresses.length : ''}
                                 onValueChange={(e) => updateSizeData(index, 'qty', e.value)}
                                 placeholder="כמות"
                                 min={0}
                             />
-                            <Button
+                            <Button 
                                 icon="pi pi-trash"
                                 onClick={() => deleteSize(index)}
-                                className="p-button-danger"
-                                style={{ marginLeft: '10px' }}
-                            />
+                                className="delSize"
+        style={{
+            width: '39.2px', // Ensure button size is small
+            height: '39.2px',
+            backgroundColor:"lightgray",
+            color:'#F00084',
+            borderColor:"lightgray"
+        }}                            />
                         </div>
                     ))
                 ) : (
                     <p>No sizes added yet.</p>
                 )}
             </div>
+
+
+
+
+
+
+  
+
+
+
+
+
+
 
             <div className="field" dir="rtl">
     <Toast ref={toast} /> {/* רכיב ה־Toast חייב להיות מוגדר מחוץ לרכיב FileUpload */}
@@ -538,13 +494,16 @@ let images=[];
                 <Button type="submit" label="אשר" className="okB" disabled={!formik.isValid || !sizesData.length || !existingImages.length && !newImages.length} />
                 <Button type="button" label="בטל" className="cancelB" onClick={handleCloseDialog} />
             </div>
+            <div dir="rtl">
 
-            <ConfirmationDialog
+            <ConfirmationDialog onHide={handleCloseDialog}
+            
                 visible={isConfirmationVisible}
                 onConfirm={confirmEdit}
                 onCancel={cancelEdit}
-                message="Are you sure you want to update the dress?"
+                message={<span style={{textAlign:'center'}} dir="rtl">האם אתה מאשר את עדכון השמלה?</span>}
             />
+            </div>
         </form>
     );
 };

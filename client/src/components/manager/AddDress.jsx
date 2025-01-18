@@ -80,7 +80,7 @@ const AddDress = (props) => {
                 handleCloseDialog();
                 Swal.fire({
                     title: "Success!",
-                    text: "Dress added successfully.",
+                    text: "השמלה נוספה בהצלחה.",
                     icon: "success",
                     confirmButtonText: "OK"
                 }).then(() => {
@@ -117,7 +117,7 @@ const AddDress = (props) => {
     const isSubmitDisabled = !imageFiles.length || !sizesData.length;
 
     return (
-        <form /*style={{backgroundColor:"red"}}*/onSubmit={formik.handleSubmit}>
+        <form onSubmit={formik.handleSubmit}>
             <Toast ref={toast} />
 
             <div className="field">
