@@ -7,6 +7,7 @@ import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 import hebrewDate  from 'hebrew-date';
 import { toJewishDate, toGregorianDate,toHebrewJewishDate, formatJewishDateInHebrew, oHebrewJewishDate, JewishMonth} from "jewish-date";
+import { Button } from 'primereact/button';
 
 const RentalHistory = () => {    
   const location = useLocation();
@@ -111,6 +112,8 @@ const RentalHistory = () => {
     setCurrentPage(e.page); // עדכון עמוד נוכחי
     setRowsPerPage(e.rows); // עדכון כמות שורות לעמוד
   };
+  const paginatorLeft = <Button type="button" icon="pi pi-refresh" text />;
+  const paginatorRight = <Button type="button" icon="pi pi-download" text />;
 
   return (
     <div style={{direction:'rtl'}}>
@@ -131,17 +134,21 @@ const RentalHistory = () => {
             </div>
            
       {data && data.length > 0 ? (
-        <DataTable responsiveLayout="scroll"
-        value={visibleBookings}
-        paginator
-        first={currentPage * rowsPerPage} // הגדרת עמוד תחילה על פי העמוד הנוכחי
-        rows={rowsPerPage}
-        totalRecords={filteredAndSortedBookings.length}
-        onPage={onPageChange} // שמירת עדכון נכון של עמוד
-        rowsPerPageOptions={[5, 10, 20]}
-        currentPageReportTemplate="מציג {first} עד {last} מתוך {totalRecords} פריטים"
-        paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-        dir="rtl">
+        // <DataTable responsiveLayout="scroll"
+        // value={visibleBookings}
+        // paginator
+        // first={currentPage * rowsPerPage} // הגדרת עמוד תחילה על פי העמוד הנוכחי
+        // rows={rowsPerPage}
+        // totalRecords={filteredAndSortedBookings.length}
+        // onPage={onPageChange} // שמירת עדכון נכון של עמוד
+        // rowsPerPageOptions={[5, 10, 20]}
+        // currentPageReportTemplate="מציג {first} עד {last} מתוך {totalRecords} פריטים"
+        // paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+        // dir="rtl">
+        <DataTable value={visibleBookings} paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }}
+                            paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
+                            currentPageReportTemplate="{first} to {last} of {totalRecords}" paginatorLeft={paginatorLeft} paginatorRight={paginatorRight}>
+        
           <Column field="dressName" header="שם שמלה" />
           <Column field="dressSize" header="מידה" />
           <Column 
