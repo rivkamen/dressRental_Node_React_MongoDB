@@ -61,7 +61,7 @@ const Navbar = () => {
             }
         }
         : {
-            label: <i id='bar'className="pi pi-star-fill"></i>,
+            label: <i id='barAdmin'className="pi pi-star-fill" ></i>,
             // icon: 'pi pi-fw pi-user',
             command: () => { window.location.pathname = "/adminLogin"; }
         }

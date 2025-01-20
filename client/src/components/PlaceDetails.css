@@ -1,8 +1,20 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+}
+
 .place-details-container {
   position: fixed;
   bottom: 0;
   left: 0;
-   width: 100%; 
+  width: 100%; 
   margin: 0 auto; 
   background-color: rgba(47, 45, 45, 0.95);
   color: white;
@@ -48,9 +60,20 @@
   margin-left: 0; /* הסרת מרווחים מיותרים */
 }
 
+.pi.pi-phone::before {
+  color: white;
+  font-size: 2.5rem;
+  transition: transform 0.3s, color 0.3s;
+  margin-left: 0; /* הסרת מרווחים מיותרים */
+}
+
 .icon-link:hover {
   color: rgb(213, 1, 118);
   transform: scale(1.2);
+}
+
+.phone {
+  color: rgb(213, 1, 118);
 }
 
 .icon-link .pi {
@@ -67,7 +90,6 @@
   font-size: 1rem;
   color: white;
 }
-
 
 .hours div {
   margin: 5px 0; /* צמצום המרווח */
@@ -98,4 +120,13 @@
   margin-top: 10px; /* צמצום המרווח העליון */
   color: #4CAF50;
   font-size: 1rem;
+}
+
+.footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  position: relative;
+  width: 100%;
 }

@@ -9,6 +9,7 @@ import { useAvailableDressMutation } from "../../app/dressApiSlice";
 import './RentDressm.css';
 import { Button } from 'primereact/button';
 import { Carousel } from 'primereact/carousel';
+import { Image } from 'primereact/image';
 
 const RentDressm = (props) => {
     const [date, setDate] = useState(new Date()); 
@@ -120,7 +121,7 @@ const RentDressm = (props) => {
         </div>
     ) : (
         dress.images?.length === 1 && (
-            <img
+            <Image
                 className="dress-image"
                 src={`http://localhost:3435/upload/${dress.images[0].split("\\").pop()}`}
                 alt={dress.name}
@@ -132,7 +133,7 @@ const RentDressm = (props) => {
                     display: 'block',
                     margin: '0 auto',
                 }}
-            />
+                width="100%"  preview />
         )
     )}
 </div>

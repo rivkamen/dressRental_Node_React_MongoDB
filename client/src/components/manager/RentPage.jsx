@@ -68,12 +68,6 @@ const RentPage = () => {
         }
     });
 
-
-    
-    
-
-
-
     // Handle phone number submission
     const handlePhoneSubmit = () => {
         if (!formik.values.phone) {
@@ -210,8 +204,8 @@ title='חזור'
                             <p>מייל: {existingUser.email}</p>
                             </div>
                             <Button className='useButton' label='המשך' title="המשך עם משתמש זה" onClick={handleProceedWithUser} />
-                            <Button className='useReturnButton'            icon="pi pi-arrow-circle-left"
-title='חזור' onClick={handleGoBackToPhoneInput} style={{ marginTop: '10px' }} />
+                            {/* <Button className='useReturnButton'            icon="pi pi-arrow-circle-left"
+title='חזור' onClick={handleGoBackToPhoneInput} style={{ marginTop: '10px' }} /> */}
                         </div>
                     )}
 
