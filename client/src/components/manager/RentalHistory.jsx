@@ -7,6 +7,7 @@ import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 import hebrewDate  from 'hebrew-date';
 import { toJewishDate, toGregorianDate,toHebrewJewishDate, formatJewishDateInHebrew, oHebrewJewishDate, JewishMonth} from "jewish-date";
+import { Button } from 'primereact/button';
 
 const RentalHistory = () => {    
   const location = useLocation();
@@ -111,6 +112,8 @@ const RentalHistory = () => {
     setCurrentPage(e.page); // עדכון עמוד נוכחי
     setRowsPerPage(e.rows); // עדכון כמות שורות לעמוד
   };
+  const paginatorLeft = <Button type="button" icon="pi pi-refresh" text />;
+  const paginatorRight = <Button type="button" icon="pi pi-download" text />;
 
   return (
     <div style={{direction:'rtl'}}>

@@ -1,6 +1,3 @@
-
-
-
 import React, { useState, useEffect } from 'react';
 import { useCancelRentDressMutation, useGetAllBookedDatesQuery, useReturnDressMutation,useRentingDressMutation } from "../../app/dressApiSlice";
 import { HDate } from "@hebcal/core";
@@ -173,16 +170,27 @@ const RentedDressesList = () => {
   if (error) return <p>שגיאה בטעינת הנתונים.</p>;
 
   const filteredAndSortedBookings = sortBookings(filterBookings());
+  // const visibleBookings = filteredAndSortedBookings.slice(
+  //   currentPage * rowsPerPage,
+  //   (currentPage + 1) * rowsPerPage
+  // );
   const visibleBookings = filteredAndSortedBookings.slice(
     currentPage * rowsPerPage,
-    (currentPage + 1) * rowsPerPage
+    currentPage * rowsPerPage + rowsPerPage
   );
-
+  
+  // const onPageChange = (e) => {
+  //   setCurrentPage(e.page); // עדכון עמוד נוכחי
+  //   setRowsPerPage(e.rows); // עדכון כמות שורות לעמוד
+  // };
   const onPageChange = (e) => {
-    setCurrentPage(e.page); // עדכון עמוד נוכחי
-    setRowsPerPage(e.rows); // עדכון כמות שורות לעמוד
+    setCurrentPage(e.page); // עמוד נוכחי
+    if (e.rows !== rowsPerPage) {
+      setRowsPerPage(e.rows); // שינוי מספר שורות
+      setCurrentPage(0); // אם כמות שורות משתנה, חזור לעמוד הראשון
+    }
   };
-
+  
   const cancelRent = async (rowData) => {
     const confirmation = await Swal.fire({
       title: 'אישור ביטול השכרה',
@@ -308,6 +316,9 @@ const RentedDressesList = () => {
 
   ];
 
+  const paginatorLeft = <Button type="button" icon="pi pi-refresh" text />;
+  const paginatorRight = <Button type="button" icon="pi pi-download" text />;
+
   return (
     <div>
       <h2 style={{color:"white"}}>רשימת שמלות מושכרות</h2>
@@ -326,8 +337,22 @@ const RentedDressesList = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
-     
-      <DataTable
+      {/* <DataTable
+  value={visibleBookings}
+  paginator
+  rows={rowsPerPage}
+  first={currentPage * rowsPerPage} // מבוסס עמוד נוכחי
+  totalRecords={filteredAndSortedBookings.length}
+  onPage={(e) => onPageChange(e)}
+  rowsPerPageOptions={[5, 10, 20]}
+  currentPageReportTemplate="מציג {first} עד {last} מתוך {totalRecords} פריטים"
+  paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
+  dir="rtl"
+> */}
+<DataTable value={visibleBookings} paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }}
+                    paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
+                    currentPageReportTemplate="{first} to {last} of {totalRecords}" paginatorLeft={paginatorLeft} paginatorRight={paginatorRight}>
+       {/* <DataTable
         value={visibleBookings}
         paginator
         first={currentPage * rowsPerPage} // הגדרת עמוד תחילה על פי העמוד הנוכחי
@@ -338,11 +363,12 @@ const RentedDressesList = () => {
         currentPageReportTemplate="מציג {first} עד {last} מתוך {totalRecords} פריטים"
         paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
         dir="rtl"
-      >
+      > */}
         <Column  style={{textAlign:'start'}}sortable field="dressName" header="שם שמלה"  />
         <Column style={{textAlign:'start'}} field="userName" header="שם משתמש" sortable />
         <Column  style={{textAlign:'start'}}field="userPhone" header="טלפון" sortable />
         <Column style={{textAlign:'start'}}
+
           field="date"
           header="תאריך עברי"
           body={(rowData) => formatHebrewDate(new Date(rowData.date))}
