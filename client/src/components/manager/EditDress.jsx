@@ -419,8 +419,9 @@ let images=[];
                                 onChange={(e) => updateSizeData(index, 'size', e.value)}
                                 placeholder="נשים/בנות"
                             />
+                         
                             <InputNumber className='qty'
-                                value={size.dresses.length > 0 ? size.dresses.length : ''}
+                                value={size?.dresses?.length > 0 ? size?.dresses?.length : ''}
                                 onValueChange={(e) => updateSizeData(index, 'qty', e.value)}
                                 placeholder="כמות"
                                 min={0}

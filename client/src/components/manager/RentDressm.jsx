@@ -64,28 +64,49 @@ const RentDressm = (props) => {
         const imageUrl = `http://localhost:3435/upload/${image.split("\\").pop()}`;
         return (
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                <img
+                <Image
                     className="dress-gallery-image"
                     src={imageUrl}
                     alt={dress.name}
                     style={{
-                        maxHeight: '300px',    
+                        maxHeight: '550px',    
                         maxWidth: '100%',
                         objectFit: 'contain',
                         padding: '2px',
                     }}
-                />
+                    width="100%"  preview/>
             </div>
         );
     };
 
     return (
+
+        <> <Button
+        icon="pi pi-arrow-circle-right"
+title='חזור'
+        onClick={() => navigate('/catalog')}
+        style={{
+            backgroundColor:'rgba(83, 81, 81, 0.9)',
+            paddingLeft:'20px',
+            paddingRight:'20px',
+
+            // backgroundColor:'#646464',
+            borderColor:'rgb(213, 1, 118)',
+            color:'rgb(213, 1, 118)',
+            margin:'2.5px',
+               top:'2px',
+right:'2px',
+
+display:'flex'
+                  }}
+    />
         <div       style={{
             display: 'flex',
             justifyContent: 'center', // Center horizontally
             // alignItems: 'center', // Center vertically
             height: '100vh', // Full viewport height
         }}>
+           
         <Card id="cardid" className="pickDate fullHeightCard" style={{ width: '70%',height:'550px',marginTop:'5px', backgroundColor:'#646464' }}>
 <div className="container fullHeightContent" style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between' }}>
 
@@ -126,7 +147,7 @@ const RentDressm = (props) => {
                 src={`http://localhost:3435/upload/${dress.images[0].split("\\").pop()}`}
                 alt={dress.name}
                 style={{
-                    maxHeight: '250px',
+                    maxHeight: '550px',
                     maxWidth: '100%',
                     objectFit: 'contain',
                     padding: '5px',
@@ -212,8 +233,10 @@ const RentDressm = (props) => {
     </div>
 </div>
             {isError && <p>Error fetching available dresses: {error?.message}</p>}
+
+             
         </Card>
-        </div>
+        </div></>
     );
 };
 
