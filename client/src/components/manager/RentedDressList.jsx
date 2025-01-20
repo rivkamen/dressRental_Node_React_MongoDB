@@ -101,6 +101,14 @@ const RentedDressesList = () => {
 
         return matchesSearchTerm && date.toISOString().split('T')[0] === bookingDate.toISOString().split('T')[0] && atUse
       }
+      if (statusFilter === "yesterday") {
+        const bookingDate = new Date(booking.date);
+        bookingDate.setDate(bookingDate.getDate() + 7);
+
+        const date = new Date();
+
+        return matchesSearchTerm && date.toISOString().split('T')[0] >= bookingDate.toISOString().split('T')[0] && atUse
+      }
       if (statusFilter === "notYet") {
         return matchesSearchTerm && notYet && !atUse;
       }
@@ -268,9 +276,7 @@ const RentedDressesList = () => {
     const returnDate = new Date(rowData.date); // assuming `returnDate` exists in `rowData`
     const daysRemaining = Math.ceil((returnDate - today) / (1000 * 60 * 60 * 24)); // Calculate remaining days
     
-   console.log("daysRemaining");
-   console.log(daysRemaining);
-   
+ 
   
     const confirmation = await Swal.fire({
       title: 'אישור לקיחת שמלה',
@@ -312,7 +318,9 @@ const RentedDressesList = () => {
     { label: "הצג הכל", value: "" },
     { label: "ממתין להשכרה", value: "notYet" },
     { label:"בהשכרה", value: "atUse" },
-    { label:"חוזר היום", value: "today" }
+    { label:"חוזר היום", value: "today" },
+    { label:"איחור", value: "yesterday" }
+
 
   ];
 

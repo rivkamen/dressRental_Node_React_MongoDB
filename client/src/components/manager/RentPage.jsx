@@ -19,7 +19,7 @@ const RentPage = () => {
     const [existingUser, setExistingUser] = useState(null);
 
     const [createUserFunc] = useCreateUserMutation();
-    const { data: user, error, isLoading } = useGetUserByPhoneQuery(phone, { skip: !phoneSubmitted });
+    const { data: user, error, isLoading,isUninitialized,  refetch} = useGetUserByPhoneQuery(phone, { skip: !phoneSubmitted });
 
     useEffect(() => {
         const token = sessionStorage.getItem('adminToken');
@@ -35,8 +35,14 @@ const RentPage = () => {
             text: 'עליך למלא את השדה לפני שתוכל להמשיך.',
         });
     };
-
-    // Formik for user creation
+    const handleGoBackToPhoneInput = () => {
+   
+        formik.setValues({ name: '', phone: '', email: '' });
+        setExistingUser(null);     
+        setPhoneSubmitted(false); 
+        setPhone('');
+        navigate('/rentPage', { state: { dress, chosenDate, size,phone:'' } });
+    };
     const formik = useFormik({
         initialValues: { name: '', phone: '', email: '' },
         validateOnBlur: false,
@@ -62,6 +68,12 @@ const RentPage = () => {
         }
     });
 
+
+    
+    
+
+
+
     // Handle phone number submission
     const handlePhoneSubmit = () => {
         if (!formik.values.phone) {
@@ -76,58 +88,9 @@ const RentPage = () => {
         setPhoneSubmitted(true);
     };
 
-    // Check if user was found in the query response
-    // useEffect(() => {
-    //     if (user) {
-    //         setExistingUser(user); // Found user
-    //         setPhoneSubmitted(false); // Reset submission state
-    //     } else if (!isLoading && phoneSubmitted && error) {
-    //         Swal.fire({
-    //             icon: 'error',
-    //             title: 'Error',
-    //             text: 'An error occurred while searching for the phone number.',
-    //         });
-    //         setPhoneSubmitted(false); // Reset submission state on error
-    //     }
-    // }, [user, isLoading, error, phoneSubmitted]);
-    // useEffect(() => {
-    //     if (user) {
-    //         setExistingUser(user); // משתמש נמצא
-    //         setPhoneSubmitted(false); // איפוס מצב חיפוש
-    //     } else if (!isLoading && phoneSubmitted) {
-    //         if (error?.status === 401 && error?.data?.message === "not found") {
-    //             // משתמש לא נמצא, מעבר למילוי פרטי משתמש חדש
-    //             setExistingUser(null);
-    //         } else if (error) {
-    //             Swal.fire({
-    //                 icon: 'error',
-    //                 title: 'Error',
-    //                 text: 'An error occurred while searching for the phone number.',
-    //             });
-    //         }
-    //         setPhoneSubmitted(false); // איפוס מצב חיפוש
-    //     }
-    // }, [user, isLoading, error, phoneSubmitted]);
-    // useEffect(() => {
-    //     if (user) {
-    //         setExistingUser(user); // משתמש נמצא
-    //         setPhoneSubmitted(false); // איפוס מצב חיפוש
-    //     } else if (!isLoading && phoneSubmitted) {
-    //         console.log('Error received:', error); // Debugging
-    //         if (error?.status === 401 && error?.data?.message === "not found") {
-    //             setExistingUser(null); // משתמש לא נמצא
-    //         } else if (error) {
-    //             Swal.fire({
-    //                 icon: 'error',
-    //                 title: 'Error',
-    //                 text: 'An error occurred while searching for the phone number.',
-    //             });
-    //         }
-    //         setPhoneSubmitted(false); // איפוס מצב חיפוש
-    //     }
-    // }, [user, isLoading, error, phoneSubmitted]);
-    
+   
     useEffect(() => {
+        
         if (user) {
             // אם נמצא משתמש
             setExistingUser(user); 
@@ -196,6 +159,10 @@ const RentPage = () => {
         id="phone"
         value={formik.values.phone}
         placeholder="מספר טלפון"
+        onInput={(e) => {
+            e.target.value = e.target.value.replace(/[^0-9]/g, ''); // מסנן תווים שאינם מספרים
+            formik.setFieldValue('phone', e.target.value); // מעדכן את הערך ב-Formik
+        }}
         onChange={formik.handleChange}
         className={classNames({ 'p-invalid': formik.errors.phone })}
     />
@@ -203,7 +170,7 @@ const RentPage = () => {
         <Button
             icon="pi pi-arrow-circle-left"
 title='חזור'
-            onClick={() => navigate('/catalogm', { state: { dress, chosenDate, size } })}
+            onClick={() => navigate('/catalogm')}
             style={{
                 backgroundColor:'rgba(83, 81, 81, 0.9)',
                 paddingLeft:'20px',
@@ -244,7 +211,7 @@ title='חזור'
                             </div>
                             <Button className='useButton' label='המשך' title="המשך עם משתמש זה" onClick={handleProceedWithUser} />
                             <Button className='useReturnButton'            icon="pi pi-arrow-circle-left"
-title='חזור' onClick={handleGoBack} style={{ marginTop: '10px' }} />
+title='חזור' onClick={handleGoBackToPhoneInput} style={{ marginTop: '10px' }} />
                         </div>
                     )}
 
@@ -280,7 +247,23 @@ title='חזור' onClick={handleGoBack} style={{ marginTop: '10px' }} />
                                     {formik.errors.email && <small className="p-error">{formik.errors.email}</small>}
                                 </div>
 
-                                <Button title='לחץ לאישור' type="submit" label="Submit" className="mt-2" />
+                                <Button
+            icon="pi pi-arrow-circle-left"
+title='חזור'
+            onClick={handleGoBackToPhoneInput}
+            style={{
+                backgroundColor:'rgba(83, 81, 81, 0.9)',
+                paddingLeft:'20px',
+                paddingRight:'20px',
+
+                // backgroundColor:'#646464',
+                borderColor:'rgb(213, 1, 118)',
+                color:'rgb(213, 1, 118)',
+                margin:'2.5px',
+                
+                      }}
+        />                                <Button title='לחץ לאישור' type="submit" label="המשך" className="mt-2" />
+
                             </form>
                         </div>
                     )}

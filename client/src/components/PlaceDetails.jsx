@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import "./PlaceDetails.css";
 
 const PlaceDetails = () => {
+  console.log("here - place details");
+  
   const hours = {
     sundayMonday: "17:00 - 19:00",
     tuesday: "19:00 - 20:30",

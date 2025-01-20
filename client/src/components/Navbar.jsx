@@ -24,7 +24,7 @@ const Navbar = () => {
             command: () => { window.location.pathname = "/catalog"; }
         }        ,
         {
-            label: 'כניסת מנהל',
+            label: <i className="pi pi-star-fill"></i>,
             // icon: 'pi pi-fw pi-user',
             command: () => { window.location.pathname = "/adminLogin"; }
         }
@@ -61,7 +61,7 @@ const Navbar = () => {
             }
         }
         : {
-            label: 'כניסת מנהל',
+            label: <i id='bar'className="pi pi-star-fill"></i>,
             // icon: 'pi pi-fw pi-user',
             command: () => { window.location.pathname = "/adminLogin"; }
         }
