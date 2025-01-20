@@ -363,7 +363,8 @@ let images=[];
     if (!dress) return <p>Loading dress data...</p>;
 
     return (
-        <form onSubmit={formik.handleSubmit} dir='rtl'>
+        <div className="mydialog">
+        <form  onSubmit={formik.handleSubmit} dir='rtl'>
 <Toast ref={toast} />
 
             <div className="field">
@@ -444,17 +445,6 @@ let images=[];
 
 
 
-
-
-
-  
-
-
-
-
-
-
-
             <div className="field" dir="rtl">
     <Toast ref={toast} /> {/* רכיב ה־Toast חייב להיות מוגדר מחוץ לרכיב FileUpload */}
     <FileUpload className='upLoadI'
@@ -474,7 +464,6 @@ let images=[];
             <div>
                 <h5>Existing Images</h5>
                 <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                    {console.log(existingImages)};
                     
                     {existingImages.map((image, index) => (
                         <div key={index} style={{ marginRight: '10px', marginBottom: '10px' }}>
@@ -495,7 +484,7 @@ let images=[];
                 <Button type="button" label="בטל" className="cancelB" onClick={handleCloseDialog} />
             </div>
             <div dir="rtl">
-
+{/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/}
             <ConfirmationDialog onHide={handleCloseDialog}
             
                 visible={isConfirmationVisible}
@@ -505,6 +494,7 @@ let images=[];
             />
             </div>
         </form>
+        </div>
     );
 };
 

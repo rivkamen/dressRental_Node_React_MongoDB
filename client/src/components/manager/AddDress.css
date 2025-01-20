@@ -71,3 +71,79 @@ div.p-fileupload-content, div.p-fileupload-buttonbar {
 .delSize.p-button-icon.p-c.pi.pi-trash::before {
     color: blueviolet;
 }
+
+
+.p-dialog .p-dialog-header #pr_id_3_header{
+    width: 500px;
+    background-color: aqua;
+}
+
+    .p-dialog .p-dialog-content#pr_id_3_content{
+        width: 500px;
+    }
+
+    #pr_id_14.p-dialog .p-dialog-header{
+        width: 500px;
+    }
+    #pr_id_22.p-dialog .p-dialog-header{
+        width: 500px;
+    }
+        .p-dialog .p-dialog-content#pr_id_3_content{
+            width: 500px;
+        }
+
+
+@media (max-width: 500px) {
+
+    .p-dialog .p-dialog-header #pr_id_14_header{
+        width: 400px;
+        margin-right: 0px;
+    }
+    
+        .p-dialog .p-dialog-content#pr_id_3_content{
+            width: 400px;
+        }
+    
+        #pr_id_14.p-dialog .p-dialog-header{
+            width: 400px;
+        }
+        #pr_id_22.p-dialog .p-dialog-header{
+            width: 400px;
+        }
+            .p-dialog .p-dialog-content#pr_id_3_content{
+                width: 400px;
+            }
+            #pr_id_14{
+            width: 50vw; margin: 0; position: fixed; left: 9px; top: 32.7625px;
+    }
+
+
+}
+
+@media (min-width: 500px) and (max-width: 600px) {
+
+    .p-dialog .p-dialog-header #pr_id_14_header{
+        width: 400px;
+    }
+    
+        .p-dialog .p-dialog-content#pr_id_3_content{
+            width: 400px;
+        }
+    
+        #pr_id_14.p-dialog .p-dialog-header{
+            width: 400px;
+        }
+        #pr_id_22.p-dialog .p-dialog-header{
+            width: 400px;
+        }
+            .p-dialog .p-dialog-content#pr_id_3_content{
+                width: 400px;
+            }
+            #pr_id_14{
+            width: 50vw; margin-left: 60px; position: fixed; left: 9px; top: 32.7625px;
+    }
+
+
+}
+
+

@@ -79,8 +79,8 @@ const AddDress = (props) => {
                 await addDressFunc(formData).unwrap();
                 handleCloseDialog();
                 Swal.fire({
-                    title: "Success!",
-                    text: "השמלה נוספה בהצלחה.",
+                    title: "הצלחה!",
+                    text: "השמלה נוספה בהצלחה",
                     icon: "success",
                     confirmButtonText: "OK"
                 }).then(() => {
