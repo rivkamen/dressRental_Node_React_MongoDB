@@ -235,42 +235,7 @@ const RentedDressesList = () => {
       Swal.fire('פעולה בוטלה', 'ביטול ההשכרה לא בוצע.', 'info');
     }
   };
-  // const activeRent = async (rowData) => {
-  //   const confirmation = await Swal.fire({
-  //     title: 'אישור ביטול השכרה',
-  //     text: 'האם אתה בטוח שברצונך לקחת את השמלה?',
-  //     icon: 'warning',
-  //     showCancelButton: true,
-  //     confirmButtonText: 'כן, לקח שמלה ',
-  //     cancelButtonText: 'ביטול',
-  //     reverseButtons: true,
-  //   });
 
-  //   if (confirmation.isConfirmed) {
-  //     try {
-  //       await rentingDress({
-  //         id: rowData.id,
-  //         dress: {
-  //           date: rowData.date,
-  //           userId: rowData.userId._id,
-  //           dressId: rowData.dressId,
-  //         },
-  //       }).unwrap();
-  //       refetch();
-  //       Swal.fire('אושר!', 'שמלה נלקחה בהצלחה ', 'success');
-  //     } catch (error) {
-  //       console.error(error);
-  //       Swal.fire({
-  //         title: 'שגיאה',
-  //         text: error?.data?.message || 'קרתה שגיאה בלתי צפויה. אנא נסה שוב.',
-  //         icon: 'error',
-  //         confirmButtonText: 'אישור',
-  //       });
-  //     }
-  //   } else {
-  //     Swal.fire('פעולה בוטלה', 'ביטול ההשכרה לא בוצע.', 'info');
-  //   }
-  // };
   const activeRent = async (rowData) => {
     const today = new Date();
     const returnDate = new Date(rowData.date); // assuming `returnDate` exists in `rowData`
@@ -345,33 +310,11 @@ const RentedDressesList = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
-      {/* <DataTable
-  value={visibleBookings}
-  paginator
-  rows={rowsPerPage}
-  first={currentPage * rowsPerPage} // מבוסס עמוד נוכחי
-  totalRecords={filteredAndSortedBookings.length}
-  onPage={(e) => onPageChange(e)}
-  rowsPerPageOptions={[5, 10, 20]}
-  currentPageReportTemplate="מציג {first} עד {last} מתוך {totalRecords} פריטים"
-  paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-  dir="rtl"
-> */}
-<DataTable value={visibleBookings} paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }}
+
+<DataTable dir='rtl' value={visibleBookings} paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }}
                     paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
                     currentPageReportTemplate="{first} to {last} of {totalRecords}" paginatorLeft={paginatorLeft} paginatorRight={paginatorRight}>
-       {/* <DataTable
-        value={visibleBookings}
-        paginator
-        first={currentPage * rowsPerPage} // הגדרת עמוד תחילה על פי העמוד הנוכחי
-        rows={rowsPerPage}
-        totalRecords={filteredAndSortedBookings.length}
-        onPage={onPageChange} // שמירת עדכון נכון של עמוד
-        rowsPerPageOptions={[5, 10, 20]}
-        currentPageReportTemplate="מציג {first} עד {last} מתוך {totalRecords} פריטים"
-        paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-        dir="rtl"
-      > */}
+
         <Column  style={{textAlign:'start'}}sortable field="dressName" header="שם שמלה"  />
         <Column style={{textAlign:'start'}} field="userName" header="שם משתמש" sortable />
         <Column  style={{textAlign:'start'}}field="userPhone" header="טלפון" sortable />

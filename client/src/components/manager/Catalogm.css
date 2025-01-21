@@ -265,13 +265,7 @@ div.filter-sidebar.open {
 
     }
 }
-/*  */
-/* .pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-} */
+
 .pagination {
     display: flex; /* מאפשר יישור פנימי */
     justify-content: center; /* ממרכז את הכפתורים */
@@ -279,6 +273,7 @@ div.filter-sidebar.open {
     margin-bottom: 20px; /* ריווח מתחת */
     list-style: none; /* מסיר את הנקודות במקרה של ul/li */
     padding: 0; /* מסיר מרווח פנימי */
+    margin: auto;
 }
 
 .pagination li {
