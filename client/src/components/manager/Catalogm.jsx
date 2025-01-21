@@ -19,7 +19,7 @@ const Catalog = () => {
 
     // Pagination states
     const [currentPage, setCurrentPage] = useState(1);
-    const dressesPerPage = 10; // Number of dresses per page
+    const dressesPerPage = 12; // Number of dresses per page
         const location = useLocation();
         const navigate = useNavigate();
         useEffect(() => {

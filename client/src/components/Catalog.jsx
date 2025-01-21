@@ -14,7 +14,7 @@ const Catalog = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const { data: dresses = [], isLoading, isError, error } = useGetAllDressesQuery();
     const [currentPage, setCurrentPage] = useState(1);
-        const dressesPerPage = 10; // Number of dresses per page
+        const dressesPerPage = 12; // Number of dresses per page
     // Filtering dresses based on search term, sizes, and keys
     const filteredDresses = dresses.filter(dress => {
         // const matchesSearchTerm = dress.name.toLowerCase().includes(searchTerm.toLowerCase()) || dress.description.toLowerCase().includes(searchTerm.toLowerCase()) ;
