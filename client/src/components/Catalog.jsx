@@ -89,7 +89,7 @@ const Catalog = () => {
             <div className="dress-grid">
                 {isLoading && <p>Loading...</p>}
                 {isError && <p>Error: {error.message}</p>}
-                {filteredDresses.map((d) => <div key={d.id}>
+                {currentDresses.map((d) => <div key={d.id}>
                                 <Dress dress={d} />
                           </div>)}
             </div>
