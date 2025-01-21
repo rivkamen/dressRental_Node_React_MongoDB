@@ -104,7 +104,7 @@ display:'flex'
             display: 'flex',
             justifyContent: 'center', // Center horizontally
             // alignItems: 'center', // Center vertically
-            height: '100vh', // Full viewport height
+            height: '94vh', // Full viewport height
         }}>
            
         <Card id="cardid" className="pickDate fullHeightCard" style={{ width: '70%',height:'550px',marginTop:'5px', backgroundColor:'#646464' }}>

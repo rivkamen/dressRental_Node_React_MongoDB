@@ -1,10 +1,9 @@
 /* Ensure the card takes up the full viewport height */
 .fullHeightCard {
-    height: 100vh;
+    height: 94vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    position: fixed;
 
 }
 
