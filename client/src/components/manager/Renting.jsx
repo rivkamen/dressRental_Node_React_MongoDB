@@ -35,8 +35,8 @@ const Renting = () => {
             }).unwrap();
 
             Swal.fire({
-                title: "Success!",
-                text: `You have successfully taken the dress: ${dress.name}`,
+                title: "!הצלחה",
+                text: `לקיחת שמלה הסתיימה בהצלחה`,
                 icon: "success",
                 confirmButtonText: "OK"
             }).then(() => {
@@ -61,10 +61,15 @@ const Renting = () => {
                         height: '100vh', // Full viewport height
                     }}>
                         <Card id="cardid" className="pickDate fullHeightCard" style={{ width: '70%', height: '550px', marginTop: '5px', backgroundColor: '#646464' }}>
+                            <br/>
+                            <br/>
+                            {console.log(chosenDate)
+                            }
             <h1>סיכום הזמנה</h1>
             <p>שם לקוח: {isLoading ? "Loading..." : error ? "Error loading user" : user?.name}</p>
             <p>דגם: {dress.name}</p>
-            <p>תאריך: {chosenDate.toString()}</p>
+            <p>תאריך: {`${chosenDate.jewishDateStrHebrew.toString()} (${chosenDate.date.getFullYear()} / ${chosenDate.date.getMonth()+1} / ${chosenDate.date.getDate()})`}</p>
+
             <p>מידה: {size}</p>
             <Button 
                 label="קח שמלה"

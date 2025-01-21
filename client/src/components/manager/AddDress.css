@@ -73,29 +73,24 @@ div.p-fileupload-content, div.p-fileupload-buttonbar {
 }
 
 
-.p-dialog .p-dialog-header #pr_id_3_header{
-    width: 500px;
-    background-color: aqua;
-}
 
-    .p-dialog .p-dialog-content#pr_id_3_content{
+    /* .p-dialog .p-dialog-content#pr_id_3_content{
         width: 500px;
     }
 
-    #pr_id_14.p-dialog .p-dialog-header{
+    #pr_id_3.p-dialog .p-dialog-header{
         width: 500px;
+        background-color: aquamarine;
     }
-    #pr_id_22.p-dialog .p-dialog-header{
-        width: 500px;
-    }
+
         .p-dialog .p-dialog-content#pr_id_3_content{
             width: 500px;
         }
 
 
 @media (max-width: 500px) {
-
-    .p-dialog .p-dialog-header #pr_id_14_header{
+   
+    .p-dialog .p-dialog-header #pr_id_3_header{
         width: 400px;
         margin-right: 0px;
     }
@@ -104,8 +99,9 @@ div.p-fileupload-content, div.p-fileupload-buttonbar {
             width: 400px;
         }
     
-        #pr_id_14.p-dialog .p-dialog-header{
+        #pr_id_3.p-dialog .p-dialog-header{
             width: 400px;
+            background-color: brown;
         }
         #pr_id_22.p-dialog .p-dialog-header{
             width: 400px;
@@ -113,7 +109,7 @@ div.p-fileupload-content, div.p-fileupload-buttonbar {
             .p-dialog .p-dialog-content#pr_id_3_content{
                 width: 400px;
             }
-            #pr_id_14{
+            #pr_id_3{
             width: 50vw; margin: 0; position: fixed; left: 9px; top: 32.7625px;
     }
 
@@ -122,7 +118,7 @@ div.p-fileupload-content, div.p-fileupload-buttonbar {
 
 @media (min-width: 500px) and (max-width: 600px) {
 
-    .p-dialog .p-dialog-header #pr_id_14_header{
+    .p-dialog .p-dialog-header #pr_id_3_header{
         width: 400px;
     }
     
@@ -130,8 +126,10 @@ div.p-fileupload-content, div.p-fileupload-buttonbar {
             width: 400px;
         }
     
-        #pr_id_14.p-dialog .p-dialog-header{
+        #pr_id_3.p-dialog .p-dialog-header{
+            background-color: greenyellow;
             width: 400px;
+            
         }
         #pr_id_22.p-dialog .p-dialog-header{
             width: 400px;
@@ -139,11 +137,11 @@ div.p-fileupload-content, div.p-fileupload-buttonbar {
             .p-dialog .p-dialog-content#pr_id_3_content{
                 width: 400px;
             }
-            #pr_id_14{
-            width: 50vw; margin-left: 60px; position: fixed; left: 9px; top: 32.7625px;
+            #pr_id_3{
+            width: 50vw; margin-left: 60px; position: fixed; left: 9px; top: 32.7625px;margin-right: 0px;
     }
 
 
 }
 
-
+ */

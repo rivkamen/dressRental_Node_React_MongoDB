@@ -135,7 +135,7 @@ const RentPage = () => {
             height: '100vh', // Full viewport height
         }}>
             <Card id="cardid" className="pickDate fullHeightCard" style={{ width: '70%', height: '550px', marginTop: '5px', backgroundColor: '#646464' }}>
-                <div>
+                <div >
       
 {!phoneSubmitted && !existingUser && (
   
@@ -197,7 +197,8 @@ title='חזור'
                             <br />
                             <br />
                             <br />
-                            <h2>משתמש קיים</h2>                     
+                            
+                            <h2 style={{color:'white'}}>משתמש קיים</h2>                     
                             <div className="align-right">
                             <p>שם: {existingUser.name}</p>
                             <p>טלפון: {existingUser.phone}</p>

@@ -50,7 +50,7 @@ function App() {
 
         </Routes>
         </div>
-        <PlaceDetails></PlaceDetails>
+        <PlaceDetails/>
       </BrowserRouter>
     </Provider>
     </div>

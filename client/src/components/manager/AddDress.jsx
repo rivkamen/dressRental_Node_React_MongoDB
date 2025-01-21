@@ -117,6 +117,7 @@ const AddDress = (props) => {
     const isSubmitDisabled = !imageFiles.length || !sizesData.length;
 
     return (
+        <div className='form-class'>
         <form onSubmit={formik.handleSubmit}>
             <Toast ref={toast} />
 
@@ -238,6 +239,7 @@ const AddDress = (props) => {
             <Button type="button" label="בטל" className="cancelB" onClick={handleCloseDialog} />
             </div>
         </form>
+        </div>
     );
 };
 
