@@ -1,6 +1,6 @@
 import './App.css'
 import React from 'react';
-import { BrowserRouter,Route,Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import store from './store'
 import Catalog from './components/Catalog';
 import { configureStore } from '@reduxjs/toolkit';
@@ -25,34 +25,34 @@ import RentalHistory from './components/manager/RentalHistory.jsx';
 function App() {
 
   return (
-<div className="App">
-    <Provider store={store}>
-      <BrowserRouter>
-        <Navbar />
-        <div className="content-container">
-        <Routes>
-        <Route path='/' element={<HomePage />} />
-          <Route path='/register' element={<Register />} />
-          <Route path='/rentList' element={<RentedDressesList />} />
-          <Route path='/catalog' element={<Catalog />} />
-          <Route path='/dressComponent' element={<DressComponent />} />
-          <Route path='/contactForm' element={<ContactForm />} />
-          <Route path='/catalog/choose' element={<Choose />} />
-          <Route path='/catalogm' element={<Catalogm />} />
-          <Route path='/rent' element={<RentDress />} />
-          <Route path='/rentm' element={<RentDressm/>} />
-          <Route path='/rentPage' element={<RentPage/>} />
-          <Route path='/renting' element={<Renting/>}/>
-          <Route path='/edit' element={<EditDress/>}/>
-          <Route path='/adminLogin' element={<AdminLogin/>}/>
-          <Route path='/history' element={<RentalHistory/>}/>
-<Route></Route>
+    <div className="App">
+      <Provider store={store}>
+        <BrowserRouter>
+          <Navbar />
+          <div className="content-container">
+            <Routes>
+              <Route path='/' element={<HomePage />} />
+              <Route path='/register' element={<Register />} />
+              <Route path='/rentList' element={<RentedDressesList />} />
+              <Route path='/catalog' element={<Catalog />} />
+              <Route path='/dressComponent' element={<DressComponent />} />
+              <Route path='/contactForm' element={<ContactForm />} />
+              <Route path='/catalog/choose' element={<Choose />} />
+              <Route path='/catalogm' element={<Catalogm />} />
+              <Route path='/rent' element={<RentDress />} />
+              <Route path='/rentm' element={<RentDressm />} />
+              <Route path='/rentPage' element={<RentPage />} />
+              <Route path='/renting' element={<Renting />} />
+              <Route path='/edit' element={<EditDress />} />
+              <Route path='/adminLogin' element={<AdminLogin />} />
+              <Route path='/history' element={<RentalHistory />} />
+              <Route></Route>
 
-        </Routes>
-        </div>
-        <PlaceDetails></PlaceDetails>
-      </BrowserRouter>
-    </Provider>
+            </Routes>
+          </div>
+          <PlaceDetails></PlaceDetails>
+        </BrowserRouter>
+      </Provider>
     </div>
   );
 }

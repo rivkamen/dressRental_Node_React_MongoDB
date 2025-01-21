@@ -2,7 +2,7 @@
   text-align: center;
   background-color: rgb(65, 62, 64);
 height: 100%;
-position: fixed;
+/* position: fixed; */
 width: 100%;
 }
 .center-container {

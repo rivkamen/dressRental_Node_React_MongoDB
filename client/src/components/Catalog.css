@@ -1,7 +1,10 @@
-.catalog {
+*::-webkit-scrollbar {
+    display: none; /* עבור Chrome, Safari ו-Edge */
+  }
+  .catalog {
     display: flex;
     height: 100vh; 
-    padding-bottom: 200px;
+    /* padding-bottom: 200px; */
 }
 
 .dress-grid {
