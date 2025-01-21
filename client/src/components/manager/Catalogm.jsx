@@ -90,6 +90,7 @@ const Catalog = () => {
 
 
     return (
+        <>
         <div className="catalog">
             {/* <Dialog dir="rtl" header="הוספת שמלה" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}> */}
             <Dialog dir="rtl" header="הוספת שמלה" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
@@ -105,38 +106,7 @@ const Catalog = () => {
                         <Dress dress={d} />
                     </div>
                 ))}
- <div className="pagination">
-                
-                <button 
-                    onClick={() => changePage(currentPage - 1)} 
-                    disabled={currentPage === 1}
-                    className="page-button"
-                >
-                    הקודם
-                </button>
-                
-                {/* Page number buttons */}
-                {[...Array(totalPages)].map((_, index) => (
-                    <button 
-                        key={index + 1} 
-                        onClick={() => changePage(index + 1)} 
-                        className={`page-number ${currentPage === index + 1 ? 'active' : ''}`}
-                    >
-                        {index + 1}
-                    </button>
-                ))}
-    
-                <button 
-                    onClick={() => changePage(currentPage + 1)} 
-                    disabled={currentPage === totalPages}
-                    className="page-button"
-                >
-                    הבא
-                </button>
-
-        
-            </div>
-
+               
             </div>
     
             {/* Pagination Controls */}
@@ -184,7 +154,40 @@ const Catalog = () => {
             </div>
 
             </div>
+            <div style={{width:'100%', backgroundColor:'red'}}>         
+                      <div className="pagination">
+                
+                <button 
+                    onClick={() => changePage(currentPage - 1)} 
+                    disabled={currentPage === 1}
+                    className="page-button"
+                >
+                    הקודם
+                </button>
+                
+                {/* Page number buttons */}
+                {[...Array(totalPages)].map((_, index) => (
+                    <button 
+                        key={index + 1} 
+                        onClick={() => changePage(index + 1)} 
+                        className={`page-number ${currentPage === index + 1 ? 'active' : ''}`}
+                    >
+                        {index + 1}
+                    </button>
+                ))}
+    
+                <button 
+                    onClick={() => changePage(currentPage + 1)} 
+                    disabled={currentPage === totalPages}
+                    className="page-button"
+                >
+                    הבא
+                </button>
 
+        
+            </div>
+            </div> 
+</>
     );
     
 };

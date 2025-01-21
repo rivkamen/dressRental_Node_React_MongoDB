@@ -350,20 +350,15 @@ div.filter-sidebar.open {
         padding: 10px;
     }
 }
+
 /* .pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    display: flex; 
+    justify-content: center; 
+    margin-top: 20px; 
+    margin-bottom: 20px; 
+    list-style: none; 
+    padding: 0; 
 } */
-.pagination {
-    display: flex; /* מאפשר יישור פנימי */
-    justify-content: center; /* ממרכז את הכפתורים */
-    margin-top: 20px; /* ריווח מעל */
-    margin-bottom: 20px; /* ריווח מתחת */
-    list-style: none; /* מסיר את הנקודות במקרה של ul/li */
-    padding: 0; /* מסיר מרווח פנימי */
-}
 
 .pagination li {
     margin: 0 5px; /* ריווח בין הכפתורים */

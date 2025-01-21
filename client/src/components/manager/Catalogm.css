@@ -1,4 +1,5 @@
 .catalog {
+    
     display: flex;
     align-items: flex-start;
     position: relative;
@@ -8,7 +9,6 @@
 
     background-attachment: fixed; /* Fix the background in place */
     padding-bottom: 200px;
-
 }
 div.p-dialog-header{
     background-color: rgb(47, 45, 45);
@@ -264,6 +264,7 @@ div.filter-sidebar.open {
         padding: 10px; /* Adjust padding for better spacing */
 
     }
+
 }
 
 .pagination {
@@ -273,7 +274,6 @@ div.filter-sidebar.open {
     margin-bottom: 20px; /* ריווח מתחת */
     list-style: none; /* מסיר את הנקודות במקרה של ul/li */
     padding: 0; /* מסיר מרווח פנימי */
-    margin: auto;
 }
 
 .pagination li {
