@@ -84,6 +84,7 @@ const Catalog = () => {
 
 
     return (
+        <>
         <div className="catalog">
             <div className="dress-grid">
                 {isLoading && <p>Loading...</p>}
@@ -144,7 +145,14 @@ const Catalog = () => {
                     <br/>
                     <Button className="closeButton" onClick={() => setIsSidebarOpen(false)}>סגור</Button></>
                 )}
- <div className="pagination">
+ 
+
+
+
+            </div>
+        </div>
+
+<div className="pagination">
 
 <button 
                     onClick={() => changePage(currentPage - 1)} 
@@ -174,11 +182,7 @@ const Catalog = () => {
                 </button>
     
                 </div>
-
-
-
-            </div>
-        </div>
+                </>
     );
 };
 

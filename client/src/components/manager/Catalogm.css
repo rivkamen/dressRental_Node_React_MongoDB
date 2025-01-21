@@ -8,7 +8,7 @@
     background-color: rgb(47, 45, 45);
 
     background-attachment: fixed; /* Fix the background in place */
-    padding-bottom: 200px;
+    /* padding-bottom: 200px; */
 }
 div.p-dialog-header{
     background-color: rgb(47, 45, 45);
@@ -270,10 +270,9 @@ div.filter-sidebar.open {
 .pagination {
     display: flex; /* מאפשר יישור פנימי */
     justify-content: center; /* ממרכז את הכפתורים */
-    margin-top: 20px; /* ריווח מעל */
-    margin-bottom: 20px; /* ריווח מתחת */
     list-style: none; /* מסיר את הנקודות במקרה של ul/li */
     padding: 0; /* מסיר מרווח פנימי */
+    background-color: rgba(47, 45, 45);;
 }
 
 .pagination li {

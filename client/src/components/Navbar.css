@@ -1,60 +1,13 @@
-/* .navbar-container {
-    direction: rtl;
-    background-color: rgba(83, 81, 81, 0.9); 
-}
 
 
-.p-menubar {
-
-    direction: rtl;
-    justify-content: center;
-    background-color: rgba(83, 81, 81, 0.9); 
-    border: none;
-    display: flex;
-    width: 100%; 
-    padding: 0;
-height: 50px;
-}
 
 
-.p-menubar .p-menuitem {
 
-    text-align: center;
-
-}
-
-.p-menubar .p-menuitem-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    font-size: 20px;
-    height: 100%;
-    gap: 40px;
-    border-radius: 5px; 
-    padding: 5px 15px; 
-    transition: background-color 0.3s, border-color 0.3s; 
-}
-
-.p-menubar .p-menuitem-link:hover {
-    background-color: rgb(213, 1, 118); 
-    color: white; 
-    border-color: rgb(255, 255, 255); 
-}
-אייקונים
-.p-menuitem-icon {
-    color: rgb(213, 1, 118) !important; 
-    margin-left: 10px; 
-}
-.p-menuitem-text {
-    color: rgb(255, 255, 255) !important; 
-    margin-left: 10px; } */
-/* Make the navbar sticky */
 .p-menubar {
     position: fixed;
     top: 0;
     z-index: 1000; /* Ensures it stays on top of other content */
-    background-color: rgba(83, 81, 81, 0.9); /* Maintain the background color */
+    background-color: rgba(83, 81, 81); /* Maintain the background color */
     direction: rtl;
     justify-content: center;
     border: none;
@@ -88,7 +41,6 @@ height: 50px;
     font-size: 20px;
     height: 100%;
     gap: 40px;
-    border-radius: 5px;
     padding: 5px 15px;
     transition: background-color 0.3s, border-color 0.3s;
     background-color: rgba(83, 81, 81, 0.9);
@@ -99,6 +51,8 @@ height: 50px;
     background-color: rgb(213, 1, 118);
     color: white;
     border-color: rgb(255, 255, 255);
+    border-radius: 5px;
+
 }
 
 /* Icon Styling */

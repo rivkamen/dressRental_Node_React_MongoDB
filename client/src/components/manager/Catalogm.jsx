@@ -154,7 +154,7 @@ const Catalog = () => {
             </div>
 
             </div>
-            <div style={{width:'100%', backgroundColor:'red'}}>         
+                    
                       <div className="pagination">
                 
                 <button 
@@ -186,7 +186,7 @@ const Catalog = () => {
 
         
             </div>
-            </div> 
+             
 </>
     );
     
