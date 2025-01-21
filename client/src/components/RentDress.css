@@ -161,3 +161,26 @@ svg.calendarIcon {
 .pi.pi-star-fill{
     color:rgb(213, 1, 118);    
 }
+
+
+#cardid.pickDate.fullHeightCard
+{
+    width: 70%;
+    max-width: 700px;
+    height:550px;
+    margin-top:5px;
+    background-color:#646464;
+}
+
+@media (min-width: 500px) and (max-width: 600px) {
+    #cardid.pickDate.fullHeightCard
+{
+    width: 90%;
+}
+}
+@media (max-width: 500px) {
+    #cardid.pickDate.fullHeightCard
+{
+    width: 100%;
+}
+}

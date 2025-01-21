@@ -82,7 +82,7 @@ title='חזור'
             height: '100vh', // Full viewport height
         }}>
     
-        <Card id="cardid" className="pickDate fullHeightCard" style={{ width: '70%',height:'550px',marginTop:'5px', backgroundColor:'#646464' }}>
+        <Card id="cardid" className="pickDate fullHeightCard">
 <div className="container fullHeightContent" style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between' }}>
 
 <div
