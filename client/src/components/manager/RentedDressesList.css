@@ -119,6 +119,14 @@ border: rgb(213, 1, 118);
   background-color: rgb(213, 1, 118);
 
 }
+
+.p-button.p-button-danger.p-button-text, .p-button-group.p-button-danger > .p-button.p-button-text, .p-splitbutton.p-button-danger > .p-button.p-button-text, .p-fileupload-choose.p-button-danger.p-button-text{
+  color: rgb(213, 1, 118);
+
+  background-color: #9d9d9d;
+}
+
+
 .p-button.p-button-success, .p-button-group.p-button-success > .p-button, .p-splitbutton.p-button-success > .p-button, .p-fileupload-choose.p-button-success{
   background-color: rgb(213, 1, 118);
 }
