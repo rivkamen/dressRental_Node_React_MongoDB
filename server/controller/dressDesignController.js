@@ -1034,6 +1034,7 @@ const getAvailableKeysForDate = async (req, res) => {
         availableKeys.push({
           key: sizeEntry.key,
           availableDresses: availableDressesCount,
+          size:sizeEntry.size
         });
       }
     }

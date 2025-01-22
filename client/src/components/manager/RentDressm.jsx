@@ -19,6 +19,9 @@ const RentDressm = (props) => {
     const location = useLocation();
     const { state } = location;
     const dress = state ? state.dress : null;
+    console.log("dress!!");
+    console.log(dress);
+    
     const navigate = useNavigate();
     useEffect(() => {
         const token = sessionStorage.getItem('adminToken');
@@ -33,13 +36,7 @@ const RentDressm = (props) => {
     // Custom canSelect logic: Exclude dates before today
     const customCanSelect = (date) => {
         // Don't select Shabbat, holidays, and dates before today
-        console.log("date");
 
-        console.log(date);
-        console.log("currentDate");
-
-        console.log(currentDate);
-        
         
         return dontSelectShabatAndHolidays()(date) && date.date >= currentDate;
     };
@@ -215,7 +212,7 @@ display:'flex'
                     >
                         <Button
                             className="sizeBut"
-                            label={dress.key}
+                            label={`${dress.key} - ${dress.size=="girls"?"בנות":"נשים"}`}
                             onClick={() => handleRentClick(dress.key)}
                             style={{ minWidth: '50px',minHeight: '50px', marginRight: '10px' }}
                             rounded
@@ -223,6 +220,7 @@ display:'flex'
                         {availableDresses[index].availableDresses < 3 && (
                             <span style={{ fontSize: '14px', color: 'white' }}>
                                &nbsp; (נשארו {availableDresses[index].availableDresses})
+                     
                             </span>
                         )}
                     </div>

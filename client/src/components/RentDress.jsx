@@ -187,7 +187,7 @@ title='חזור'
                                     {availableDresses.map((dress) => (<>
                                         <li key={dress.key}>
                                             <i className='pi pi-star-fill' style={{ fontSize: '14px' }}></i>&nbsp;&nbsp;
-                                            {dress.key}
+                                            {`${dress.key} - ${dress.size=="girls"?"בנות":"נשים"}`}
                                             {availableDresses.length < 3 && <span> (מלאי מוגבל)</span>}
                                         </li><br/></>
                                     ))}
