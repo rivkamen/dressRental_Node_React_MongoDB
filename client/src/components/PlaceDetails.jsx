@@ -38,8 +38,8 @@ const PlaceDetails = () => {
         >
           <i className="pi pi-map-marker"></i>
         </a>
-        <a href="tel:+972527140037" className="icon-link"></a>
-        <i className="pi pi-phone" onClick={(e) => op.current.toggle(e)}></i>
+        <a href="tel:+972527140037" className="icon-link">
+        <i className="pi pi-phone" onClick={(e) => op.current.toggle(e)}></i></a>
         <OverlayPanel ref={op} className="icon-link">
           <a className="phone">0527140037</a>
         </OverlayPanel>
