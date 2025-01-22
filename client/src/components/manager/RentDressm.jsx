@@ -84,7 +84,7 @@ const RentDressm = (props) => {
         <> <Button
         icon="pi pi-arrow-circle-right"
 title='חזור'
-        onClick={() => navigate('/catalog')}
+        onClick={() => navigate('/catalogm')}
         style={{
             backgroundColor:'rgba(83, 81, 81, 0.9)',
             paddingLeft:'20px',

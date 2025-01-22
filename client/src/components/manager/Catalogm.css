@@ -316,3 +316,60 @@ div.filter-sidebar.open {
 .catalog::-webkit-scrollbar, body::-webkit-scrollbar {
     display: none; /* הסתרת פס גלילה ב-Chrome ובדפדפנים מבוססי Webkit */
 }
+#side-bar-inputext{
+    border:1px solid rgb(213, 1, 118);
+    text-align:center;
+}
+#side-bar-size,
+#side-bar-age{
+    border:1px solid rgb(213, 1, 118);
+
+}
+/* עיצוב כללי של התפריט */
+.custom-panel {
+    direction: rtl; /* כיוון היישור מימין לשמאל */
+    text-align: right; /* יישור טקסט לימין */
+  }
+  
+ 
+  .p-multiselect-item {
+    direction: rtl; /* כיוון ימין לשמאל */
+    text-align: right; /* יישור טקסט לימין */
+    padding-right: 1rem; /* ריווח נוסף לימין */
+  }
+  
+
+
+
+
+/* תיבת הבחירה במצב ברירת מחדל */
+.p-multiselect-panel .p-checkbox .p-checkbox-box {
+    background-color: white !important; /* רקע לבן כברירת מחדל */
+    border: 1px solid lightgray !important; /* מסגרת אפורה */
+    transition: all 0.3s ease; /* אנימציה חלקה */
+  }
+  
+  /* בעת בחירה (מסומן) */
+  .p-multiselect-panel .p-checkbox.p-highlight .p-checkbox-box {
+    background-color: rgb(213, 1, 118) !important; /* רקע ורוד */
+    border-color: rgb(213, 1, 118) !important; /* מסגרת ורודה */
+  }
+  
+  /* בעת לחיצה על תיבת הבחירה */
+  .p-multiselect-panel .p-checkbox .p-checkbox-box:focus {
+    outline: none !important; /* ביטול המסגרת הכחולה */
+    box-shadow: 0 0 5px rgb(213, 1, 118) !important; /* צל ורוד */
+  }
+  
+  /* במצב פעיל (לחיצה ממושכת) */
+  .p-multiselect-panel .p-checkbox .p-checkbox-box:active {
+    background-color: rgb(213, 1, 118) !important; /* ורוד כהה יותר */
+    border-color: rgb(213, 1, 118) !important; /* מסגרת כהה יותר */
+  }
+  
+  /* רווח בין תיבת הבחירה לטקסט */
+  .p-multiselect-panel .p-checkbox .p-checkbox-label {
+    margin-right: 8px !important; /* רווח בין הטקסט לתיבה */
+    text-align: right !important; /* יישור לימין */
+  }
+  

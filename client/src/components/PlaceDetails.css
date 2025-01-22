@@ -97,6 +97,9 @@
 
 .update-message {
   margin-top: 10px; /* צמצום המרווח העליון */
-  color: #4CAF50;
+  color: #111612;
   font-size: 1rem;
+}
+a.phone{
+  color:rgb(47, 45, 45);
 }

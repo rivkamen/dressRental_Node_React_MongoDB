@@ -10,11 +10,26 @@ import { Button } from 'primereact/button';
 const Catalog = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedSizes, setSelectedSizes] = useState([]); // MultiSelect for sizes
+    const [selectedSizes2, setSelectedSizes2] = useState([]); // MultiSelect for sizes
     const [selectedKeys, setSelectedKeys] = useState([]); // MultiSelect for keys
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const { data: dresses = [], isLoading, isError, error } = useGetAllDressesQuery();
     const [currentPage, setCurrentPage] = useState(1);
         const dressesPerPage = 12; // Number of dresses per page
+
+        const isWomen=(e)=>{
+            if(e.includes("נשים") && e.includes("בנות")){
+                setSelectedSizes(['women', 'girls'])
+            }
+            else if(e.includes("נשים")){
+                setSelectedSizes(['women'])
+            
+            }
+            else if(e.includes("בנות")){
+                setSelectedSizes(['girls'])
+            
+            }
+            }
     // Filtering dresses based on search term, sizes, and keys
     const filteredDresses = dresses.filter(dress => {
         // const matchesSearchTerm = dress.name.toLowerCase().includes(searchTerm.toLowerCase()) || dress.description.toLowerCase().includes(searchTerm.toLowerCase()) ;
@@ -106,10 +121,14 @@ const Catalog = () => {
 
                 <br/>
                 <br/>
-                <br/>
-                <br/>
+              
 
-                <InputText dir='rtl'
+
+ <br/>
+
+<br/>
+                <InputText dir="rtl"
+                id='side-bar-inputext'
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     placeholder="חפש שמלה..."
@@ -117,28 +136,44 @@ const Catalog = () => {
                 />
                 <br/>
                 <br/>
-                {/* MultiSelect for sizes */}
-                <MultiSelect dir='rtl'
-                    value={selectedSizes} 
-                    onChange={(e) => setSelectedSizes(e.value)} 
-                    options={[...new Set(dresses.flatMap(dress => dress.dressListSizes.map(sizeEntry => sizeEntry.size)))]
-                        .map(size => ({ label: size, value: size }))}
+
+                <MultiSelect dir="rtl"
+                    id='side-bar-age'
+
+                    value={selectedSizes2} 
+                    onChange={(e) => {setSelectedSizes2(e.value); isWomen(e.value)}}
+                    // options={[...new Set(dresses.flatMap(dress => dress.dressListSizes.map(sizeEntry => sizeEntry.size)))].map(size => ({ label: size, value: size }))}
+                    options={[
+                        ...new Set(
+                          dresses.flatMap(dress =>
+                            dress.dressListSizes.map(sizeEntry =>
+                              sizeEntry.size==="women" ? "נשים" : "בנות"
+                            )
+                          )
+                        )
+                      ].map(size => ({ label: size, value: size }))}
+                      
                     placeholder="נשים/בנות"
-                    className="w-full"
-                />
+                      className="w-full custom-multiselect"
+                    panelClassName="custom-panel"
+                    />
+                <br/>
+
+                <br/>
+                <MultiSelect dir="rtl"
+                    id='side-bar-size'
+
+                    value={selectedKeys} 
+                    onChange={(e) => setSelectedKeys(e.value)} 
+                    options={[...new Set(dresses.flatMap(dress => dress.dressListSizes.map(sizeEntry => sizeEntry.key)))].map(key => ({ label: key, value: key }))}
+                    placeholder="בחר מידה"
+                    className="w-full custom-multiselect"
+                    panelClassName="custom-panel"                />
+                   <br/>
+
 <br/>
 
 
-
-                {/* MultiSelect for keys */}
-                <MultiSelect dir='rtl'
-                    value={selectedKeys} 
-                    onChange={(e) => setSelectedKeys(e.value)} 
-                    options={[...new Set(dresses.flatMap(dress => dress.dressListSizes.map(sizeEntry => sizeEntry.key)))]
-                        .map(key => ({ label: key, value: key }))}
-                    placeholder="בחר מידה"
-                    className="w-full"
-                />
                 
                 {window.innerWidth <= 600 && (
                     <>

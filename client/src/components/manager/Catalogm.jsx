@@ -12,6 +12,7 @@ import { useLocation, useNavigate } from "react-router";
 const Catalog = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedSizes, setSelectedSizes] = useState([]);
+    const [selectedSizes2, setSelectedSizes2] = useState([]);
     const [selectedKeys, setSelectedKeys] = useState([]);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const { data: dresses = [], isLoading, isError, error } = useGetAllDressesQuery();
@@ -35,7 +36,19 @@ const Catalog = () => {
         const matchesKeys = selectedKeys.length > 0 ? dress.dressListSizes && dress.dressListSizes.some(sizeEntry => selectedKeys.includes(sizeEntry.key)) : true;
         return matchesSearchTerm && matchesSizes && matchesKeys;
     });
+const isWomen=(e)=>{
+if(e.includes("נשים") && e.includes("בנות")){
+    setSelectedSizes(['women', 'girls'])
+}
+else if(e.includes("נשים")){
+    setSelectedSizes(['women'])
 
+}
+else if(e.includes("בנות")){
+    setSelectedSizes(['girls'])
+
+}
+}
     // Calculate paginated dresses
     const indexOfLastDress = currentPage * dressesPerPage;
     const indexOfFirstDress = indexOfLastDress - dressesPerPage;
@@ -118,26 +131,54 @@ const Catalog = () => {
             )}
     
             <div className={`filter-sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
+            <br/>
+
+<br/>
                 <InputText dir="rtl"
+                id='side-bar-inputext'
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     placeholder="חפש שמלה..."
                     className="w-full"
                 />
+                <br/>
+                <br/>
+
                 <MultiSelect dir="rtl"
-                    value={selectedSizes} 
-                    onChange={(e) => setSelectedSizes(e.value)} 
-                    options={[...new Set(dresses.flatMap(dress => dress.dressListSizes.map(sizeEntry => sizeEntry.size)))].map(size => ({ label: size, value: size }))}
+                    id='side-bar-age'
+
+                    value={selectedSizes2} 
+                    onChange={(e) => {setSelectedSizes2(e.value); isWomen(e.value)}}
+                    // options={[...new Set(dresses.flatMap(dress => dress.dressListSizes.map(sizeEntry => sizeEntry.size)))].map(size => ({ label: size, value: size }))}
+                    options={[
+                        ...new Set(
+                          dresses.flatMap(dress =>
+                            dress.dressListSizes.map(sizeEntry =>
+                              sizeEntry.size==="women" ? "נשים" : "בנות"
+                            )
+                          )
+                        )
+                      ].map(size => ({ label: size, value: size }))}
+                      
                     placeholder="נשים/בנות"
-                    className="w-full"
-                />
+                      className="w-full custom-multiselect"
+                    panelClassName="custom-panel"
+                    />
+                <br/>
+
+                <br/>
                 <MultiSelect dir="rtl"
+                    id='side-bar-size'
+
                     value={selectedKeys} 
                     onChange={(e) => setSelectedKeys(e.value)} 
                     options={[...new Set(dresses.flatMap(dress => dress.dressListSizes.map(sizeEntry => sizeEntry.key)))].map(key => ({ label: key, value: key }))}
                     placeholder="בחר מידה"
                     className="w-full"
                 />
+                   <br/>
+
+<br/>
                 <Button className="addButton" label="הוספת שמלה" icon="pi pi-plus" onClick={() => setVisible(true)} />
 
                     
