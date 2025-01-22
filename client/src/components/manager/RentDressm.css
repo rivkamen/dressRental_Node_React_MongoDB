@@ -157,3 +157,21 @@ svg.calendarIcon {
    
     padding: '10px';}
 
+
+
+
+
+      .reactJewishDatePicker .navigation .monthYearSelection select option:checked {
+        background-color: rgb(255, 105, 180); /* Hot pink */
+        color: white;
+        font-weight: bold;
+      }
+      /* Styling for the dropdown options when hovered */
+.reactJewishDatePicker .navigation .monthYearSelection select :hover  {
+    background-color: rgb(255, 182, 193); /* Light pink for hover */
+    lighting-color: #218838;
+    color: black; /* Black text during hover */
+  }
+  
+
+    

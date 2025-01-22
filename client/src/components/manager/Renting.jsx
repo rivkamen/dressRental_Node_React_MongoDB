@@ -60,6 +60,23 @@ const Renting = () => {
                         justifyContent: 'center', // Center horizontally
                         height: '100vh', // Full viewport height
                     }}>
+                         <div dir='rtl'>        <Button rounded
+        icon="pi pi-arrow-right"
+title='חזור'
+        onClick={() => navigate(-1)}
+        style={{
+            position: 'fixed', // Fixes the button's position
+            top: '60px',       // Adjust the top distance
+            right: '10px',     // Adjust the right distance
+            backgroundColor: 'rgb(65, 62, 64)',
+            paddingLeft: '20px',
+            paddingRight: '20px',
+            borderColor: 'rgb(213, 1, 118)',
+            color: 'rgb(213, 1, 118)',
+            zIndex: 1000,      // Ensures the button stays above other elements
+        }}
+    />
+              </div>
                         <Card id="cardid" className="pickDate fullHeightCard" style={{ width: '70%', height: '550px', marginTop: '5px', backgroundColor: '#646464' }}>
                             <br/>
                             <br/>
@@ -77,12 +94,7 @@ const Renting = () => {
                 className="successButton"
             />
             {/* כפתור חזור לעמוד קודם */}
-            <Button
-                label="חזור לעמוד קודם"
-                onClick={() => navigate(-1)} // שימוש ב-Navigate כדי לחזור לעמוד הקודם
-                className="p-button-secondary mt-2"
-                style={{ marginRight: '10px' }}
-            />
+      
             </Card>
         </div>
     );

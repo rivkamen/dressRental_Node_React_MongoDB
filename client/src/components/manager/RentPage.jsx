@@ -55,6 +55,7 @@ const RentPage = () => {
         },
         onSubmit: async (data) => {
             try {
+                await isValidName(data.name)
                 const createdUser = await createUserFunc(data).unwrap();
                 navigate('/renting', { state: { userId: createdUser.userId, dress, chosenDate, size } });
             } catch (error) {
@@ -67,7 +68,11 @@ const RentPage = () => {
             }
         }
     });
-
+    function isValidName(name) {
+        const namePattern = /^[a-zA-Zא-ת\s\-']+$/; // Allows letters (including Hebrew), spaces, hyphens, and apostrophes
+        return namePattern.test(name) && name.length >= 2 && name.length <= 50;
+    }
+    
     // Handle phone number submission
     const handlePhoneSubmit = () => {
         if (!formik.values.phone) {
@@ -134,6 +139,24 @@ const RentPage = () => {
             justifyContent: 'center', // Center horizontally
             height: '100vh', // Full viewport height
         }}>
+             <div dir='rtl'>        <Button rounded
+        icon="pi pi-arrow-right"
+title='חזור'
+        onClick={() =>navigate('/rentm', { state: { dress: dress} })
+    }
+        style={{
+            position: 'fixed', // Fixes the button's position
+            top: '60px',       // Adjust the top distance
+            right: '10px',     // Adjust the right distance
+            backgroundColor: 'rgb(65, 62, 64)',
+            paddingLeft: '20px',
+            paddingRight: '20px',
+            borderColor: 'rgb(213, 1, 118)',
+            color: 'rgb(213, 1, 118)',
+            zIndex: 1000,      // Ensures the button stays above other elements
+        }}
+    />
+              </div>
             <Card id="cardid" className="pickDate fullHeightCard" style={{ width: '70%', height: '550px', marginTop: '5px', backgroundColor: '#646464' }}>
                 <div >
       
@@ -161,22 +184,7 @@ const RentPage = () => {
         className={classNames({ 'p-invalid': formik.errors.phone })}
     />
     <div ><br/>
-        <Button
-            icon="pi pi-arrow-circle-left"
-title='חזור'
-            onClick={() => navigate('/catalogm')}
-            style={{
-                backgroundColor:'rgba(83, 81, 81, 0.9)',
-                paddingLeft:'20px',
-                paddingRight:'20px',
-
-                // backgroundColor:'#646464',
-                borderColor:'rgb(213, 1, 118)',
-                color:'rgb(213, 1, 118)',
-                margin:'2.5px',
-                
-                      }}
-        />
+        
         <Button
             className="phoneButton"
             label="חפש משתמש"
@@ -215,7 +223,7 @@ title='חזור' onClick={handleGoBackToPhoneInput} style={{ marginTop: '10px' }
                             <br />
                             <br />
                             <br />
-                            <h2>משתמש חדש</h2>
+                            <h2 style={{color:'white'}}>משתמש חדש</h2>
                             <form onSubmit={formik.handleSubmit}>
                                 <div className="p-field">
                                     <InputText
@@ -254,10 +262,9 @@ title='חזור'
                 // backgroundColor:'#646464',
                 borderColor:'rgb(213, 1, 118)',
                 color:'rgb(213, 1, 118)',
-                margin:'2.5px',
                 
                       }}
-        />                                <Button title='לחץ לאישור' type="submit" label="המשך" className="mt-2" />
+        />                                <Button id='contin'title='לחץ לאישור' type="submit" label="המשך" className="mt-2" />
 
                             </form>
                         </div>

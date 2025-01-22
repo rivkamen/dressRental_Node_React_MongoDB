@@ -57,24 +57,25 @@ const navigate=useNavigate()
     };
 
     return (
-        <>        <Button
-        icon="pi pi-arrow-circle-right"
+        <>
+        <div dir='rtl'>        <Button rounded
+        icon="pi pi-arrow-right"
 title='חזור'
         onClick={() => navigate('/catalog')}
         style={{
-            backgroundColor:'rgba(83, 81, 81, 0.9)',
-            paddingLeft:'20px',
-            paddingRight:'20px',
-
-            // backgroundColor:'#646464',
-            borderColor:'rgb(213, 1, 118)',
-            color:'rgb(213, 1, 118)',
-            top:'2px',
-            right:'2px',
-            display:'flex'
-                  }}
+            position: 'fixed', // Fixes the button's position
+            top: '60px',       // Adjust the top distance
+            right: '10px',     // Adjust the right distance
+            backgroundColor: 'rgb(65, 62, 64)',
+            paddingLeft: '20px',
+            paddingRight: '20px',
+            borderColor: 'rgb(213, 1, 118)',
+            color: 'rgb(213, 1, 118)',
+            zIndex: 1000,      // Ensures the button stays above other elements
+        }}
     />
-      
+              </div>
+
  <div       style={{
             display: 'flex',
             justifyContent: 'center', // Center horizontally
