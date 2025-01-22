@@ -297,7 +297,7 @@ const RentedDressesList = () => {
       <h2 style={{color:"white"}}>רשימת שמלות מושכרות</h2>
       <div className="filters">
        
-        <Dropdown
+        <Dropdown dir='rtl'
           options={filterOptions}
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.value)}

@@ -122,3 +122,8 @@ border: rgb(213, 1, 118);
 .p-button.p-button-success, .p-button-group.p-button-success > .p-button, .p-splitbutton.p-button-success > .p-button, .p-fileupload-choose.p-button-success{
   background-color: rgb(213, 1, 118);
 }
+.p-dropdown.p-component.p-inputwrapper,.p-dropdown.p-component.p-inputwrapper.p-inputwrapper-filled{
+  background-color: lightgray;
+  border-color:rgb(213, 1, 118);
+  border: 2px;
+}
