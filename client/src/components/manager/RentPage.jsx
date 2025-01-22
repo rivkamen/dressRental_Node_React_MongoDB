@@ -27,7 +27,15 @@ const RentPage = () => {
             navigate('/');
         }
     }, [navigate]);
+const isValidName = (name) => {
+    const namePattern = /^[a-zA-Zא-ת\s\-']+$/; // Allows letters (including Hebrew), spaces, hyphens, and apostrophes
+    return namePattern.test(name) && name.length >= 2 && name.length <= 50;
+};
 
+const isValidEmail = (email) => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email validation regex
+    return !email || emailPattern.test(email); // Either empty (optional) or valid email
+};
     const handleDisabledClick = () => {
         Swal.fire({
             icon: 'info',
@@ -45,17 +53,25 @@ const RentPage = () => {
     };
     const formik = useFormik({
         initialValues: { name: '', phone: '', email: '' },
+
         validateOnBlur: false,
         validateOnChange: false,
         validate: (data) => {
             let errors = {};
-            if (!data.name) errors.name = 'Name is required';
-            if (!data.phone) errors.phone = 'Phone number is required';
+                  if (!data.name || !isValidName(data.name)) {
+    errors.name = 'נא להזין שם תקין';
+}
+if (!data.phone) {
+    errors.phone = 'יש להזין מספר טלפון';
+}
+if (!isValidEmail(data.email)) {
+    errors.email = 'כתובת מייל אינה תקינה';
+}
+
             return errors;
         },
         onSubmit: async (data) => {
             try {
-                await isValidName(data.name)
                 const createdUser = await createUserFunc(data).unwrap();
                 navigate('/renting', { state: { userId: createdUser.userId, dress, chosenDate, size } });
             } catch (error) {
@@ -68,10 +84,7 @@ const RentPage = () => {
             }
         }
     });
-    function isValidName(name) {
-        const namePattern = /^[a-zA-Zא-ת\s\-']+$/; // Allows letters (including Hebrew), spaces, hyphens, and apostrophes
-        return namePattern.test(name) && name.length >= 2 && name.length <= 50;
-    }
+
     
     // Handle phone number submission
     const handlePhoneSubmit = () => {
