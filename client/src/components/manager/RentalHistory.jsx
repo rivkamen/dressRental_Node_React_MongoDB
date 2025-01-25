@@ -26,8 +26,7 @@ const RentalHistory = () => {
     if (isNaN(date)) {
       return 'תאריך לא תקין'; // אם התאריך לא תקין
     }
-  console.log("date");
-  console.log(date);
+
   const jewishDate = toJewishDate(new Date(gregorianDate));
 
   const jewishDateInHebrew = toHebrewJewishDate(jewishDate);
@@ -45,7 +44,6 @@ const RentalHistory = () => {
     { label:"בהשכרה", value: "atUse" },
   ];
 
-  console.log(data);
     useEffect(() => {
         const token = sessionStorage.getItem('adminToken');
         if (!token) {
@@ -56,8 +54,7 @@ const RentalHistory = () => {
       const searchLower = searchTerm.toLowerCase();
     
       return data.filter((booking) => {
-        console.log("booking");
-        console.log(booking);
+     
         
         const matchesSearchTerm =
           booking.dressName.toLowerCase().includes(searchLower) ||
@@ -68,7 +65,6 @@ const RentalHistory = () => {
         const notYet = booking.status==='rent'
         const atUse = booking.status==='active'
         const returned = booking.status==='returned'
-        console.log(booking.status);
         
     
         if (statusFilter === "notYet") {

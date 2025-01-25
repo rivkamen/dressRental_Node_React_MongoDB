@@ -19,8 +19,7 @@ const RentDressm = (props) => {
     const location = useLocation();
     const { state } = location;
     const dress = state ? state.dress : null;
-    console.log("dress!!");
-    console.log(dress);
+ 
     
     const navigate = useNavigate();
     useEffect(() => {

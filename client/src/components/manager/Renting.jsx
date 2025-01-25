@@ -80,8 +80,7 @@ title='חזור'
                         <Card id="cardid" className="pickDate fullHeightCard" style={{ width: '70%', height: '550px', marginTop: '5px', backgroundColor: '#646464' }}>
                             <br/>
                             <br/>
-                            {console.log(chosenDate)
-                            }
+                            
             <h1>סיכום הזמנה</h1>
             <p>שם לקוח: {isLoading ? "Loading..." : error ? "Error loading user" : user?.name}</p>
             <p>דגם: {dress.name}</p>

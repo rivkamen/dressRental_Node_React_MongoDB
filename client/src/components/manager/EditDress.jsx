@@ -355,7 +355,6 @@ let images=[];
     };
 
     const deleteExistingImage = (imageIndex) => {
-         console.log("delete");
          
         setExistingImages(existingImages.filter((_, i) => i !== imageIndex));
     };

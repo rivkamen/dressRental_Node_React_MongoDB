@@ -112,13 +112,12 @@ if (!isValidEmail(data.email)) {
             if (error?.status === 401 && error?.data?.message === "not found") {
                 // לא נמצא, נמשיך למילוי פרטי משתמש
                 setExistingUser(null); 
-                console.log("User not found, proceed to create new user form");
             } else if (error) {
                 // אם יש שגיאה אחרת
                 Swal.fire({
                     icon: 'error',
-                    title: 'Error',
-                    text: `An error occurred while searching for the phone number. ${error.message || ""}`,
+                    title: 'שגיאה',
+                    text: `אירעה שגיאה. ${error.message || ""}`,
                 });
                 setPhoneSubmitted(false);
             }

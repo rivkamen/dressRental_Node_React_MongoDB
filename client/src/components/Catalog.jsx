@@ -44,7 +44,6 @@ const Catalog = () => {
     });
 
     const changePage = (pageNumber) => {
-        console.log(pageNumber);
         
         if (pageNumber < 1) {
             setCurrentPage(1);

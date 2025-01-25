@@ -88,7 +88,6 @@ const updateBookedDate=async(req,res)=>{
 const deleteBookedDate=async(req,res)=>{
   const {_id}=req.params
   const bookedDate=await BookedDate.findById(_id).exec()
-  console.log(bookedDate);
   if(bookedDate){
   const dres=await Dress.findById({_id:bookedDate.dress._id});
   if(!dres || !bookedDate){

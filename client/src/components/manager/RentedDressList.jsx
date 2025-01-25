@@ -83,8 +83,7 @@ const RentedDressesList = () => {
     const searchLower = searchTerm.toLowerCase();
   
     return bookedDates.filter((booking) => {
-      console.log("booking");
-      console.log(booking);
+   
       
       const matchesSearchTerm =
         booking.dressName.toLowerCase().includes(searchLower) ||
@@ -140,8 +139,7 @@ const RentedDressesList = () => {
     if (isNaN(date)) {
       return 'תאריך לא תקין'; // אם התאריך לא תקין
     }
-  console.log("date");
-  console.log(date);
+  
   const jewishDate = toJewishDate(new Date(gregorianDate));
 
   const jewishDateInHebrew = toHebrewJewishDate(jewishDate);
@@ -162,7 +160,6 @@ const RentedDressesList = () => {
     });
 
     if (confirmation.isConfirmed) {
-      console.log(rowData);
 
       try {
         await returnDress({id:rowData.id,dress:{dressId: rowData.dressId, date: rowData.date, userId: rowData.userId._id}}).unwrap();

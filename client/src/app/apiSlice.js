@@ -8,10 +8,8 @@ const apiSlice = createApi({
         prepareHeaders: (headers, { getState }) => {
             const token = sessionStorage.getItem("adminToken")
             //getState().auth.token
-            console.log("Token sent in headers:", token);
 
             if (token) {
-                console.log(token);
                 
                 headers.set("authorization", `Bearer ${token}`)
             }
