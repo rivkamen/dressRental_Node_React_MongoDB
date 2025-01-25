@@ -21,34 +21,34 @@ const Catalog = () => {
     // Pagination states
     const [currentPage, setCurrentPage] = useState(1);
     const dressesPerPage = 12; // Number of dresses per page
-        const location = useLocation();
-        const navigate = useNavigate();
-        useEffect(() => {
-            const token = sessionStorage.getItem('adminToken');
-            if (!token) {
-                navigate('/');
-            }
-        }, [navigate]);
+    const location = useLocation();
+    const navigate = useNavigate();
+    useEffect(() => {
+        const token = sessionStorage.getItem('adminToken');
+        if (!token) {
+            navigate('/');
+        }
+    }, [navigate]);
     const filteredDresses = dresses.filter(dress => {
-        const matchesSearchTerm = dress.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                          (dress.description && dress.description.toLowerCase().includes(searchTerm.toLowerCase()));
+        const matchesSearchTerm = dress.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (dress.description && dress.description.toLowerCase().includes(searchTerm.toLowerCase()));
         const matchesSizes = selectedSizes.length > 0 ? dress.dressListSizes && dress.dressListSizes.some(sizeEntry => selectedSizes.includes(sizeEntry.size)) : true;
         const matchesKeys = selectedKeys.length > 0 ? dress.dressListSizes && dress.dressListSizes.some(sizeEntry => selectedKeys.includes(sizeEntry.key)) : true;
         return matchesSearchTerm && matchesSizes && matchesKeys;
     });
-const isWomen=(e)=>{
-if(e.includes("נשים") && e.includes("בנות")){
-    setSelectedSizes(['women', 'girls'])
-}
-else if(e.includes("נשים")){
-    setSelectedSizes(['women'])
+    const isWomen = (e) => {
+        if (e.includes("נשים") && e.includes("בנות")) {
+            setSelectedSizes(['women', 'girls'])
+        }
+        else if (e.includes("נשים")) {
+            setSelectedSizes(['women'])
 
-}
-else if(e.includes("בנות")){
-    setSelectedSizes(['girls'])
+        }
+        else if (e.includes("בנות")) {
+            setSelectedSizes(['girls'])
 
-}
-}
+        }
+    }
     // Calculate paginated dresses
     const indexOfLastDress = currentPage * dressesPerPage;
     const indexOfFirstDress = indexOfLastDress - dressesPerPage;
@@ -104,133 +104,137 @@ else if(e.includes("בנות")){
 
     return (
         <>
-        <div className="catalog">
-            {/* <Dialog dir="rtl" header="הוספת שמלה" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}> */}
-            <Dialog dir="rtl" header="הוספת שמלה" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
-                <AddDress handleCloseDialog={() => setVisible(false)} />
-            </Dialog>
-    
-            {/* Dress Gallery */}
-            <div className="dress-grid">
-                {isLoading && <p>Loading...</p>}
-                {isError && <p>Error: {error.message}</p>}
-                {currentDresses.map((d) => (
-                    <div key={d.id}>
-                        <Dress dress={d} />
-                    </div>
-                ))}
-               
-            </div>
-    
-            {/* Pagination Controls */}
-           
-            {!isSidebarOpen && (
-                <button className="open-sidebar-button" onClick={() => setIsSidebarOpen(true)}>
-                    אפשרויות נוספות
-                </button>
-            )}
-    
-            <div className={`filter-sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
-            <br/>
+            <div className="catalog">
+                {/* <Dialog dir="rtl" header="הוספת שמלה" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}> */}
+                <Dialog dir="rtl" header="הוספת שמלה" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
+                    <AddDress handleCloseDialog={() => setVisible(false)} />
+                </Dialog>
 
-<br/>
-                <InputText dir="rtl"
-                id='side-bar-inputext'
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    placeholder="חפש שמלה..."
-                    className="w-full"
-                />
-                <br/>
-                <br/>
+                {/* Dress Gallery */}
+                <div className="dress-grid">
+                    {isLoading && <p>Loading...</p>}
+                    {isError && <p>Error: {error.message}</p>}
+                    {currentDresses.map((d) => (
+                        <div key={d.id}>
+                            <Dress dress={d} />
+                        </div>
+                    ))}
 
-                <MultiSelect dir="rtl"
-                    id='side-bar-age'
+                </div>
 
-                    value={selectedSizes2} 
-                    onChange={(e) => {setSelectedSizes2(e.value); isWomen(e.value)}}
-                    // options={[...new Set(dresses.flatMap(dress => dress.dressListSizes.map(sizeEntry => sizeEntry.size)))].map(size => ({ label: size, value: size }))}
-                    options={[
-                        ...new Set(
-                          dresses.flatMap(dress =>
-                            dress.dressListSizes.map(sizeEntry =>
-                              sizeEntry.size==="women" ? "נשים" : "בנות"
-                            )
-                          )
-                        )
-                      ].map(size => ({ label: size, value: size }))}
-                      
-                    placeholder="נשים/בנות"
-                      className="w-full custom-multiselect"
-                    panelClassName="custom-panel"
-                    />
-                <br/>
+                {/* Pagination Controls */}
 
-                <br/>
-                <MultiSelect dir="rtl"
-                    id='side-bar-size'
-
-                    value={selectedKeys} 
-                    onChange={(e) => setSelectedKeys(e.value)} 
-                    options={[...new Set(dresses.flatMap(dress => dress.dressListSizes.map(sizeEntry => sizeEntry.key)))].map(key => ({ label: key, value: key }))}
-                    placeholder="בחר מידה"
-                    className="w-full"
-                />
-                   <br/>
-
-<br/>
-                <Button className="addButton" label="הוספת שמלה" icon="pi pi-plus" onClick={() => setVisible(true)} />
-
-                    
-               
-            <br/>
-
-                {window.innerWidth <= 600 && (
-                    <>
-                                        <br/>
-
-                    <Button className="closeButton"  onClick={() => setIsSidebarOpen(false)}>סגור</Button></>
+                {!isSidebarOpen && (
+                    <button className="open-sidebar-button" onClick={() => setIsSidebarOpen(true)}>
+                        אפשרויות נוספות
+                    </button>
                 )}
-    
-            </div>
+
+                <div className={`filter-sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
+                    <br />
+
+                    <br />
+                    <InputText dir="rtl"
+                        id='side-bar-inputext'
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        placeholder="חפש שמלה..."
+                        className="w-full"
+                    />
+                    <br />
+                    <br />
+
+                    <MultiSelect dir="rtl"
+                        id='side-bar-age'
+
+                        value={selectedSizes2}
+                        onChange={(e) => { setSelectedSizes2(e.value); isWomen(e.value) }}
+                        // options={[...new Set(dresses.flatMap(dress => dress.dressListSizes.map(sizeEntry => sizeEntry.size)))].map(size => ({ label: size, value: size }))}
+                        options={[
+                            ...new Set(
+                                dresses.flatMap(dress =>
+                                    dress.dressListSizes.map(sizeEntry =>
+                                        sizeEntry.size === "women" ? "נשים" : "בנות"
+                                    )
+                                )
+                            )
+                        ].map(size => ({ label: size, value: size }))}
+
+                        placeholder="נשים/בנות"
+                        className="w-full custom-multiselect"
+                        panelClassName="custom-panel"
+                    />
+                    <br />
+
+                    <br />
+                    <MultiSelect dir="rtl"
+                        id='side-bar-size'
+
+                        value={selectedKeys}
+                        onChange={(e) => setSelectedKeys(e.value)}
+                        options={[...new Set(dresses.flatMap(dress => dress.dressListSizes.map(sizeEntry => sizeEntry.key)))].map(key => ({ label: key, value: key }))}
+                        placeholder="בחר מידה"
+                        className="w-full"
+                    />
+                    <br />
+
+                    <br />
+                    <Button className="addButton" label="הוספת שמלה" icon="pi pi-plus" onClick={() => setVisible(true)} />
+
+
+
+                    <br />
+
+                    {window.innerWidth <= 600 && (
+                        <>
+                            <br />
+
+                            <Button className="closeButton" onClick={() => setIsSidebarOpen(false)}>סגור</Button></>
+                    )}
+
+                </div>
 
             </div>
-                    
-                      <div className="pagination">
-                
-                <button 
-                    onClick={() => changePage(currentPage - 1)} 
+
+            <div className="pagination">
+
+                <Button icon="pi pi-angle-left" rounded text raised severity="secondary" aria-label="Bookmark"
+                    onClick={() => changePage(currentPage - 1)}
                     disabled={currentPage === 1}
-                    className="page-button"
+                    // className="page-button"
+                    style={{ backgroundColor: "rgb(213, 1, 118)", marginRight: "10px" }}
                 >
-                    הקודם
-                </button>
-                
+                </Button>
+
                 {/* Page number buttons */}
                 {[...Array(totalPages)].map((_, index) => (
-                    <button 
-                        key={index + 1} 
-                        onClick={() => changePage(index + 1)} 
+                    <Button
+                        rounded text raised severity="secondary"
+                        key={index + 1}
+                        onClick={() => changePage(index + 1)}
                         className={`page-number ${currentPage === index + 1 ? 'active' : ''}`}
+                        style={{ backgroundColor: "white", marginRight: "8px", borderColor: "rgb(213, 1, 118)" }}
+
                     >
                         {index + 1}
-                    </button>
+                    </Button>
                 ))}
-    
-                <button 
-                    onClick={() => changePage(currentPage + 1)} 
-                    disabled={currentPage === totalPages}
-                    className="page-button"
-                >
-                    הבא
-                </button>
 
-        
+                <Button icon="pi pi-angle-right" rounded text raised severity="secondary" aria-label="Bookmark"
+                    onClick={() => changePage(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                    style={{ backgroundColor: "rgb(213, 1, 118)" }}
+
+                // className="page-button"
+                >
+                </Button>
+
+
             </div>
-             
-</>
+
+        </>
     );
-    
+
 };
 
 export default Catalog;

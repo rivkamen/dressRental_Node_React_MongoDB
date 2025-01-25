@@ -187,33 +187,47 @@ const Catalog = () => {
         </div>
 
 <div className="pagination">
+    <br/>
+<Button icon="pi pi-angle-left" rounded text raised severity="secondary" aria-label="Bookmark" onClick={() => changePage(currentPage - 1)} 
+                    disabled={currentPage === 1}
+                    // className="page-button"
+                    style={{backgroundColor:"rgb(213, 1, 118)",marginRight: "10px"}}
+                    />
 
-<button 
+{/* <button 
                     onClick={() => changePage(currentPage - 1)} 
                     disabled={currentPage === 1}
                     className="page-button"
                 >
                     הקודם
-                </button>
+                </button> */}
                 
                 {/* Page number buttons */}
                 {[...Array(totalPages)].map((_, index) => (
-                    <button 
+                    <Button
+                    rounded text raised outlined severity="secondary"
                         key={index + 1} 
                         onClick={() => changePage(index + 1)} 
                         className={`page-number ${currentPage === index + 1 ? 'active' : ''}`}
+                        style={{backgroundColor:"white",marginRight: "8px",borderColor:"rgb(213, 1, 118)"}}
+
                     >
                         {index + 1}
-                    </button>
+                    </Button>
                 ))}
-    
-                <button 
+    <Button icon="pi pi-angle-right" rounded text raised severity="secondary" aria-label="Bookmark" onClick={() => changePage(currentPage + 1)} 
+                    disabled={currentPage === totalPages}
+                    style={{backgroundColor:"rgb(213, 1, 118)"}}
+/>
+
+                {/* <button 
                     onClick={() => changePage(currentPage + 1)} 
                     disabled={currentPage === totalPages}
                     className="page-button"
                 >
                     הבא
-                </button>
+                </button> */}
+    <br/>
     
                 </div>
                 </>
