@@ -366,7 +366,9 @@ div.filter-sidebar.open {
     justify-content: center; /* ממרכז את הכפתורים */
     list-style: none; /* מסיר את הנקודות במקרה של ul/li */
     padding: 0; /* מסיר מרווח פנימי */
-    background-color: rgba(47, 45, 45);;
+    background-color: rgba(47, 45, 45);
+    padding-top: 20px;
+
 }
 .pagination li {
     margin: 0 5px; /* ריווח בין הכפתורים */
@@ -444,4 +446,10 @@ div.filter-sidebar.open {
 
 .page-button:hover {
     background-color: #0056b3;
+}
+.pagination {
+    display: flex;
+    justify-content: center; /* למרכז את התוכן במאוזן */
+    align-items: center; /* למרכז את התוכן במאונך */
+ 
 }

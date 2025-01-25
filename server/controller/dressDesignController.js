@@ -181,8 +181,7 @@ const getRentedDates = async (req, res) => {
                   isRented: rent.isReturned, // השמלה נחשבת למושכרת אם יש תאריך השכרה
                 });
               } else {
-                console.log("User not found for userId:", rent.userId); // לוג אם לא נמצא userId
-              }
+בג              }
             }
           }
         }

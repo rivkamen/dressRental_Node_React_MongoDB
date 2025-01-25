@@ -187,46 +187,50 @@ const Catalog = () => {
         </div>
 
 <div className="pagination">
-    <br/>
+<br/>
+<br/>
 <Button icon="pi pi-angle-left" rounded text raised severity="secondary" aria-label="Bookmark" onClick={() => changePage(currentPage - 1)} 
                     disabled={currentPage === 1}
                     // className="page-button"
                     style={{backgroundColor:"rgb(213, 1, 118)",marginRight: "10px"}}
                     />
 
-{/* <button 
-                    onClick={() => changePage(currentPage - 1)} 
-                    disabled={currentPage === 1}
-                    className="page-button"
-                >
-                    הקודם
-                </button> */}
-                
-                {/* Page number buttons */}
-                {[...Array(totalPages)].map((_, index) => (
-                    <Button
-                    rounded text raised outlined severity="secondary"
-                        key={index + 1} 
-                        onClick={() => changePage(index + 1)} 
-                        className={`page-number ${currentPage === index + 1 ? 'active' : ''}`}
-                        style={{backgroundColor:"white",marginRight: "8px",borderColor:"rgb(213, 1, 118)"}}
 
-                    >
-                        {index + 1}
-                    </Button>
+                {[...Array(totalPages)].map((_, index) => (
+                  
+                    <Button
+    rounded
+    text
+    raised
+    outlined
+    severity="secondary"
+    key={index + 1}
+    onClick={() => changePage(index + 1)}
+    className={`page-number ${currentPage === index + 1 ? 'active' : ''}`}
+    style={{
+        backgroundColor: "white",
+        marginRight: "8px",
+        borderColor: "rgb(213, 1, 118)",
+        width: "30px",   // רוחב הכפתור
+        height: "30px",  // גובה הכפתור
+        borderRadius: "50%", // עיגול מלא
+        display: "flex",  // ליישר את המלל במרכז
+        justifyContent: "center", // למרכז במאוזן
+        alignItems: "center", // למרכז במאונך
+        padding: 0,  // ביטול ריפוד
+        fontSize: "14px",  // גודל הטקסט (אפשר לשנות לפי הצורך)
+    }}
+>
+    {index + 1}
+</Button>
+
                 ))}
     <Button icon="pi pi-angle-right" rounded text raised severity="secondary" aria-label="Bookmark" onClick={() => changePage(currentPage + 1)} 
                     disabled={currentPage === totalPages}
                     style={{backgroundColor:"rgb(213, 1, 118)"}}
 />
 
-                {/* <button 
-                    onClick={() => changePage(currentPage + 1)} 
-                    disabled={currentPage === totalPages}
-                    className="page-button"
-                >
-                    הבא
-                </button> */}
+        
     <br/>
     
                 </div>
