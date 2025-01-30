@@ -101,7 +101,7 @@ const AdminLogin = () => {
   };
 
   return (
-    <div style={{ maxWidth: '900px', margin: '0 auto', padding: '20px', display: 'flex', justifyContent: 'space-between' }}>
+    <div style={{ maxWidth: '900px', margin: '0 auto', padding: '20px', display: 'flex', justifyContent: 'space-between', minHeight:'100vh' }}>
       <div style={{ width: '45%' }}>
         <h2>כניסת מנהל</h2>
         <form onSubmit={handleLogin}>

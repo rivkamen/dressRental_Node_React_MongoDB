@@ -130,17 +130,11 @@ const RentalHistory = () => {
             </div>
            
       {data && data.length > 0 ? (
-        <DataTable responsiveLayout="scroll"
-        value={visibleBookings}
-        paginator
-        first={currentPage * rowsPerPage} // הגדרת עמוד תחילה על פי העמוד הנוכחי
-        rows={rowsPerPage}
-        totalRecords={filteredAndSortedBookings.length}
-        onPage={onPageChange} // שמירת עדכון נכון של עמוד
-        rowsPerPageOptions={[5, 10, 20]}
-        currentPageReportTemplate="מציג {first} עד {last} מתוך {totalRecords} פריטים"
-        paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-        dir="rtl">
+
+        <DataTable dir='rtl' value={visibleBookings} paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '50rem' }}
+                            paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
+                            currentPageReportTemplate="{first} מ {last} מתוך {totalRecords}" paginatorLeft={paginatorLeft} paginatorRight={paginatorRight}>
+        
           <Column style={{textAlign:'start'}} field="dressName" header="שם שמלה" sortable/>
           <Column style={{textAlign:'start'}} field="dressSize" header="מידה" sortable/>
           <Column style={{textAlign:'start'}}
