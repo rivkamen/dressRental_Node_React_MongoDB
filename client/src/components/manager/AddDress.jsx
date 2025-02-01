@@ -224,7 +224,7 @@ const AddDress = (props) => {
                     name="path" 
                     accept="image/*" 
                     multiple 
-                    maxFileSize={10000000} 
+                    maxFileSize={100000000} 
                     customUpload 
                     uploadHandler={onUpload} 
                     chooseLabel="בחר תמונה" 

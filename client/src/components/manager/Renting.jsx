@@ -77,7 +77,7 @@ title='חזור'
         }}
     />
               </div>
-                        <Card id="cardid" className="pickDate fullHeightCard" style={{ width: '70%', height: '550px', marginTop: '5px', backgroundColor: '#646464' }}>
+                        <Card id="cardid" className="pickDate fullHeightCard" style={{ width: '70%', height: '550px', marginTop: '50px', backgroundColor: '#646464' }}>
                             <br/>
                             <br/>
                             

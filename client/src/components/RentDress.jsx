@@ -89,7 +89,7 @@ title='חזור'
 <div
     className="p-col image-container"
     style={{
-        marginTop: '5px', // 5px from the top
+        marginTop: '50px', // 5px from the top
         marginBottom: '10px',
         width: '45%',
         display: 'flex',
