@@ -12,7 +12,7 @@
   justify-content: space-between;
   align-items: center; /* יישור תוכן אנכי */
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
-  /* z-index: 9999999; */
+  z-index: 999;
   gap: 10px; /* צמצום רווחים בין האלמנטים */
   height: 150px;
 }
